@@ -2,8 +2,8 @@ report 50100 "KT Agent Note"
 {
     Caption = 'Agent Note(Seller)';
     DefaultLayout = RDLC;
-    RDLCLayout = './AgentNote.rdl';
-    //RDLCLayout = './SellerAgentNote.rdl';
+    //RDLCLayout = './AgentNote.rdl';
+    RDLCLayout = './SellerAgentNote.rdl';
     //DefaultRenderingLayout = "StandardSalesOrderConf.docx";
     //PreviewMode = PrintLayout;
     //WordMergeDataItem = Header;
@@ -39,9 +39,9 @@ report 50100 "KT Agent Note"
             column(CompanyAddress8; CompanyAddr[8])
             {
             }
-            column(CompanyHomePage; CompanyInfo."Home Page")
-            {
-            }
+            // column(CompanyHomePage; CompanyInfo."Home Page")
+            // {
+            // }
             column(CompanyEMail; CompanyInfo."E-Mail")
             {
             }
@@ -332,8 +332,83 @@ report 50100 "KT Agent Note"
                 ObsoleteTag = '25.0';
             }
 #endif
+            Column(KWAT_TraderDesc; KWAT_TraderDesc)
+            {
+            }
+
+            Column(KWAT_ToleranceDesc; KWAT_ToleranceDesc)
+            {
+            }
+            Column(KWAT_WeightDesc; KWAT_WeightDesc)
+            {
+            }
+            Column(KWAT_FreightDesc; KWAT_FreightCodeDesc)
+            {
+            }
+
+            Column(KWAT_AnalysisDesc; KWAT_AnalysisDesc)
+            {
+            }
+            Column(KWAT_OtherDesc; KWAT_OtherCodeDesc)
+            {
+            }
             column(SellToFaxNo; GetSellToCustomerFaxNo())
             {
+            }
+            column(KWAT_Transporter_Header; KWAT_Transporter)
+            {
+            }
+            column(KWAT_DeliveryEnd_Header; "KWAT_Delivery End")
+            {
+            }
+            column(KWAT_DeliveryStart_Header; "KWAT_Delivery Start")
+            {
+            }
+            column(KWAT_DeliveryPointCode_Header; "KWAT_DeliveryPoint Code")
+            {
+            }
+            column(KWAT_TraderPrice_Header; "KWAT_Trader Price")
+            {
+            }
+            Column(BuyerAdd1; BuyerAdd)
+            {
+            }
+            Column(BuyerMob1; BuyerMob)
+            {
+            }
+            Column(BuyerEmail1; BuyerEmail)
+            {
+            }
+
+            Column(BuyerABN1; BuyerABN)
+            {
+            }
+            Column(BuyerNGR1; BuyerNGR)
+            {
+            }
+            Column(SellerAdd1; BuyerAdd)
+            {
+            }
+            Column(SellerMob1; BuyerMob)
+            {
+            }
+            Column(SellerEmail1; BuyerEmail)
+            {
+            }
+
+            Column(SellerABN1; BuyerABN)
+            {
+            }
+            Column(SellerNGR1; BuyerNGR)
+            {
+            }
+            column(KWAT_Seller_Reference; "KWAT_Seller Reference")
+            {
+
+            }
+            column(KWAT_Buyer_Reference; "KWAT_Buyer Reference")
+            {
+
             }
             column(SellToPhoneNo; "Sell-to Phone No.")
             {
@@ -599,283 +674,6 @@ report 50100 "KT Agent Note"
                     DummyCompanyInfo.Picture := CompanyInfo.Picture;
                 end;
             }
-            dataitem(WorkDescriptionLines; "Integer")
-            {
-                DataItemTableView = sorting(Number) where(Number = filter(1 .. 99999));
-                column(WorkDescriptionLineNumber; Number)
-                {
-                }
-                column(WorkDescriptionLine; WorkDescriptionLine)
-                {
-                }
-
-                trigger OnAfterGetRecord()
-                begin
-                    if WorkDescriptionInstream.EOS then
-                        CurrReport.Break();
-                    WorkDescriptionInstream.ReadText(WorkDescriptionLine);
-                end;
-
-                trigger OnPostDataItem()
-                begin
-                    Clear(WorkDescriptionInstream)
-                end;
-
-                trigger OnPreDataItem()
-                begin
-                    if not ShowWorkDescription then
-                        CurrReport.Break();
-                    Header."Work Description".CreateInStream(WorkDescriptionInstream, TEXTENCODING::UTF8);
-                end;
-            }
-            dataitem(VATAmountLine; "VAT Amount Line")
-            {
-                DataItemTableView = sorting("VAT Identifier", "VAT Calculation Type", "Tax Group Code", "Use Tax", Positive);
-                UseTemporary = true;
-                column(InvoiceDiscountAmount_VATAmountLine; "Invoice Discount Amount")
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(InvoiceDiscountAmount_VATAmountLine_Lbl; FieldCaption("Invoice Discount Amount"))
-                {
-                }
-                column(InvoiceDiscountBaseAmount_VATAmountLine; "Inv. Disc. Base Amount")
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(InvoiceDiscountBaseAmount_VATAmountLine_Lbl; FieldCaption("Inv. Disc. Base Amount"))
-                {
-                }
-                column(LineAmount_VatAmountLine; "Line Amount")
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(LineAmount_VatAmountLine_Lbl; FieldCaption("Line Amount"))
-                {
-                }
-                column(VATAmount_VatAmountLine; "VAT Amount")
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(VATAmount_VatAmountLine_Lbl; FieldCaption("VAT Amount"))
-                {
-                }
-                column(VATAmountLCY_VATAmountLine; VATAmountLCY)
-                {
-                }
-                column(VATAmountLCY_VATAmountLine_Lbl; VATAmountLCYLbl)
-                {
-                }
-                column(VATBase_VatAmountLine; "VAT Base")
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(VATBase_VatAmountLine_Lbl; FieldCaption("VAT Base"))
-                {
-                }
-                column(VATBaseLCY_VATAmountLine; VATBaseLCY)
-                {
-                }
-                column(VATBaseLCY_VATAmountLine_Lbl; VATBaseLCYLbl)
-                {
-                }
-                column(VATIdentifier_VatAmountLine; "VAT Identifier")
-                {
-                }
-                column(VATIdentifier_VatAmountLine_Lbl; FieldCaption("VAT Identifier"))
-                {
-                }
-                column(VATPct_VatAmountLine; "VAT %")
-                {
-                    DecimalPlaces = 0 : 5;
-                }
-                column(VATPct_VatAmountLine_Lbl; FieldCaption("VAT %"))
-                {
-                }
-                column(NoOfVATIdentifiers; Count)
-                {
-                }
-
-                trigger OnAfterGetRecord()
-                begin
-                    VATBaseLCY :=
-                      GetBaseLCY(
-                        Header."Posting Date", Header."Currency Code",
-                        Header."Currency Factor");
-                    VATAmountLCY :=
-                      GetAmountLCY(
-                        Header."Posting Date", Header."Currency Code",
-                        Header."Currency Factor");
-
-                    TotalVATBaseLCY += VATBaseLCY;
-                    TotalVATAmountLCY += VATAmountLCY;
-
-                    if "VAT Clause Code" <> '' then begin
-                        VATClauseLine := VATAmountLine;
-                        if VATClauseLine.Insert() then;
-                    end;
-                end;
-
-                trigger OnPreDataItem()
-                begin
-                    Clear(VATBaseLCY);
-                    Clear(VATAmountLCY);
-
-                    TotalVATBaseLCY := 0;
-                    TotalVATAmountLCY := 0;
-
-                    VATClauseLine.DeleteAll();
-                end;
-            }
-            dataitem(VATClauseLine; "VAT Amount Line")
-            {
-                DataItemTableView = sorting("VAT Identifier", "VAT Calculation Type", "Tax Group Code", "Use Tax", Positive);
-                UseTemporary = true;
-                column(VATIdentifier_VATClauseLine; "VAT Identifier")
-                {
-                }
-                column(Code_VATClauseLine; VATClause.Code)
-                {
-                }
-                column(Code_VATClauseLine_Lbl; VATClause.FieldCaption(Code))
-                {
-                }
-                column(Description_VATClauseLine; VATClauseText)
-                {
-                }
-                column(Description2_VATClauseLine; VATClause."Description 2")
-                {
-                }
-                column(VATAmount_VATClauseLine; "VAT Amount")
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(NoOfVATClauses; Count)
-                {
-                }
-
-                trigger OnAfterGetRecord()
-                begin
-                    if "VAT Clause Code" = '' then
-                        CurrReport.Skip();
-                    if not VATClause.Get("VAT Clause Code") then
-                        CurrReport.Skip();
-                    VATClauseText := VATClause.GetDescriptionText(Header);
-                end;
-            }
-            dataitem(ReportTotalsLine; "Report Totals Buffer")
-            {
-                DataItemTableView = sorting("Line No.");
-                UseTemporary = true;
-                column(Description_ReportTotalsLine; Description)
-                {
-                }
-                column(Amount_ReportTotalsLine; Amount)
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(AmountFormatted_ReportTotalsLine; "Amount Formatted")
-                {
-                }
-                column(FontBold_ReportTotalsLine; "Font Bold")
-                {
-                }
-                column(FontUnderline_ReportTotalsLine; "Font Underline")
-                {
-                }
-
-                trigger OnPreDataItem()
-                begin
-                    CreateReportTotalLines();
-                end;
-            }
-            dataitem(LetterText; "Integer")
-            {
-                DataItemTableView = sorting(Number) where(Number = const(1));
-                column(GreetingText; GreetingLbl)
-                {
-                }
-                column(BodyText; BodyLbl)
-                {
-                }
-                column(ClosingText; ClosingLbl)
-                {
-                }
-                column(PmtDiscText; PmtDiscText)
-                {
-                }
-
-                trigger OnPreDataItem()
-                begin
-                    PmtDiscText := '';
-                    if Header."Payment Discount %" <> 0 then
-                        PmtDiscText := StrSubstNo(PmtDiscTxt, Header."Pmt. Discount Date", Header."Payment Discount %");
-                end;
-            }
-            dataitem(Totals; "Integer")
-            {
-                DataItemTableView = sorting(Number) where(Number = const(1));
-                column(TotalNetAmount; TotalAmount)
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(TotalVATBaseLCY; TotalVATBaseLCY)
-                {
-                }
-                column(TotalAmountIncludingVAT; Format(TotalAmountInclVAT, 0, AutoFormat.ResolveAutoFormat(Enum::"Auto Format"::AmountFormat, Header."Currency Code")))
-                {
-                }
-                column(TotalVATAmount; TotalAmountVAT)
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(TotalVATAmountLCY; TotalVATAmountLCY)
-                {
-                }
-                column(TotalInvoiceDiscountAmount; TotalInvDiscAmount)
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(TotalPaymentDiscountOnVAT; TotalPaymentDiscOnVAT)
-                {
-                }
-                column(TotalVATAmountText; VATAmountLine.VATAmountText())
-                {
-                }
-                column(TotalExcludingVATText; TotalExclVATText)
-                {
-                }
-                column(TotalIncludingVATText; TotalInclVATText)
-                {
-                }
-                column(TotalSubTotal; TotalSubTotal)
-                {
-                    AutoFormatExpression = Header."Currency Code";
-                    AutoFormatType = 1;
-                }
-                column(TotalSubTotalMinusInvoiceDiscount; TotalSubTotal + TotalInvDiscAmount)
-                {
-                }
-                column(TotalText; TotalText)
-                {
-                }
-                column(CurrencyCode; CurrCode)
-                {
-                }
-                column(CurrencySymbol; CurrSymbol)
-                {
-                }
-            }
 
             trigger OnAfterGetRecord()
             var
@@ -888,13 +686,13 @@ report 50100 "KT Agent Note"
                 FirstLineHasBeenOutput := false;
                 Clear(Line);
                 Clear(SalesPost);
-                VATAmountLine.DeleteAll();
+                //VATAmountLine.DeleteAll();
                 Line.DeleteAll();
                 SalesPost.GetSalesLines(Header, Line, 0, false);
                 OnLineOnAfterGetRecordOnBeforeCalcVATAmountLines(Header, Line);
-                Line.CalcVATAmountLines(0, Header, Line, VATAmountLine);
-                Line.UpdateVATOnLines(0, Header, Line, VATAmountLine);
-                OnHeaderOnAfterGetRecordOnAfterUpdateVATOnLines(Header, Line, VATAmountLine);
+                //Line.CalcVATAmountLines(0, Header, Line, VATAmountLine);
+                //Line.UpdateVATOnLines(0, Header, Line, VATAmountLine);
+                //OnHeaderOnAfterGetRecordOnAfterUpdateVATOnLines(Header, Line, VATAmountLine);
 
                 if not IsReportInPreviewMode() then
                     CODEUNIT.Run(CODEUNIT::"Sales-Printed", Header);
@@ -948,6 +746,20 @@ report 50100 "KT Agent Note"
                 TotalAmountVAT := 0;
                 TotalAmountInclVAT := 0;
                 TotalPaymentDiscOnVAT := 0;
+                getAnalysisDesc();
+                getfreightDesc();
+                getOtherDesc();
+                getToleranceDesc();
+                getTraderDesc();
+                getweightDesc();
+                //seller Details
+                IF Sellercustomer.get(Header.KWAT_Seller) then begin
+                    getSellerDetails(Sellercustomer."No.");
+                end;
+                //Buyer details
+                IF Buyercustomer.get(Header.KWAT_Buyer) then begin
+                    getBuyerDetails(Buyercustomer."No.");
+                end;
             end;
         }
     }
@@ -1034,10 +846,10 @@ report 50100 "KT Agent Note"
         OnInitReportForGlobalVariable(IsHandled, LegalOfficeTxt, LegalOfficeLbl, CustomGiroTxt, CustomGiroLbl, LegalStatementLbl);
 #if not CLEAN23
         if not IsHandled then begin
-            LegalOfficeTxt := CompanyInfo.GetLegalOffice();
-            LegalOfficeLbl := CompanyInfo.GetLegalOfficeLbl();
-            CustomGiroTxt := CompanyInfo.GetCustomGiro();
-            CustomGiroLbl := CompanyInfo.GetCustomGiroLbl();
+            //LegalOfficeTxt := CompanyInfo.GetLegalOffice();
+            //LegalOfficeLbl := CompanyInfo.GetLegalOfficeLbl();
+            //CustomGiroTxt := CompanyInfo.GetCustomGiro();
+            //CustomGiroLbl := CompanyInfo.GetCustomGiroLbl();
         end;
 #endif
     end;
@@ -1071,6 +883,109 @@ report 50100 "KT Agent Note"
             InitLogInteraction();
 
         CompanyLogoPosition := SalesSetup."Logo Position on Documents";
+    end;
+
+    procedure getTraderDesc()
+    var
+        KWAdvanceTrading_Trader: Record KWAdvanceTrading_Trader;
+    begin
+        IF KWAdvanceTrading_Trader.GET(Header."KWAT_Trader Code") then
+            KWAT_TraderDesc := KWAdvanceTrading_Trader.Description
+        else
+            KWAT_TraderDesc := '';
+    end;
+
+
+    procedure getAnalysisDesc()
+    var
+        KWAdvanceTradingAnalysis: Record KWAdvanceTrading_Analysis;
+    begin
+        IF KWAdvanceTradingAnalysis.GET(Header."KWAT_Analysis Code") then
+            KWAT_AnalysisDesc := KWAdvanceTradingAnalysis.Description
+        else
+            KWAT_AnalysisDesc := '';
+    end;
+
+
+    procedure getOtherDesc()
+    var
+        KWAdvanceTradingOther: Record KWAdvanceTrading_Other;
+    begin
+        IF KWAdvanceTradingOther.GET(Header."KWAT_Other Code") then
+            KWAT_OtherCodeDesc := KWAdvanceTradingOther.Description
+        else
+            KWAT_OtherCodeDesc := '';
+    end;
+
+    procedure getweightDesc()
+    var
+        KWATweight: Record KWAdvanceTrading_Weight;
+    begin
+        IF KWATweight.GET(Header."KWAT_Weight Code") then
+            KWAT_WeightDesc := KWATweight.Description
+        else
+            KWAT_WeightDesc := '';
+    end;
+
+    procedure getfreightDesc()
+    var
+        KWAdvanceTradingFreight: Record KWAdvanceTrading_Freight;
+    begin
+        IF KWAdvanceTradingFreight.GET(Header."KWAT_Freight Code") then
+            KWAT_FreightCodeDesc := KWAdvanceTradingFreight.Description
+        else
+            KWAT_FreightCodeDesc := '';
+    end;
+
+    procedure getToleranceDesc()
+    var
+        KWATTol: Record KW_AdvanceTrading_Tolerance;
+    begin
+        IF KWATTol.GET(Header."KWAT_Tolerance Code") then
+            KWAT_ToleranceDesc := KWATTol.Description
+        else
+            KWAT_ToleranceDesc := '';
+    end;
+
+    procedure getSellerDetails(CustNo: code[20])
+    var
+        lvCustomer: Record Customer;
+    begin
+        IF lvCustomer.get(CustNo) then begin
+            SellerAdd := lvCustomer.Address;
+            SellerMob := lvCustomer."Mobile Phone No.";
+            SellerEmail := lvCustomer."E-Mail";
+            SellerABN := lvCustomer.ABN;
+            SellerNGR := lvCustomer.KWAT_NGR;
+        end else begin
+            SellerAdd := '';
+            SellerMob := '';
+            SellerEmail := '';
+            SellerABN := '';
+            SellerNGR := '';
+        end;
+        ;
+    end;
+
+    procedure getBuyerDetails(CustNo: code[20])
+    var
+        lvCustomer: Record Customer;
+    begin
+        IF lvCustomer.get(CustNo) then begin
+            BuyerAdd := lvCustomer.Address;
+            BuyerMob := lvCustomer."Mobile Phone No.";
+            BuyerEmail := lvCustomer."E-Mail";
+            BuyerABN := lvCustomer.ABN;
+            BuyerNGR := lvCustomer.KWAT_NGR;
+        end else begin
+            BuyerAdd := '';
+            BuyerMob := '';
+            BuyerEmail := '';
+            BuyerABN := '';
+            BuyerNGR := '';
+
+        end;
+        ;
     end;
 
     var
@@ -1185,6 +1100,27 @@ report 50100 "KT Agent Note"
         SalesInvLineDiscLbl: Label 'Discount %';
         SalespersonLbl: Label 'Sales person';
         ShptMethodDescLbl: Label 'Shipment Method';
+        KTWABuyerDesc: Text[100];
+        KWAT_TraderDesc: Text[100];
+        KWAT_ToleranceDesc: Text[100];
+        KWAT_WeightDesc: Text[100];
+        KWAT_FreightDesc: Action;
+        KWAT_FreightCodeDesc: Text[100];
+        KWAT_AnalysisDesc: Text[100];
+        Sellercustomer: Record Customer;
+        Buyercustomer: Record Customer;
+        KWAT_OtherCodeDesc: Text[100];
+        SellerAdd: text[200];
+        SellerMob: code[20];
+        SellerEmail: text[100];
+        SellerABN: code[12];
+        SellerNGR: Code[20];
+        BuyerAdd: text[200];
+        BuyerMob: code[20];
+        BuyerEmail: text[100];
+        BuyerABN: code[12];
+        BuyerNGR: Code[20];
+
 
     local procedure InitLogInteraction()
     begin
@@ -1231,22 +1167,22 @@ report 50100 "KT Agent Note"
         exit(UnitOfMeasure.Description);
     end;
 
-    local procedure CreateReportTotalLines()
-    begin
-        ReportTotalsLine.DeleteAll();
-        if (TotalInvDiscAmount <> 0) or (TotalAmountVAT <> 0) then
-            ReportTotalsLine.Add(SubtotalLbl, TotalSubTotal, true, false, false, Header."Currency Code");
-        if TotalInvDiscAmount <> 0 then begin
-            ReportTotalsLine.Add(InvDiscountAmtLbl, TotalInvDiscAmount, false, false, false, Header."Currency Code");
-            if TotalAmountVAT <> 0 then
-                ReportTotalsLine.Add(TotalExclVATText, TotalAmount, true, false, false, Header."Currency Code");
-        end;
-        if TotalAmountVAT <> 0 then begin
-            ReportTotalsLine.Add(VATAmountLine.VATAmountText(), TotalAmountVAT, false, true, false, Header."Currency Code");
-            if TotalVATAmountLCY <> TotalAmountVAT then
-                ReportTotalsLine.Add(VATAmountLine.VATAmountText() + LCYTxt, TotalVATAmountLCY, false, true, false);
-        end;
-    end;
+    // local procedure CreateReportTotalLines()
+    // begin
+    //     ReportTotalsLine.DeleteAll();
+    //     if (TotalInvDiscAmount <> 0) or (TotalAmountVAT <> 0) then
+    //         ReportTotalsLine.Add(SubtotalLbl, TotalSubTotal, true, false, false, Header."Currency Code");
+    //     if TotalInvDiscAmount <> 0 then begin
+    //         ReportTotalsLine.Add(InvDiscountAmtLbl, TotalInvDiscAmount, false, false, false, Header."Currency Code");
+    //         if TotalAmountVAT <> 0 then
+    //             ReportTotalsLine.Add(TotalExclVATText, TotalAmount, true, false, false, Header."Currency Code");
+    //     end;
+    //     if TotalAmountVAT <> 0 then begin
+    //         ReportTotalsLine.Add(VATAmountLine.VATAmountText(), TotalAmountVAT, false, true, false, Header."Currency Code");
+    //         if TotalVATAmountLCY <> TotalAmountVAT then
+    //             ReportTotalsLine.Add(VATAmountLine.VATAmountText() + LCYTxt, TotalVATAmountLCY, false, true, false);
+    //     end;
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterOnInit(var SalesHeader: Record "Sales Header")
@@ -1258,10 +1194,10 @@ report 50100 "KT Agent Note"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnHeaderOnAfterGetRecordOnAfterUpdateVATOnLines(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; var VATAmountLine: Record "VAT Amount Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnHeaderOnAfterGetRecordOnAfterUpdateVATOnLines(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; var VATAmountLine: Record "VAT Amount Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnLineOnAfterGetRecordOnBeforeCalcVATAmountLines(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line")
