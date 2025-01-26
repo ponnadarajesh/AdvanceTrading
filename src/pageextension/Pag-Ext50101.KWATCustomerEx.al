@@ -1,4 +1,4 @@
-pageextension 50101 KWAT_CustomerEx extends "Customer Card"
+pageextension 50101 "KWAT_CustomerEx" extends "Customer Card"
 {
     layout
     {

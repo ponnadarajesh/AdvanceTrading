@@ -10,7 +10,7 @@ table 50106 "KWAdvanceTrading_DeliveryPoint"
         {
             Caption = 'Code';
         }
-        field(2; Description; TableFilter)
+        field(2; Description; text[100])
         {
             Caption = 'Description';
         }

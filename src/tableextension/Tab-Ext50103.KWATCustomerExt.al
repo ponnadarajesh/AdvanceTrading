@@ -1,4 +1,4 @@
-tableextension 50103 KWAT_CustomerExt extends Customer
+tableextension 50103 "KWAT_CustomerExt" extends Customer
 {
     fields
     {
