@@ -78,14 +78,14 @@
                       <TablixCells>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox6">
+                            <Textbox Name="sellerDescription">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!sellerDescription.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -96,7 +96,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox6</rd:DefaultName>
+                              <rd:DefaultName>sellerDescription</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Color>LightGrey</Color>
@@ -196,7 +196,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value EvaluationMode="Constant" />
+                                      <Value>=Fields!SellerContact.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -974,7 +974,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!BuyerDescription.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -1078,14 +1078,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox63">
+                            <Textbox Name="BuyerContact">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!BuyerContact.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -1095,7 +1095,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox63</rd:DefaultName>
+                              <rd:DefaultName>BuyerContact</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Color>LightGrey</Color>
@@ -1918,14 +1918,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox85">
+                            <Textbox Name="KWVariantCode">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!KWVariantCode.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -1935,7 +1935,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox85</rd:DefaultName>
+                              <rd:DefaultName>KWVariantCode</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2055,14 +2055,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox87">
+                            <Textbox Name="Quantity_Line">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!Quantity_Line.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2074,7 +2074,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox87</rd:DefaultName>
+                              <rd:DefaultName>Quantity_Line</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2194,14 +2194,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox89">
+                            <Textbox Name="KWSeasonCode">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!KWSeasonCode.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2211,7 +2211,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox89</rd:DefaultName>
+                              <rd:DefaultName>KWSeasonCode</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2331,14 +2331,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox94">
+                            <Textbox Name="Description_Line">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!Description_Line.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2348,7 +2348,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox94</rd:DefaultName>
+                              <rd:DefaultName>Description_Line</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2607,14 +2607,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox97">
+                            <Textbox Name="KWDeliveryPeriod">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!KWDeliveryPeriod.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2626,7 +2626,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox97</rd:DefaultName>
+                              <rd:DefaultName>KWDeliveryPeriod</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -3433,14 +3433,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox108">
+                            <Textbox Name="KWWorkDesc1">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!KWWorkDesc.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -3450,7 +3450,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox108</rd:DefaultName>
+                              <rd:DefaultName>KWWorkDesc1</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -3848,14 +3848,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Textbox112">
+                            <Textbox Name="AmountIncludingVAT_Line">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value />
+                                      <Value>=Fields!AmountIncludingVAT_Line.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -3867,7 +3867,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox112</rd:DefaultName>
+                              <rd:DefaultName>AmountIncludingVAT_Line</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -3878,6 +3878,7 @@
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
+                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                       </TablixCells>
@@ -4065,7 +4066,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
             <Left>0.48761cm</Left>
-            <Height>1.33584cm</Height>
+            <Height>0.93896cm</Height>
             <Width>17.3125cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -4089,22 +4090,6 @@
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Rectangle Name="Rectangle8">
-              <KeepTogether>true</KeepTogether>
-              <Left>13.39244cm</Left>
-              <Height>2.03417cm</Height>
-              <Width>4.0529cm</Width>
-              <Style>
-                <Border>
-                  <Color>Silver</Color>
-                  <Style>None</Style>
-                  <Width>3pt</Width>
-                </Border>
-                <BottomBorder>
-                  <Style>Solid</Style>
-                </BottomBorder>
-              </Style>
-            </Rectangle>
             <Textbox Name="txtAgentNote">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -4125,11 +4110,10 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>2.14cm</Top>
+              <Top>1.78717cm</Top>
               <Left>0.33958cm</Left>
-              <Height>1.14681cm</Height>
+              <Height>1.14686cm</Height>
               <Width>17.3125cm</Width>
-              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4166,12 +4150,65 @@
               <Left>0.33958cm</Left>
               <Height>1.31438cm</Height>
               <Width>17.3125cm</Width>
-              <ZIndex>2</ZIndex>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
                 <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Image Name="Image1">
+              <Source>Database</Source>
+              <Value>=First(Fields!CompanyPicture.Value, "DataSet_Result")</Value>
+              <MIMEType>image/jpeg</MIMEType>
+              <Sizing>FitProportional</Sizing>
+              <Top>0in</Top>
+              <Left>4.69667in</Left>
+              <Height>0.64805in</Height>
+              <Width>2.25297in</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+            <Textbox Name="Textbox68">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Advance Trading Australasia Pty Ltd</Value>
+                      <Style>
+                        <FontSize>18pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>#385d8a</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox68</rd:DefaultName>
+              <Top>0.27024cm</Top>
+              <Left>0.36834cm</Left>
+              <Height>1.05013cm</Height>
+              <Width>11.38481cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -4194,25 +4231,37 @@
               <ReportItems>
                 <Rectangle Name="Rectangle5">
                   <ReportItems>
-                    <Rectangle Name="Rectangle3">
-                      <KeepTogether>true</KeepTogether>
-                      <Top>0.67966cm</Top>
-                      <Left>0.22653cm</Left>
-                      <Height>3.8019cm</Height>
-                      <Width>4.66927cm</Width>
-                      <Style>
-                        <Border>
-                          <Color>Silver</Color>
-                          <Style>None</Style>
-                          <Width>3pt</Width>
-                        </Border>
-                        <TopBorder>
-                          <Style>Solid</Style>
-                        </TopBorder>
-                      </Style>
-                    </Rectangle>
                     <Rectangle Name="Rectangle2">
                       <ReportItems>
+                        <Textbox Name="Textbox27">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox27</rd:DefaultName>
+                          <Top>0.57935in</Top>
+                          <Left>0.12655in</Left>
+                          <Height>0.19792in</Height>
+                          <Width>2.36458in</Width>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
                         <Textbox Name="Textbox135">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -4220,7 +4269,39 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Advance Trading Australasia Pty Ltd          ABN: 13 096 386 686 </Value>
+                                  <Value>Advance Trading Australasia Pty Ltd</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#385d8a</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>ABN: 13 096 386 686 </Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#385d8a</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
@@ -4284,9 +4365,10 @@
                           </Paragraphs>
                           <rd:DefaultName>Textbox135</rd:DefaultName>
                           <Top>0.99716cm</Top>
-                          <Left>4.96636cm</Left>
+                          <Left>0.03528cm</Left>
                           <Height>3.4844cm</Height>
                           <Width>12.57267cm</Width>
+                          <ZIndex>1</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -4299,9 +4381,9 @@
                         </Textbox>
                       </ReportItems>
                       <KeepTogether>true</KeepTogether>
-                      <Height>5.26893cm</Height>
-                      <Width>17.53903cm</Width>
-                      <ZIndex>1</ZIndex>
+                      <Left>4.93108cm</Left>
+                      <Height>4.48156cm</Height>
+                      <Width>12.60795cm</Width>
                       <Style>
                         <Border>
                           <Color>Silver</Color>
@@ -4315,6 +4397,41 @@
                           <Color>Silver</Color>
                           <Style>Solid</Style>
                         </LeftBorder>
+                      </Style>
+                    </Rectangle>
+                    <Rectangle Name="Rectangle3">
+                      <ReportItems>
+                        <Image Name="Image2">
+                          <Source>Database</Source>
+                          <Value>=First(Fields!CompanyPicture.Value, "DataSet_Result")</Value>
+                          <MIMEType>image/jpeg</MIMEType>
+                          <Sizing>FitProportional</Sizing>
+                          <Top>0.125in</Top>
+                          <Left>0.04696in</Left>
+                          <Height>1.25968in</Height>
+                          <Width>1.73272in</Width>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Image>
+                      </ReportItems>
+                      <KeepTogether>true</KeepTogether>
+                      <Top>0.67966cm</Top>
+                      <Left>0.22653cm</Left>
+                      <Height>3.8019cm</Height>
+                      <Width>4.66927cm</Width>
+                      <ZIndex>1</ZIndex>
+                      <Style>
+                        <Border>
+                          <Color>Silver</Color>
+                          <Style>None</Style>
+                          <Width>3pt</Width>
+                        </Border>
+                        <TopBorder>
+                          <Style>Solid</Style>
+                        </TopBorder>
                       </Style>
                     </Rectangle>
                   </ReportItems>
@@ -4393,6 +4510,12 @@
             </Border>
           </Style>
         </PageFooter>
+        <PageHeight>11.69in</PageHeight>
+        <PageWidth>8.27in</PageWidth>
+        <LeftMargin>1in</LeftMargin>
+        <RightMargin>0in</RightMargin>
+        <TopMargin>0in</TopMargin>
+        <BottomMargin>0in</BottomMargin>
         <Style />
       </Page>
     </ReportSection>
@@ -4820,8 +4943,29 @@ End Function
         <Field Name="KWAT_Buyer_Reference">
           <DataField>KWAT_Buyer_Reference</DataField>
         </Field>
+        <Field Name="sellerDescription">
+          <DataField>sellerDescription</DataField>
+        </Field>
+        <Field Name="BuyerDescription">
+          <DataField>BuyerDescription</DataField>
+        </Field>
+        <Field Name="SellerContact">
+          <DataField>SellerContact</DataField>
+        </Field>
+        <Field Name="BuyerContact">
+          <DataField>BuyerContact</DataField>
+        </Field>
+        <Field Name="KWWorkDesc">
+          <DataField>KWWorkDesc</DataField>
+        </Field>
         <Field Name="SellToPhoneNo">
           <DataField>SellToPhoneNo</DataField>
+        </Field>
+        <Field Name="KWDeliveryPeriod">
+          <DataField>KWDeliveryPeriod</DataField>
+        </Field>
+        <Field Name="KWSeasonCode">
+          <DataField>KWSeasonCode</DataField>
         </Field>
         <Field Name="LegalEntityType">
           <DataField>LegalEntityType</DataField>
@@ -4978,6 +5122,9 @@ End Function
         </Field>
         <Field Name="UnitOfMeasure_Lbl">
           <DataField>UnitOfMeasure_Lbl</DataField>
+        </Field>
+        <Field Name="KWVariantCode">
+          <DataField>KWVariantCode</DataField>
         </Field>
         <Field Name="VATIdentifier_Line">
           <DataField>VATIdentifier_Line</DataField>

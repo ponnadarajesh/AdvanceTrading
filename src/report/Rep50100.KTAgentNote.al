@@ -386,20 +386,20 @@ report 50100 "KT Agent Note"
             Column(BuyerNGR1; BuyerNGR)
             {
             }
-            Column(SellerAdd1; BuyerAdd)
+            Column(SellerAdd1; Selleradd)
             {
             }
-            Column(SellerMob1; BuyerMob)
+            Column(SellerMob1; SellerMob)
             {
             }
-            Column(SellerEmail1; BuyerEmail)
+            Column(SellerEmail1; SellerEmail)
             {
             }
 
-            Column(SellerABN1; BuyerABN)
+            Column(SellerABN1; SellerABN)
             {
             }
-            Column(SellerNGR1; BuyerNGR)
+            Column(SellerNGR1; SellerNGR)
             {
             }
             column(KWAT_Seller_Reference; "KWAT_Seller Reference")
@@ -410,9 +410,37 @@ report 50100 "KT Agent Note"
             {
 
             }
+            column(sellerDescription; sellerDescription)
+            {
+
+            }
+            column(BuyerDescription; BuyerDescription)
+            {
+
+            }
+            column(SellerContact; SellerContact)
+            {
+
+            }
+            column(BuyerContact; BuyerContact)
+            {
+
+            }
+            column(KWWorkDesc; "Work Description")
+            {
+
+            }
             column(SellToPhoneNo; "Sell-to Phone No.")
             {
             }
+            column(KWDeliveryPeriod; DeliveryPeriod)
+            {
+
+            }
+            column(KWSeasonCode; "Shortcut Dimension 1 Code")
+            {
+            }
+
             column(LegalEntityType; Cust.GetLegalEntityType())
             {
             }
@@ -575,6 +603,10 @@ report 50100 "KT Agent Note"
                 }
                 column(UnitOfMeasure_Lbl; FieldCaption("Unit of Measure"))
                 {
+                }
+                column(KWVariantCode; line."Variant Code")
+                {
+
                 }
                 column(VATIdentifier_Line; "VAT Identifier")
                 {
@@ -760,6 +792,7 @@ report 50100 "KT Agent Note"
                 IF Buyercustomer.get(Header.KWAT_Buyer) then begin
                     getBuyerDetails(Buyercustomer."No.");
                 end;
+                DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End")
             end;
         }
     }
@@ -952,12 +985,16 @@ report 50100 "KT Agent Note"
         lvCustomer: Record Customer;
     begin
         IF lvCustomer.get(CustNo) then begin
+            SellerDescription := lvCustomer.Name;
+            SellerContact := lvCustomer.Contact;
             SellerAdd := lvCustomer.Address;
             SellerMob := lvCustomer."Mobile Phone No.";
             SellerEmail := lvCustomer."E-Mail";
             SellerABN := lvCustomer.ABN;
             SellerNGR := lvCustomer.KWAT_NGR;
         end else begin
+            SellerDescription := '';
+            SellerContact := '';
             SellerAdd := '';
             SellerMob := '';
             SellerEmail := '';
@@ -972,6 +1009,8 @@ report 50100 "KT Agent Note"
         lvCustomer: Record Customer;
     begin
         IF lvCustomer.get(CustNo) then begin
+            BuyerDescription := lvCustomer.Name;
+            BuyerContact := lvCustomer.Contact;
             BuyerAdd := lvCustomer.Address;
             BuyerMob := lvCustomer."Mobile Phone No.";
             BuyerEmail := lvCustomer."E-Mail";
@@ -1120,6 +1159,11 @@ report 50100 "KT Agent Note"
         BuyerEmail: text[100];
         BuyerABN: code[12];
         BuyerNGR: Code[20];
+        sellerDescription: Text[100];
+        SellerContact: Text[50];
+        BuyerDescription: Text[100];
+        BuyerContact: Text[50];
+        DeliveryPeriod: Text[100];
 
 
     local procedure InitLogInteraction()
