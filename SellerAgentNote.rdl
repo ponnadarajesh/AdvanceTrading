@@ -1918,14 +1918,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="KWVariantCode">
+                            <Textbox Name="Description_Line2">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!KWVariantCode.Value</Value>
+                                      <Value>=Fields!Description_Line.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -1935,7 +1935,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>KWVariantCode</rd:DefaultName>
+                              <rd:DefaultName>Description_Line</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2194,14 +2194,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="KWSeasonCode">
+                            <Textbox Name="SeasonDesc1">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!KWSeasonCode.Value</Value>
+                                      <Value>=Fields!SeasonDesc1.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2211,7 +2211,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>KWSeasonCode</rd:DefaultName>
+                              <rd:DefaultName>SeasonDesc1</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2331,14 +2331,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Description_Line">
+                            <Textbox Name="KWATVariantDesc1">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!Description_Line.Value</Value>
+                                      <Value>=Fields!KWATVariantDesc1.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2348,7 +2348,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Description_Line</rd:DefaultName>
+                              <rd:DefaultName>KWATVariantDesc1</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2757,6 +2757,7 @@
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
+                                        <Format>'$'0.00;('$'0.00)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -2774,6 +2775,7 @@
                                 <PaddingRight>2pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
                                 <PaddingBottom>2pt</PaddingBottom>
+                                <rd:FormatSymbolCulture>en-AU</rd:FormatSymbolCulture>
                               </Style>
                             </Textbox>
                           </CellContents>
@@ -3433,14 +3435,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="KWWorkDesc1">
+                            <Textbox Name="KWATWorkDesc1">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!KWWorkDesc.Value</Value>
+                                      <Value>=Fields!KWATWorkDesc1.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -3450,7 +3452,7 @@
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>KWWorkDesc1</rd:DefaultName>
+                              <rd:DefaultName>KWATWorkDesc1</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -3848,17 +3850,18 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="AmountIncludingVAT_Line">
+                            <Textbox Name="KWATUnitPrice">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!AmountIncludingVAT_Line.Value</Value>
+                                      <Value>=Fields!KWATUnitPrice.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
+                                        <Format>'$'0.00;('$'0.00)</Format>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -3867,7 +3870,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>AmountIncludingVAT_Line</rd:DefaultName>
+                              <rd:DefaultName>KWATUnitPrice</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -3876,6 +3879,7 @@
                                 <PaddingRight>2pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
                                 <PaddingBottom>2pt</PaddingBottom>
+                                <rd:FormatSymbolCulture>en-AU</rd:FormatSymbolCulture>
                               </Style>
                             </Textbox>
                             <rd:Selected>true</rd:Selected>
@@ -4955,8 +4959,8 @@ End Function
         <Field Name="BuyerContact">
           <DataField>BuyerContact</DataField>
         </Field>
-        <Field Name="KWWorkDesc">
-          <DataField>KWWorkDesc</DataField>
+        <Field Name="KWATWorkDesc1">
+          <DataField>KWATWorkDesc1</DataField>
         </Field>
         <Field Name="SellToPhoneNo">
           <DataField>SellToPhoneNo</DataField>
@@ -5114,6 +5118,12 @@ End Function
         <Field Name="UnitPrice">
           <DataField>UnitPrice</DataField>
         </Field>
+        <Field Name="KWATUnitPrice">
+          <DataField>KWATUnitPrice</DataField>
+        </Field>
+        <Field Name="KWATUnitPriceFormat">
+          <DataField>KWATUnitPriceFormat</DataField>
+        </Field>
         <Field Name="UnitPrice_Lbl">
           <DataField>UnitPrice_Lbl</DataField>
         </Field>
@@ -5149,6 +5159,12 @@ End Function
         </Field>
         <Field Name="ItemReferenceNo_Lbl">
           <DataField>ItemReferenceNo_Lbl</DataField>
+        </Field>
+        <Field Name="KWATVariantDesc1">
+          <DataField>KWATVariantDesc1</DataField>
+        </Field>
+        <Field Name="SeasonDesc1">
+          <DataField>SeasonDesc1</DataField>
         </Field>
         <Field Name="LineNo_AssemblyLine">
           <DataField>LineNo_AssemblyLine</DataField>

@@ -426,7 +426,7 @@ report 50100 "KT Agent Note"
             {
 
             }
-            column(KWWorkDesc; "Work Description")
+            column(KWATWorkDesc1; KWATWorkDesc)
             {
 
             }
@@ -595,6 +595,10 @@ report 50100 "KT Agent Note"
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 2;
                 }
+                column(KWATUnitPrice; line."Unit Price")
+                {
+
+                }
                 column(UnitPrice_Lbl; FieldCaption("Unit Price"))
                 {
                 }
@@ -631,6 +635,14 @@ report 50100 "KT Agent Note"
                 column(ItemReferenceNo_Lbl; FieldCaption("Item Reference No."))
                 {
                 }
+                column(KWATVariantDesc1; KWATVariantDesc)
+                {
+
+                }
+                column(SeasonDesc1; SeasonDesc)
+                {
+
+                }
                 dataitem(AssemblyLine; "Assembly Line")
                 {
                     DataItemTableView = sorting("Document No.", "Line No.");
@@ -663,6 +675,8 @@ report 50100 "KT Agent Note"
                 }
 
                 trigger OnAfterGetRecord()
+                var
+
                 begin
                     if Type = Type::"G/L Account" then
                         "No." := '';
@@ -690,6 +704,21 @@ report 50100 "KT Agent Note"
                     if FirstLineHasBeenOutput then
                         Clear(DummyCompanyInfo.Picture);
                     FirstLineHasBeenOutput := true;
+                    //Variant code description
+
+                    If Itemvariant.GET(Line."No.", Line."Variant Code") then begin
+                        KWATVariantDesc := Itemvariant.Description
+                    end else begin
+                        KWATVariantDesc := '';
+                    end;
+                    //Dimension value code description
+                    IF DimensionValue.GET(GLSetup."Global Dimension 1 Code", Line."Shortcut Dimension 1 Code") then begin
+                        SeasonDesc := DimensionValue.Name;
+                    end else begin
+                        SeasonDesc := '';
+                    end;
+                    ;
+
                 end;
 
                 trigger OnPreDataItem()
@@ -704,6 +733,7 @@ report 50100 "KT Agent Note"
                     PrevLineAmount := 0;
                     FirstLineHasBeenOutput := false;
                     DummyCompanyInfo.Picture := CompanyInfo.Picture;
+
                 end;
             }
 
@@ -792,7 +822,9 @@ report 50100 "KT Agent Note"
                 IF Buyercustomer.get(Header.KWAT_Buyer) then begin
                     getBuyerDetails(Buyercustomer."No.");
                 end;
-                DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End")
+                DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End");
+                Header.CalcFields("Work Description");
+                KWATWorkDesc := GetWorkDescription();
             end;
         }
     }
@@ -1164,6 +1196,11 @@ report 50100 "KT Agent Note"
         BuyerDescription: Text[100];
         BuyerContact: Text[50];
         DeliveryPeriod: Text[100];
+        Itemvariant: Record "Item Variant";
+        KWATVariantDesc: Text[100];
+        DimensionValue: Record "Dimension Value";
+        SeasonDesc: Text[100];
+        KWATWorkDesc: Text[1024];
 
 
     local procedure InitLogInteraction()

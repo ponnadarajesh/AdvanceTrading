@@ -24,6 +24,11 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ToolTip = 'Specifies the value of the Buyer field.', Comment = '%';
                     Editable = rec."KWAT_Broker Note";
                 }
+                field(KTWABuyerDesc1; KTWABuyerDesc)
+                {
+                    caption = 'Buyer Name';
+                    ApplicationArea = All;
+                }
                 field("KWAT_Buyer Reference"; Rec."KWAT_Buyer Reference")
                 {
                     ApplicationArea = All;
@@ -35,6 +40,11 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Seller field.', Comment = '%';
                     Editable = rec."KWAT_Agent Note";
+                }
+                field(KTWASellerDesc1; KTWASellerDesc)
+                {
+                    ApplicationArea = All;
+                    caption = 'Seller Name';
                 }
                 field("KWAT_Seller Reference"; Rec."KWAT_Seller Reference")
                 {
@@ -140,7 +150,13 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 field("KWAT_DeliveryPoint Code"; Rec."KWAT_DeliveryPoint Code")
                 {
                     ApplicationArea = All;
+                    caption = 'Delivery Point';
                     ToolTip = 'Specifies the value of the Delivery Point Code field.', Comment = '%';
+                }
+                field(KWAT_DPDesc; KWAT_DPDesc)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delivery Point Name';
                 }
                 field("KWAT_Delivery Start"; Rec."KWAT_Delivery Start")
                 {
@@ -236,6 +252,20 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
         getToleranceDesc();
         getTraderDesc();
         getweightDesc();
+        getDPDesc();
+        KTWABuyerDesc := GetCustName(Rec.KWAT_Buyer);
+        KTWASellerDesc := GetCustName(Rec.KWAT_Seller);
+    end;
+
+    procedure GetCustName(pCustNo: code[20]): Text[100];
+    var
+        CustDesc: text[100];
+    begin
+        if BuyerCustomer.GET(Rec.KWAT_Buyer) then begin
+            CustDesc := BuyerCustomer.Name;
+        end else
+            CustDesc := '';
+        exit(CustDesc)
     end;
 
     procedure getTraderDesc()
@@ -300,9 +330,19 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
             KWAT_ToleranceDesc := '';
     end;
 
+    procedure getDPDesc()
+    var
+        KWDPoint: Record KWAdvanceTrading_DeliveryPoint;
+    begin
+        IF KWDPoint.GET(Rec."KWAT_DeliveryPoint Code") then
+            KWAT_DPDesc := KWDPoint.Description
+        else
+            KWAT_DPDesc := '';
+    end;
 
     var
         KTWABuyerDesc: Text[100];
+        KTWASellerDesc: Text[100];
         KWAT_TraderDesc: Text[100];
         KWAT_ToleranceDesc: Text[100];
         KWAT_WeightDesc: Text[100];
@@ -310,4 +350,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
         KWAT_FreightCodeDesc: Text[100];
         KWAT_AnalysisDesc: Text[100];
         KWAT_OtherCodeDesc: Text[100];
+        KWAT_DPDesc: Text[100];
+        BuyerCustomer: Record Customer;
+        SellerCustomer: Record Customer;
 }
