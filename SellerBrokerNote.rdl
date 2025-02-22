@@ -4103,7 +4103,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Agents Note</Value>
+                      <Value>Broker Note</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -4138,7 +4138,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>This agent’s note confirms that Advance Trading Australasia Pty Ltd have acted as an agent between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
+                      <Value>This broker’s note confirms that Advance Trading Australasia Pty Ltd have acted as an broker between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
                         <FontSize>9pt</FontSize>

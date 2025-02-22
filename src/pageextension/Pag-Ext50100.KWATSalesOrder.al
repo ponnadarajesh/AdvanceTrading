@@ -185,7 +185,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 ToolTip = 'It will print Agent Note(Seller)';
                 trigger OnAction()
                 var
-                    KTAgentNote: Report "KT Agent Note";
+                    KTAgentNote: Report "KT Agent Note Seller";
                     SalesHdr: Record "Sales Header";
                 begin
                     Rec.testfield("KWAT_Agent Note", true);
@@ -199,6 +199,22 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
 
                 end;
             }
+            action(EmailAgentNoteSeller)
+            {
+                ApplicationArea = All;
+                Image = Email;
+                Caption = 'Email Agent Note(Seller)';
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'It will Email Agent Note(Seller)';
+                trigger OnAction()
+                var
+                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
+                begin
+                    Rec.testfield("KWAT_Agent Note", true);
+                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50100, 'Agent Note (Seller)');
+                end;
+            }
             action(printAgentNoteBuyer)
             {
                 ApplicationArea = All;
@@ -208,9 +224,35 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 PromotedCategory = Process;
                 ToolTip = 'It will print Agent Note(Buyer)';
                 trigger OnAction()
+                var
+                    KTBuyerAgentNote: Report "KT Agent Note Buyer";
+                    SalesHdr: Record "Sales Header";
                 begin
                     Rec.testfield("KWAT_Agent Note", true);
-                    Message('In Progress');
+                    //Message('In Progress');
+                    Clear(KTBuyerAgentNote);
+                    SalesHdr.Reset();
+                    SalesHdr.SetRange("Document Type", rec."Document Type");
+                    SalesHdr.SetRange("No.", Rec."No.");
+                    KTBuyerAgentNote.SetTableView(SalesHdr);
+                    KTBuyerAgentNote.RunModal();
+
+                end;
+            }
+            action(EmailAgentNoteBuyer)
+            {
+                ApplicationArea = All;
+                Image = Email;
+                Caption = 'Email Agent Note(Buyer)';
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'It will Email Agent Note(Buyer)';
+                trigger OnAction()
+                var
+                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
+                begin
+                    Rec.testfield("KWAT_Agent Note", true);
+                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50103, 'Agent Note (Buyer)');
                 end;
             }
             action(printBrokerNoteSeller)
@@ -222,9 +264,34 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 PromotedCategory = Process;
                 ToolTip = 'It will print Broker Note(Seller)';
                 trigger OnAction()
+                var
+                    KTSellerBrokerNote: Report "KT Broker Note Seller";
+                    SalesHdr: Record "Sales Header";
+                begin
+                    Rec.testfield("KWAT_Agent Note", true);
+                    //Message('In Progress');
+                    Clear(KTSellerBrokerNote);
+                    SalesHdr.Reset();
+                    SalesHdr.SetRange("Document Type", rec."Document Type");
+                    SalesHdr.SetRange("No.", Rec."No.");
+                    KTSellerBrokerNote.SetTableView(SalesHdr);
+                    KTSellerBrokerNote.RunModal();
+                end;
+            }
+            action(EmailBrokerNoteSeller)
+            {
+                ApplicationArea = All;
+                Image = Email;
+                Caption = 'Email Broker Note(Seller)';
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'It will Email Broker Note(Seller)';
+                trigger OnAction()
+                var
+                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
                 begin
                     Rec.testfield("KWAT_Broker Note", true);
-                    Message('In Progress');
+                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50101, 'Broker Note (Seller)');
                 end;
             }
             action(printBrokerNoteBuyer)
@@ -236,9 +303,34 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 PromotedCategory = Process;
                 ToolTip = 'It will print Broker Note(Buyer)';
                 trigger OnAction()
+                var
+                    KTBuyerBrokerNote: Report "KT Broker Note Buyer";
+                    SalesHdr: Record "Sales Header";
+                begin
+                    Rec.testfield("KWAT_Agent Note", true);
+                    //Message('In Progress');
+                    Clear(KTBuyerBrokerNote);
+                    SalesHdr.Reset();
+                    SalesHdr.SetRange("Document Type", rec."Document Type");
+                    SalesHdr.SetRange("No.", Rec."No.");
+                    KTBuyerBrokerNote.SetTableView(SalesHdr);
+                    KTBuyerBrokerNote.RunModal();
+                end;
+            }
+            action(EmailBrokerNoteBuyer)
+            {
+                ApplicationArea = All;
+                Image = Email;
+                Caption = 'Email Broker Note(Buyer)';
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'It will Email Broker Note(Buyer)';
+                trigger OnAction()
+                var
+                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
                 begin
                     Rec.testfield("KWAT_Broker Note", true);
-                    Message('In Progress');
+                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50102, 'Broker Note (Buyer)');
                 end;
             }
 

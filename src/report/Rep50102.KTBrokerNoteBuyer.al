@@ -1,9 +1,9 @@
-report 50100 "KT Agent Note"
+report 50102 "KT Broker Note Buyer"
 {
-    Caption = 'Agent Note(Seller)';
+    Caption = 'Broker Note(Buyer)';
     DefaultLayout = RDLC;
     //RDLCLayout = './AgentNote.rdl';
-    RDLCLayout = './SellerAgentNote.rdl';
+    RDLCLayout = './BuyerBrokerNote.rdl';
     //DefaultRenderingLayout = "StandardSalesOrderConf.docx";
     //PreviewMode = PrintLayout;
     //WordMergeDataItem = Header;
@@ -335,7 +335,6 @@ report 50100 "KT Agent Note"
             Column(KWAT_TraderDesc; KWAT_TraderDesc)
             {
             }
-
             Column(KWAT_ToleranceDesc; KWAT_ToleranceDesc)
             {
             }
@@ -350,6 +349,21 @@ report 50100 "KT Agent Note"
             {
             }
             Column(KWAT_OtherDesc; KWAT_OtherCodeDesc)
+            {
+            }
+            column(BoldAnalysisDesc; BoldAnalysisDesc)
+            {
+            }
+            column(BoldToleranceDesc; BoldToleranceDesc)
+            {
+            }
+            column(BoldfreightDesc; BoldfreightDesc)
+            {
+            }
+            column(BoldOtherCodeDesc; BoldOtherCodeDesc)
+            {
+            }
+            column(BoldweightDesc; BoldweightDesc)
             {
             }
             column(SellToFaxNo; GetSellToCustomerFaxNo())
@@ -676,7 +690,8 @@ report 50100 "KT Agent Note"
 
                 trigger OnAfterGetRecord()
                 var
-
+                    lvsalesHdr: Record "Sales Header";
+                    lvsalesHdrArchive: record "Sales Header Archive";
                 begin
                     if Type = Type::"G/L Account" then
                         "No." := '';
@@ -954,10 +969,13 @@ report 50100 "KT Agent Note"
     var
         KWAdvanceTrading_Trader: Record KWAdvanceTrading_Trader;
     begin
+        BoldTraderDesc := false;
         IF KWAdvanceTrading_Trader.GET(Header."KWAT_Trader Code") then
             KWAT_TraderDesc := KWAdvanceTrading_Trader.Description
         else
             KWAT_TraderDesc := '';
+        GetSalesHeaderArchive(Header);
+        BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
     end;
 
 
@@ -965,10 +983,13 @@ report 50100 "KT Agent Note"
     var
         KWAdvanceTradingAnalysis: Record KWAdvanceTrading_Analysis;
     begin
+        BoldAnalysisDesc := false;
         IF KWAdvanceTradingAnalysis.GET(Header."KWAT_Analysis Code") then
             KWAT_AnalysisDesc := KWAdvanceTradingAnalysis.Description
         else
             KWAT_AnalysisDesc := '';
+        GetSalesHeaderArchive(Header);
+        BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
     end;
 
 
@@ -976,40 +997,60 @@ report 50100 "KT Agent Note"
     var
         KWAdvanceTradingOther: Record KWAdvanceTrading_Other;
     begin
+        BoldOtherCodeDesc := false;
         IF KWAdvanceTradingOther.GET(Header."KWAT_Other Code") then
             KWAT_OtherCodeDesc := KWAdvanceTradingOther.Description
         else
             KWAT_OtherCodeDesc := '';
+        GetSalesHeaderArchive(Header);
+        BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
     end;
 
     procedure getweightDesc()
     var
         KWATweight: Record KWAdvanceTrading_Weight;
     begin
+        BoldweightDesc := false;
         IF KWATweight.GET(Header."KWAT_Weight Code") then
             KWAT_WeightDesc := KWATweight.Description
         else
             KWAT_WeightDesc := '';
+        GetSalesHeaderArchive(Header);
+        BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
     end;
 
     procedure getfreightDesc()
     var
         KWAdvanceTradingFreight: Record KWAdvanceTrading_Freight;
     begin
+        BoldfreightDesc := false;
         IF KWAdvanceTradingFreight.GET(Header."KWAT_Freight Code") then
             KWAT_FreightCodeDesc := KWAdvanceTradingFreight.Description
         else
             KWAT_FreightCodeDesc := '';
+        GetSalesHeaderArchive(Header);
+        BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
     end;
 
     procedure getToleranceDesc()
     var
         KWATTol: Record KW_AdvanceTrading_Tolerance;
     begin
+        BoldToleranceDesc := false;
         IF KWATTol.GET(Header."KWAT_Tolerance Code") then
             KWAT_ToleranceDesc := KWATTol.Description
         else
             KWAT_ToleranceDesc := '';
+        GetSalesHeaderArchive(Header);
+        BoldToleranceDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+    end;
+
+    local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
+    begin
+        SalesHdrArchive.Reset();
+        SalesHdrArchive.SetRange("Document Type", Header."Document Type");
+        SalesHdrArchive.SetRange("No.", Header."No.");
+        SalesHdrArchive.FindLast();
     end;
 
     procedure getSellerDetails(CustNo: code[20])
@@ -1201,6 +1242,16 @@ report 50100 "KT Agent Note"
         DimensionValue: Record "Dimension Value";
         SeasonDesc: Text[100];
         KWATWorkDesc: Text[1024];
+        BoldAnalysisDesc: Boolean;
+        BoldfreightDesc: boolean;
+        BoldOtherDesc: boolean;
+        BoldToleranceDesc: boolean;
+        BoldTraderDesc: boolean;
+        BoldweightDesc: boolean;
+        SalesHdrArchive: Record "Sales Header Archive";
+        AdvanceTradingMgt: Codeunit "AdvanceTradingMgt";
+
+        BoldOtherCodeDesc: Boolean;
 
 
     local procedure InitLogInteraction()

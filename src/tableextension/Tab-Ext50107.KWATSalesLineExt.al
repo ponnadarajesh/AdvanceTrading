@@ -1,4 +1,4 @@
-tableextension 50107 KWAT_SalesLineExt extends "Sales Line"
+tableextension 50107 "KWAT_SalesLineExt" extends "Sales Line"
 {
     fields
     {
