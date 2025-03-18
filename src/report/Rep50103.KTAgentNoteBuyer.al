@@ -378,7 +378,7 @@ report 50103 "KT Agent Note Buyer"
             column(KWAT_DeliveryStart_Header; "KWAT_Delivery Start")
             {
             }
-            column(KWAT_DeliveryPointCode_Header; "KWAT_DeliveryPoint Code")
+            column(KWAT_DeliveryPointCode_Header; "KWAT_DPDesc")
             {
             }
             column(KWAT_TraderPrice_Header; "KWAT_Trader Price")
@@ -563,6 +563,13 @@ report 50103 "KT Agent Note Buyer"
                 column(Description_Line_Lbl; FieldCaption(Description))
                 {
                 }
+                column(UnitPriceDesc; UnitPriceDesc)
+                {
+                }
+                column(QtyDesc; QtyDesc)
+                {
+                }
+
                 column(LineDiscountPercent_Line; "Line Discount %")
                 {
                 }
@@ -740,6 +747,17 @@ report 50103 "KT Agent Note Buyer"
                         AgentNoteFeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller'
                     else
                         AgentNoteFeeDesc := format("Unit Price");
+
+                    IF "Unit Price" <> 0 then begin
+                        UnitPriceDesc := Format("Unit Price") + '/' + "Unit of Measure Code";
+                    end else begin
+                        UnitPriceDesc := '';
+                    end;
+                    IF Quantity <> 0 then
+                        QtyDesc := format(Quantity) + ' ' + "Unit of Measure Code" + ' ' + KWAT_ToleranceDesc
+                    else
+                        QtyDesc := '';
+
                 end;
 
                 trigger OnPreDataItem()
@@ -836,6 +854,7 @@ report 50103 "KT Agent Note Buyer"
                 getToleranceDesc();
                 getTraderDesc();
                 getweightDesc();
+                getdpDesc();
                 //seller Details
                 IF Sellercustomer.get(Header.KWAT_Seller) then begin
                     getSellerDetails(Sellercustomer."No.");
@@ -844,7 +863,7 @@ report 50103 "KT Agent Note Buyer"
                 IF Buyercustomer.get(Header.KWAT_Buyer) then begin
                     getBuyerDetails(Buyercustomer."No.");
                 end;
-                DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End");
+                DeliveryPeriod := format("KWAT_Delivery Start", 0, '<Weekday Text> <Day> <Month Text> <Year4>') + ' to ' + Format("KWAT_Delivery End", 0, '<Weekday Text> <Day> <Month Text> <Year4>');
                 Header.CalcFields("Work Description");
                 KWATWorkDesc := GetWorkDescription();
             end;
@@ -1108,6 +1127,19 @@ report 50103 "KT Agent Note Buyer"
         ;
     end;
 
+    procedure getDPDesc()
+    var
+        KWATDP: Record KWAdvanceTrading_DeliveryPoint;
+    begin
+        BoldweightDesc := false;
+        IF KWATDP.GET(Header."KWAT_DeliveryPoint Code") then
+            KWAT_DPDesc := KWATDP.Description
+        else
+            KWAT_DPDesc := '';
+        //GetSalesHeaderArchive(Header);
+        //BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+    end;
+
     var
         GLSetup: Record "General Ledger Setup";
         CompanyBankAccount: Record "Bank Account";
@@ -1176,6 +1208,10 @@ report 50103 "KT Agent Note Buyer"
         BillToContactMobilePhoneNoLbl: Label 'Bill-to Contact Mobile Phone No.';
         BillToContactEmailLbl: Label 'Bill-to Contact E-Mail';
         LCYTxt: label ' (LCY)';
+        QtyDesc: Text[250];
+        UnitPriceDesc: Text[250];
+        KWAT_DPDesc: Text[250];
+
         LegalOfficeTxt, LegalOfficeLbl, CustomGiroTxt, CustomGiroLbl, LegalStatementLbl : Text;
 
     protected var

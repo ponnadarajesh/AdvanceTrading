@@ -338,6 +338,9 @@ report 50101 "KT Broker Note Seller"
             Column(KWAT_ToleranceDesc; KWAT_ToleranceDesc)
             {
             }
+            column(KWAT_DPDesc; KWAT_DPDesc)
+            {
+            }
             Column(KWAT_WeightDesc; KWAT_WeightDesc)
             {
             }
@@ -378,7 +381,7 @@ report 50101 "KT Broker Note Seller"
             column(KWAT_DeliveryStart_Header; "KWAT_Delivery Start")
             {
             }
-            column(KWAT_DeliveryPointCode_Header; "KWAT_DeliveryPoint Code")
+            column(KWAT_DeliveryPointCode_Header; KWAT_DPDesc)
             {
             }
             column(KWAT_TraderPrice_Header; "KWAT_Trader Price")
@@ -563,6 +566,12 @@ report 50101 "KT Broker Note Seller"
                 column(Description_Line_Lbl; FieldCaption(Description))
                 {
                 }
+                column(UnitPriceDesc; UnitPriceDesc)
+                {
+                }
+                column(QtyDesc; QtyDesc)
+                {
+                }
                 column(LineDiscountPercent_Line; "Line Discount %")
                 {
                 }
@@ -737,11 +746,17 @@ report 50101 "KT Broker Note Seller"
                     end;
                     ;
                     //Brokerfeedesc
-                    IF "Unit Price" <> 0 then
-                        BrokerfeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller'
-                    else
+                    IF "Unit Price" <> 0 then begin
+                        BrokerfeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller';
+                        UnitPriceDesc := Format("Unit Price") + '/' + "Unit of Measure Code";
+                    end else begin
                         BrokerfeeDesc := format("Unit Price");
-
+                        UnitPriceDesc := '';
+                    end;
+                    IF Quantity <> 0 then
+                        QtyDesc := format(Quantity) + ' ' + "Unit of Measure Code" + ' ' + KWAT_ToleranceDesc
+                    else
+                        QtyDesc := '';
 
                 end;
 
@@ -838,6 +853,7 @@ report 50101 "KT Broker Note Seller"
                 getToleranceDesc();
                 getTraderDesc();
                 getweightDesc();
+                getDPDesc();
                 //seller Details
                 IF Sellercustomer.get(Header.KWAT_Seller) then begin
                     getSellerDetails(Sellercustomer."No.");
@@ -846,7 +862,7 @@ report 50101 "KT Broker Note Seller"
                 IF Buyercustomer.get(Header.KWAT_Buyer) then begin
                     getBuyerDetails(Buyercustomer."No.");
                 end;
-                DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End");
+                DeliveryPeriod := format("KWAT_Delivery Start", 0, '<Weekday Text> <Day> <Month Text> <Year4>') + ' to ' + Format("KWAT_Delivery End", 0, '<Weekday Text> <Day> <Month Text> <Year4>');
                 Header.CalcFields("Work Description", "No. of Archived Versions");
 
                 KWATWorkDesc := GetWorkDescription();
@@ -1027,6 +1043,19 @@ report 50101 "KT Broker Note Seller"
             KWAT_WeightDesc := '';
         GetSalesHeaderArchive(Header);
         BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+    end;
+
+    procedure getDPDesc()
+    var
+        KWATDP: Record KWAdvanceTrading_DeliveryPoint;
+    begin
+        BoldweightDesc := false;
+        IF KWATDP.GET(Header."KWAT_DeliveryPoint Code") then
+            KWAT_DPDesc := KWATDP.Description
+        else
+            KWAT_DPDesc := '';
+        //GetSalesHeaderArchive(Header);
+        //BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
     end;
 
     procedure getfreightDesc()
@@ -1264,6 +1293,9 @@ report 50101 "KT Broker Note Seller"
         BrokerfeeDesc: Text[250];
 
         BoldOtherCodeDesc: Boolean;
+        QtyDesc: Text[250];
+        UnitPriceDesc: Text[250];
+        KWAT_DPDesc: Text[250];
 
 
     local procedure InitLogInteraction()

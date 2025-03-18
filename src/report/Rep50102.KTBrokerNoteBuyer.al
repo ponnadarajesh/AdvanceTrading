@@ -378,7 +378,7 @@ report 50102 "KT Broker Note Buyer"
             column(KWAT_DeliveryStart_Header; "KWAT_Delivery Start")
             {
             }
-            column(KWAT_DeliveryPointCode_Header; "KWAT_DeliveryPoint Code")
+            column(KWAT_DeliveryPointCode_Header; KWAT_DPDesc)
             {
             }
             column(KWAT_TraderPrice_Header; "KWAT_Trader Price")
@@ -557,6 +557,13 @@ report 50102 "KT Broker Note Buyer"
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 1;
                 }
+                column(UnitPriceDesc; UnitPriceDesc)
+                {
+                }
+                column(QtyDesc; QtyDesc)
+                {
+                }
+
                 column(Description_Line; Description)
                 {
                 }
@@ -732,6 +739,19 @@ report 50102 "KT Broker Note Buyer"
                     end else begin
                         SeasonDesc := '';
                     end;
+
+                    IF "Unit Price" <> 0 then begin
+                        BrokerfeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller';
+                        UnitPriceDesc := Format("Unit Price") + '/' + "Unit of Measure Code";
+                    end else begin
+                        BrokerfeeDesc := format("Unit Price");
+                        UnitPriceDesc := '';
+                    end;
+                    IF Quantity <> 0 then
+                        QtyDesc := format(Quantity) + ' ' + "Unit of Measure Code" + ' ' + KWAT_ToleranceDesc
+                    else
+                        QtyDesc := '';
+
                     ;
 
                 end;
@@ -830,6 +850,7 @@ report 50102 "KT Broker Note Buyer"
                 getToleranceDesc();
                 getTraderDesc();
                 getweightDesc();
+                getDPDesc();
                 //seller Details
                 IF Sellercustomer.get(Header.KWAT_Seller) then begin
                     getSellerDetails(Sellercustomer."No.");
@@ -838,7 +859,7 @@ report 50102 "KT Broker Note Buyer"
                 IF Buyercustomer.get(Header.KWAT_Buyer) then begin
                     getBuyerDetails(Buyercustomer."No.");
                 end;
-                DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End");
+                DeliveryPeriod := format("KWAT_Delivery Start", 0, '<Weekday Text> <Day> <Month Text> <Year4>') + ' to ' + Format("KWAT_Delivery End", 0, '<Weekday Text> <Day> <Month Text> <Year4>');
                 Header.CalcFields("Work Description");
                 KWATWorkDesc := GetWorkDescription();
             end;
@@ -964,6 +985,19 @@ report 50102 "KT Broker Note Buyer"
             InitLogInteraction();
 
         CompanyLogoPosition := SalesSetup."Logo Position on Documents";
+    end;
+
+    procedure getDPDesc()
+    var
+        KWATDP: Record KWAdvanceTrading_DeliveryPoint;
+    begin
+        BoldweightDesc := false;
+        IF KWATDP.GET(Header."KWAT_DeliveryPoint Code") then
+            KWAT_DPDesc := KWATDP.Description
+        else
+            KWAT_DPDesc := '';
+        //GetSalesHeaderArchive(Header);
+        //BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
     end;
 
     procedure getTraderDesc()
@@ -1252,8 +1286,11 @@ report 50102 "KT Broker Note Buyer"
         BoldweightDesc: boolean;
         SalesHdrArchive: Record "Sales Header Archive";
         AdvanceTradingMgt: Codeunit "AdvanceTradingMgt";
-
+        QtyDesc: Text[250];
+        UnitPriceDesc: Text[250];
+        KWAT_DPDesc: Text[250];
         BoldOtherCodeDesc: Boolean;
+        BrokerfeeDesc: Text[250];
 
 
     local procedure InitLogInteraction()

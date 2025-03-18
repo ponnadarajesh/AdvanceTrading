@@ -2055,14 +2055,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="Quantity_Line">
+                            <Textbox Name="QtyDesc">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!Quantity_Line.Value</Value>
+                                      <Value>=Fields!QtyDesc.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2074,7 +2074,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Quantity_Line</rd:DefaultName>
+                              <rd:DefaultName>QtyDesc</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -4052,6 +4052,18 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value />
+                    <Style>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
                     <Value>Agents Note No.    : </Value>
                     <Style>
                       <FontFamily>Verdana</FontFamily>
@@ -4072,7 +4084,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
             <Left>0.48761cm</Left>
-            <Height>0.93896cm</Height>
+            <Height>1.23001cm</Height>
             <Width>17.3125cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -4093,17 +4105,19 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!DocumentDate.Value, "DataSet_Result")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>0.04167in</Top>
+            <Top>0.02779in</Top>
             <Left>1.45833in</Left>
-            <Height>0.125in</Height>
-            <Width>0.8125in</Width>
+            <Height>0.16667in</Height>
+            <Width>3.29167in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -4123,17 +4137,19 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!DocumentNo.Value, "DataSet_Result")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>0.22223in</Top>
+            <Top>0.2639in</Top>
             <Left>1.45833in</Left>
-            <Height>0.125in</Height>
-            <Width>0.8125in</Width>
+            <Height>0.22036in</Height>
+            <Width>3.29167in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -4940,6 +4956,9 @@ End Function
         <Field Name="KWAT_ToleranceDesc">
           <DataField>KWAT_ToleranceDesc</DataField>
         </Field>
+        <Field Name="KWAT_DPDesc">
+          <DataField>KWAT_DPDesc</DataField>
+        </Field>
         <Field Name="KWAT_WeightDesc">
           <DataField>KWAT_WeightDesc</DataField>
         </Field>
@@ -5149,6 +5168,12 @@ End Function
         </Field>
         <Field Name="Description_Line_Lbl">
           <DataField>Description_Line_Lbl</DataField>
+        </Field>
+        <Field Name="UnitPriceDesc">
+          <DataField>UnitPriceDesc</DataField>
+        </Field>
+        <Field Name="QtyDesc">
+          <DataField>QtyDesc</DataField>
         </Field>
         <Field Name="LineDiscountPercent_Line">
           <DataField>LineDiscountPercent_Line</DataField>
