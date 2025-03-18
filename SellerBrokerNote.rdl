@@ -3760,7 +3760,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Agents fee </Value>
+                                      <Value>Broker fee </Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -3853,14 +3853,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="KWATUnitPrice">
+                            <Textbox Name="BrokerfeeDesc">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!KWATUnitPrice.Value</Value>
+                                      <Value>=Fields!BrokerfeeDesc.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -3873,7 +3873,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>KWATUnitPrice</rd:DefaultName>
+                              <rd:DefaultName>BrokerfeeDesc</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -4075,6 +4075,66 @@
             <Height>0.93896cm</Height>
             <Width>17.3125cm</Width>
             <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox14">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!DocumentDate.Value, "DataSet_Result")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.04167in</Top>
+            <Left>1.45833in</Left>
+            <Height>0.125in</Height>
+            <Width>0.8125in</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox6">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!DocumentNo.Value, "DataSet_Result")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.22223in</Top>
+            <Left>1.45833in</Left>
+            <Height>0.125in</Height>
+            <Width>0.8125in</Width>
+            <ZIndex>3</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -5176,6 +5236,9 @@ End Function
         </Field>
         <Field Name="ItemReferenceNo_Lbl">
           <DataField>ItemReferenceNo_Lbl</DataField>
+        </Field>
+        <Field Name="BrokerfeeDesc">
+          <DataField>BrokerfeeDesc</DataField>
         </Field>
         <Field Name="KWATVariantDesc1">
           <DataField>KWATVariantDesc1</DataField>

@@ -767,6 +767,7 @@ report 50102 "KT Broker Note Buyer"
                 Line.DeleteAll();
                 SalesPost.GetSalesLines(Header, Line, 0, false);
                 OnLineOnAfterGetRecordOnBeforeCalcVATAmountLines(Header, Line);
+                Header.CalcFields("Work Description", "No. of Archived Versions");
                 //Line.CalcVATAmountLines(0, Header, Line, VATAmountLine);
                 //Line.UpdateVATOnLines(0, Header, Line, VATAmountLine);
                 //OnHeaderOnAfterGetRecordOnAfterUpdateVATOnLines(Header, Line, VATAmountLine);
@@ -1047,6 +1048,7 @@ report 50102 "KT Broker Note Buyer"
 
     local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
     begin
+        if Header."No. of Archived Versions" = 0 then exit;
         SalesHdrArchive.Reset();
         SalesHdrArchive.SetRange("Document Type", Header."Document Type");
         SalesHdrArchive.SetRange("No.", Header."No.");

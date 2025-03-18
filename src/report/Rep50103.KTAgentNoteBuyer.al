@@ -609,6 +609,9 @@ report 50103 "KT Agent Note Buyer"
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 2;
                 }
+                column(AgentNoteFeeDesc; AgentNoteFeeDesc)
+                {
+                }
                 column(KWATUnitPrice; line."Unit Price")
                 {
 
@@ -733,7 +736,10 @@ report 50103 "KT Agent Note Buyer"
                         SeasonDesc := '';
                     end;
                     ;
-
+                    IF "Unit Price" <> 0 then
+                        AgentNoteFeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller'
+                    else
+                        AgentNoteFeeDesc := format("Unit Price");
                 end;
 
                 trigger OnPreDataItem()
@@ -763,6 +769,7 @@ report 50103 "KT Agent Note Buyer"
                 FirstLineHasBeenOutput := false;
                 Clear(Line);
                 Clear(SalesPost);
+                Header.CalcFields("Work Description", "No. of Archived Versions");
                 //VATAmountLine.DeleteAll();
                 Line.DeleteAll();
                 SalesPost.GetSalesLines(Header, Line, 0, false);
@@ -1047,6 +1054,7 @@ report 50103 "KT Agent Note Buyer"
 
     local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
     begin
+        if Header."No. of Archived Versions" = 0 then exit;
         SalesHdrArchive.Reset();
         SalesHdrArchive.SetRange("Document Type", Header."Document Type");
         SalesHdrArchive.SetRange("No.", Header."No.");
@@ -1252,6 +1260,7 @@ report 50103 "KT Agent Note Buyer"
         AdvanceTradingMgt: Codeunit "AdvanceTradingMgt";
 
         BoldOtherCodeDesc: Boolean;
+        AgentNoteFeeDesc: Text[250];
 
 
     local procedure InitLogInteraction()

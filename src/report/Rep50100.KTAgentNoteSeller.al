@@ -763,8 +763,8 @@ report 50100 "KT Agent Note Seller"
                 FirstLineHasBeenOutput := false;
                 Clear(Line);
                 Clear(SalesPost);
-                Header.CalcFields("No. of Archived Versions");
                 //VATAmountLine.DeleteAll();
+                Header.CalcFields("Work Description", "No. of Archived Versions");
                 Line.DeleteAll();
                 SalesPost.GetSalesLines(Header, Line, 0, false);
                 OnLineOnAfterGetRecordOnBeforeCalcVATAmountLines(Header, Line);
@@ -839,7 +839,7 @@ report 50100 "KT Agent Note Seller"
                     getBuyerDetails(Buyercustomer."No.");
                 end;
                 DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End");
-                Header.CalcFields("Work Description");
+
                 KWATWorkDesc := GetWorkDescription();
             end;
         }
@@ -978,7 +978,7 @@ report 50100 "KT Agent Note Seller"
         if Header."No. of Archived Versions" > 0 then
             GetSalesHeaderArchive(Header);
         GetSalesHeaderArchive(Header);
-        BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Trader Code"));
     end;
 
 
@@ -992,7 +992,7 @@ report 50100 "KT Agent Note Seller"
         else
             KWAT_AnalysisDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Analysis Code"));
     end;
 
 
@@ -1006,7 +1006,7 @@ report 50100 "KT Agent Note Seller"
         else
             KWAT_OtherCodeDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Other Code"));
     end;
 
     procedure getweightDesc()
@@ -1019,7 +1019,7 @@ report 50100 "KT Agent Note Seller"
         else
             KWAT_WeightDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Weight Code"));
     end;
 
     procedure getfreightDesc()
@@ -1032,7 +1032,7 @@ report 50100 "KT Agent Note Seller"
         else
             KWAT_FreightCodeDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Freight Code"));
     end;
 
     procedure getToleranceDesc()
@@ -1050,6 +1050,7 @@ report 50100 "KT Agent Note Seller"
 
     local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
     begin
+        If header."No. of Archived Versions" = 0 then exit;
         SalesHdrArchive.Reset();
         SalesHdrArchive.SetRange("Document Type", Header."Document Type");
         SalesHdrArchive.SetRange("No.", Header."No.");

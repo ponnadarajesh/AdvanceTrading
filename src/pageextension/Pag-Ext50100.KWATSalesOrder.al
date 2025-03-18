@@ -23,11 +23,18 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Buyer field.', Comment = '%';
                     Editable = rec."KWAT_Broker Note";
+                    trigger OnValidate()
+                    begin
+                        KTWABuyerDesc := GetCustName(Rec.KWAT_Buyer);
+                        CurrPage.Update();
+                    end;
+
                 }
                 field(KTWABuyerDesc1; KTWABuyerDesc)
                 {
                     caption = 'Buyer Name';
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("KWAT_Buyer Reference"; Rec."KWAT_Buyer Reference")
                 {
@@ -40,11 +47,18 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Seller field.', Comment = '%';
                     Editable = rec."KWAT_Agent Note";
+                    trigger OnValidate()
+                    begin
+                        KTWASellerDesc := GetCustName(Rec.KWAT_Seller);
+                        CurrPage.Update();
+                    end;
                 }
                 field(KTWASellerDesc1; KTWASellerDesc)
                 {
                     ApplicationArea = All;
                     caption = 'Seller Name';
+                    Editable = false;
+                    //Editable = rec."KWAT_Agent Note";
                 }
                 field("KWAT_Seller Reference"; Rec."KWAT_Seller Reference")
                 {
@@ -152,6 +166,10 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ApplicationArea = All;
                     caption = 'Delivery Point';
                     ToolTip = 'Specifies the value of the Delivery Point Code field.', Comment = '%';
+                    trigger OnValidate()
+                    begin
+                        getDPDesc();
+                    end;
                 }
                 field(KWAT_DPDesc; KWAT_DPDesc)
                 {
@@ -183,6 +201,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will print Agent Note(Seller)';
+                Enabled = rec."KWAT_Agent Note";
                 trigger OnAction()
                 var
                     KTAgentNote: Report "KT Agent Note Seller";
@@ -207,6 +226,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will Email Agent Note(Seller)';
+                Enabled = rec."KWAT_Agent Note";
                 trigger OnAction()
                 var
                     AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
@@ -223,6 +243,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will print Agent Note(Buyer)';
+                Enabled = rec."KWAT_Agent Note";
                 trigger OnAction()
                 var
                     KTBuyerAgentNote: Report "KT Agent Note Buyer";
@@ -247,6 +268,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will Email Agent Note(Buyer)';
+                Enabled = rec."KWAT_Agent Note";
                 trigger OnAction()
                 var
                     AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
@@ -263,12 +285,13 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will print Broker Note(Seller)';
+                Enabled = rec."KWAT_Broker Note";
                 trigger OnAction()
                 var
                     KTSellerBrokerNote: Report "KT Broker Note Seller";
                     SalesHdr: Record "Sales Header";
                 begin
-                    Rec.testfield("KWAT_Agent Note", true);
+                    Rec.testfield("KWAT_Broker Note", true);
                     //Message('In Progress');
                     Clear(KTSellerBrokerNote);
                     SalesHdr.Reset();
@@ -286,6 +309,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will Email Broker Note(Seller)';
+                Enabled = rec."KWAT_Broker Note";
                 trigger OnAction()
                 var
                     AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
@@ -302,12 +326,13 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will print Broker Note(Buyer)';
+                Enabled = rec."KWAT_Broker Note";
                 trigger OnAction()
                 var
                     KTBuyerBrokerNote: Report "KT Broker Note Buyer";
                     SalesHdr: Record "Sales Header";
                 begin
-                    Rec.testfield("KWAT_Agent Note", true);
+                    Rec.testfield("KWAT_Broker Note", true);
                     //Message('In Progress');
                     Clear(KTBuyerBrokerNote);
                     SalesHdr.Reset();
@@ -325,6 +350,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 Promoted = true;
                 PromotedCategory = Process;
                 ToolTip = 'It will Email Broker Note(Buyer)';
+                Enabled = rec."KWAT_Broker Note";
                 trigger OnAction()
                 var
                     AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
@@ -352,9 +378,10 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
     procedure GetCustName(pCustNo: code[20]): Text[100];
     var
         CustDesc: text[100];
+        lvCustomer: Record Customer;
     begin
-        if BuyerCustomer.GET(Rec.KWAT_Buyer) then begin
-            CustDesc := BuyerCustomer.Name;
+        if lvCustomer.GET(pCustNo) then begin
+            CustDesc := lvCustomer.Name;
         end else
             CustDesc := '';
         exit(CustDesc)

@@ -120,4 +120,14 @@ codeunit 50100 AdvanceTradingMgt
         XmlDoc.WriteTo(XmlText);
         exit(XmlText);
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Sales Document", 'OnAfterManualReleaseSalesDoc', '', false, false)]
+    local procedure SOReleaseArchived(var SalesHeader: Record "Sales Header"; PreviewMode: Boolean)
+    var
+        ArchiveMgt: Codeunit ArchiveManagement;
+    begin
+        IF not PreviewMode then begin
+            ArchiveMgt.ArchiveSalesDocument(SalesHeader);
+        end;
+    end;
 }

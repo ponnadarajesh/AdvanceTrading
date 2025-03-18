@@ -649,6 +649,9 @@ report 50101 "KT Broker Note Seller"
                 column(ItemReferenceNo_Lbl; FieldCaption("Item Reference No."))
                 {
                 }
+                column(BrokerfeeDesc; BrokerfeeDesc)
+                {
+                }
                 column(KWATVariantDesc1; KWATVariantDesc)
                 {
 
@@ -733,6 +736,12 @@ report 50101 "KT Broker Note Seller"
                         SeasonDesc := '';
                     end;
                     ;
+                    //Brokerfeedesc
+                    IF "Unit Price" <> 0 then
+                        BrokerfeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller'
+                    else
+                        BrokerfeeDesc := format("Unit Price");
+
 
                 end;
 
@@ -838,7 +847,8 @@ report 50101 "KT Broker Note Seller"
                     getBuyerDetails(Buyercustomer."No.");
                 end;
                 DeliveryPeriod := format("KWAT_Delivery Start") + ' TO ' + Format("KWAT_Delivery End");
-                Header.CalcFields("Work Description");
+                Header.CalcFields("Work Description", "No. of Archived Versions");
+
                 KWATWorkDesc := GetWorkDescription();
             end;
         }
@@ -1047,6 +1057,7 @@ report 50101 "KT Broker Note Seller"
 
     local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
     begin
+        if Header."No. of Archived Versions" = 0 then exit;
         SalesHdrArchive.Reset();
         SalesHdrArchive.SetRange("Document Type", Header."Document Type");
         SalesHdrArchive.SetRange("No.", Header."No.");
@@ -1250,6 +1261,7 @@ report 50101 "KT Broker Note Seller"
         BoldweightDesc: boolean;
         SalesHdrArchive: Record "Sales Header Archive";
         AdvanceTradingMgt: Codeunit "AdvanceTradingMgt";
+        BrokerfeeDesc: Text[250];
 
         BoldOtherCodeDesc: Boolean;
 

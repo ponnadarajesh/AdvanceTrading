@@ -55,7 +55,7 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
             Caption = 'Delivery End';
             DataClassification = ToBeClassified;
         }
-        field(50109; KWAT_Transporter; Text[20])
+        field(50109; KWAT_Transporter; Text[100])
         {
             Caption = 'Transporter';
             DataClassification = CustomerContent;
@@ -95,7 +95,7 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
         }
         field(50116; "KWAT_Trader Price"; Decimal)
         {
-            Caption = 'Trader Price';
+            Caption = 'Price';
             DataClassification = ToBeClassified;
         }
     }
