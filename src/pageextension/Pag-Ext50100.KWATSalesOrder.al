@@ -227,6 +227,66 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 PromotedCategory = Process;
                 ToolTip = 'It will Email Agent Note(Seller)';
                 Enabled = rec."KWAT_Agent Note";
+                // trigger OnAction()
+                // var
+                //     SalesHeader: Record "Sales Header";
+                //     Email: Codeunit Email;
+                //     EmailMessage: Codeunit "Email Message";
+                //     TempBlob: Codeunit "Temp Blob";
+                //     ReportSelections: Record "Report Selections";
+                //     Customer: Record Customer;
+                //     InStr: InStream;
+                //     OutStr: OutStream;
+                //     Subject: Text;
+                //     Body: Text;
+                //     Recipient: Text;
+                //     FileName: Text;
+                //     recref: RecordRef;
+                // begin
+                // Get the current sales order
+                // SalesHeader := Rec;
+                // //recref.GetTable(SalesHeader);
+                // //RecRef.Open(Database::"Sales Header");
+                // //RecRef.SetTable(SalesHeader); // Links RecRef to the current SalesHeader record
+                // //RecRef.SetRecFilter();
+                // RecRef.Open(Database::"Sales Header");
+                // RecRef.Field(SalesHeader.FieldNo("Document Type")).SetRange(SalesHeader."Document Type");
+                // RecRef.Field(SalesHeader.FieldNo("No.")).SetRange(SalesHeader."No.");
+                // //recref.SetTable(SalesHeader);
+
+
+                // // Get the customer email
+                // Customer.Get(SalesHeader."Sell-to Customer No.");
+                // Recipient := Customer."E-Mail";
+                // if Recipient = '' then
+                //     Error('Customer email address is not specified.');
+
+                // // Set email subject and body
+                // Subject := 'Agent Note - ' + SalesHeader."No.";
+                // Body := 'Dear Customer,\nPlease find attached your agent note.\nBest regards,\nAdvance Trading';
+
+                // // Generate the report as a PDF attachment
+                // TempBlob.CreateOutStream(OutStr);
+                // //ReportSelections.SetRange(Usage, ReportSelections.Usage::"S.Order");
+                // //if ReportSelections.FindFirst() then
+                // Report.SaveAs(50100, '', ReportFormat::Pdf, OutStr, recref);
+                // //else
+                // //Report.SaveAs(Report::"Standard Sales - Order Conf.", '', ReportFormat::Pdf, OutStr, SalesHeader);
+
+                // // Set the attachment filename
+                // FileName := 'AgentNote_' + SalesHeader."No." + '.pdf';
+
+                // // Create the email message
+                // EmailMessage.Create(Recipient, Subject, Body);
+                // TempBlob.CreateInStream(InStr);
+                // EmailMessage.AddAttachment(FileName, 'application/pdf', InStr);
+
+                // // Send the email
+                // if Email.Send(EmailMessage) then
+                //     Message('Agent Note email sent successfully.')
+                // else
+                //     Error('Failed to send the Agent Note email.');
+
                 trigger OnAction()
                 var
                     AdvanceTradingMgt: Codeunit AdvanceTradingMgt;

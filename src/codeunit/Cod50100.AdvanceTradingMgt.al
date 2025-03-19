@@ -70,15 +70,19 @@ codeunit 50100 AdvanceTradingMgt
     begin
         // Fetch the Sales Header record
         SalesHeader.Get(SalesHeader."Document Type"::Order, SalesOrderNo);
-        recref.GetTable(SalesHeader);
-        recref.SetTable(SalesHeader);
+        RecRef.Open(Database::"Sales Header");
+        RecRef.Field(SalesHeader.FieldNo("Document Type")).SetRange(SalesHeader."Document Type");
+        RecRef.Field(SalesHeader.FieldNo("No.")).SetRange(SalesHeader."No.");
+
+        //recref.GetTable(SalesHeader);
+        //recref.SetTable(SalesHeader);
         //Run the report request page to allow user to set filters (optional)
         //ReportParameters := Report.RunRequestPage(ReportID, SalesHeader."No.");
-        ReportParameters.Add('DocumentType', Format(SalesHeader."Document Type"::Order));
-        ReportParameters.Add('SalesOrderNo', SalesOrderNo);
+        //ReportParameters.Add('DocumentType', Format(SalesHeader."Document Type"::Order));
+        //ReportParameters.Add('SalesOrderNo', SalesOrderNo);
         // Save the report as PDF into a TempBlob   
         TempBlob.CreateOutStream(OutStr);
-        Report.SaveAs(ReportID, GetReportParametersAsXml(ReportParameters), ReportFormat::Pdf, OutStr, recref);
+        Report.SaveAs(ReportID, '', ReportFormat::Pdf, OutStr, recref);
 
         // Prepare the email message
         // Prepare the email message
