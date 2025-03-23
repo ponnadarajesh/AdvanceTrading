@@ -351,6 +351,13 @@ report 50103 "KT Agent Note Buyer"
             Column(KWAT_OtherDesc; KWAT_OtherCodeDesc)
             {
             }
+            column(Amended; Amended)
+            {
+            }
+            column(Documentlbl; Documentlbl)
+            {
+            }
+
             column(BoldAnalysisDesc; BoldAnalysisDesc)
             {
             }
@@ -748,11 +755,12 @@ report 50103 "KT Agent Note Buyer"
                     else
                         AgentNoteFeeDesc := format("Unit Price");
 
-                    IF "Unit Price" <> 0 then begin
-                        UnitPriceDesc := Format("Unit Price") + '/' + "Unit of Measure Code";
+                    IF Header."KWAT_Trader Price" <> 0 then begin
+                        UnitPriceDesc := Format(Header."KWAT_Trader Price") + '/' + "Unit of Measure Code" + ' GST';
                     end else begin
                         UnitPriceDesc := '';
                     end;
+
                     IF Quantity <> 0 then
                         QtyDesc := format(Quantity) + ' ' + "Unit of Measure Code" + ' ' + KWAT_ToleranceDesc
                     else
@@ -840,7 +848,7 @@ report 50103 "KT Agent Note Buyer"
                    (CurrReport.UseRequestPage and ArchiveDocument or
                     not CurrReport.UseRequestPage and SalesSetup."Archive Orders")
                 then
-                    ArchiveManagement.StoreSalesDocument(Header, LogInteraction);
+                    //ArchiveManagement.StoreSalesDocument(Header, LogInteraction);
 
                 TotalSubTotal := 0;
                 TotalInvDiscAmount := 0;
@@ -866,6 +874,11 @@ report 50103 "KT Agent Note Buyer"
                 DeliveryPeriod := format("KWAT_Delivery Start", 0, '<Weekday Text> <Day> <Month Text> <Year4>') + ' to ' + Format("KWAT_Delivery End", 0, '<Weekday Text> <Day> <Month Text> <Year4>');
                 Header.CalcFields("Work Description");
                 KWATWorkDesc := GetWorkDescription();
+                IF Amended then begin
+                    Documentlbl := 'AMENDED AGENT NOTE';
+                end else begin
+                    Documentlbl := 'AGENT NOTE';
+                end;
             end;
         }
     }
@@ -899,6 +912,7 @@ report 50103 "KT Agent Note Buyer"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Archive Document';
                         ToolTip = 'Specifies if the document is archived after you print it.';
+                        Visible = false;
 
                         trigger OnValidate()
                         begin
@@ -1001,7 +1015,8 @@ report 50103 "KT Agent Note Buyer"
         else
             KWAT_TraderDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Trader Code"));
+        MarkAmended(BoldTraderDesc);
     end;
 
 
@@ -1015,7 +1030,16 @@ report 50103 "KT Agent Note Buyer"
         else
             KWAT_AnalysisDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Analysis Code"));
+        MarkAmended(BoldAnalysisDesc);
+    end;
+
+    procedure MarkAmended(lvAmended: Boolean)
+    var
+        IsHandled: Boolean;
+    begin
+        IF lvAmended then
+            Amended := true;
     end;
 
 
@@ -1029,7 +1053,8 @@ report 50103 "KT Agent Note Buyer"
         else
             KWAT_OtherCodeDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Other Code"));
+        MarkAmended(BoldOtherCodeDesc);
     end;
 
     procedure getweightDesc()
@@ -1042,7 +1067,8 @@ report 50103 "KT Agent Note Buyer"
         else
             KWAT_WeightDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Weight Code"));
+        MarkAmended(BoldweightDesc);
     end;
 
     procedure getfreightDesc()
@@ -1055,7 +1081,8 @@ report 50103 "KT Agent Note Buyer"
         else
             KWAT_FreightCodeDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Freight Code"));
+        MarkAmended(BoldfreightDesc);
     end;
 
     procedure getToleranceDesc()
@@ -1069,10 +1096,12 @@ report 50103 "KT Agent Note Buyer"
             KWAT_ToleranceDesc := '';
         GetSalesHeaderArchive(Header);
         BoldToleranceDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        MarkAmended(BoldToleranceDesc);
     end;
 
     local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
     begin
+        Header.CalcFields("No. of Archived Versions");
         if Header."No. of Archived Versions" = 0 then exit;
         SalesHdrArchive.Reset();
         SalesHdrArchive.SetRange("Document Type", Header."Document Type");
@@ -1131,7 +1160,7 @@ report 50103 "KT Agent Note Buyer"
     var
         KWATDP: Record KWAdvanceTrading_DeliveryPoint;
     begin
-        BoldweightDesc := false;
+        //BoldweightDesc := false;
         IF KWATDP.GET(Header."KWAT_DeliveryPoint Code") then
             KWAT_DPDesc := KWATDP.Description
         else
@@ -1297,6 +1326,8 @@ report 50103 "KT Agent Note Buyer"
 
         BoldOtherCodeDesc: Boolean;
         AgentNoteFeeDesc: Text[250];
+        Amended: Boolean;
+        Documentlbl: Text[100];
 
 
     local procedure InitLogInteraction()

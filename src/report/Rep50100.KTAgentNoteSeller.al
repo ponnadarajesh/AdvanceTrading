@@ -351,6 +351,12 @@ report 50100 "KT Agent Note Seller"
             Column(KWAT_OtherDesc; KWAT_OtherCodeDesc)
             {
             }
+            column(Amended; Amended)
+            {
+            }
+            column(Documentlbl; Documentlbl)
+            {
+            }
             column(BoldAnalysisDesc; BoldAnalysisDesc)
             {
             }
@@ -740,8 +746,8 @@ report 50100 "KT Agent Note Seller"
                         SeasonDesc := '';
                     end;
                     ;
-                    IF "Unit Price" <> 0 then begin
-                        UnitPriceDesc := Format("Unit Price") + '/' + "Unit of Measure Code";
+                    IF Header."KWAT_Trader Price" <> 0 then begin
+                        UnitPriceDesc := Format(Header."KWAT_Trader Price") + '/' + "Unit of Measure Code" + ' GST';
                     end else begin
                         UnitPriceDesc := '';
                     end;
@@ -833,7 +839,7 @@ report 50100 "KT Agent Note Seller"
                    (CurrReport.UseRequestPage and ArchiveDocument or
                     not CurrReport.UseRequestPage and SalesSetup."Archive Orders")
                 then
-                    ArchiveManagement.StoreSalesDocument(Header, LogInteraction);
+                    //ArchiveManagement.StoreSalesDocument(Header, LogInteraction);
 
                 TotalSubTotal := 0;
                 TotalInvDiscAmount := 0;
@@ -848,6 +854,7 @@ report 50100 "KT Agent Note Seller"
                 getTraderDesc();
                 getweightDesc();
                 getdpDesc();
+
                 //seller Details
                 IF Sellercustomer.get(Header.KWAT_Seller) then begin
                     getSellerDetails(Sellercustomer."No.");
@@ -859,6 +866,11 @@ report 50100 "KT Agent Note Seller"
                 DeliveryPeriod := format("KWAT_Delivery Start", 0, '<Weekday Text> <Day> <Month Text> <Year4>') + ' to ' + Format("KWAT_Delivery End", 0, '<Weekday Text> <Day> <Month Text> <Year4>');
 
                 KWATWorkDesc := GetWorkDescription();
+                IF Amended then begin
+                    Documentlbl := 'AMENDED AGENT NOTE';
+                end else begin
+                    Documentlbl := 'AGENT NOTE';
+                end;
             end;
         }
     }
@@ -892,6 +904,7 @@ report 50100 "KT Agent Note Seller"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Archive Document';
                         ToolTip = 'Specifies if the document is archived after you print it.';
+                        Visible = false;
 
                         trigger OnValidate()
                         begin
@@ -997,6 +1010,7 @@ report 50100 "KT Agent Note Seller"
             GetSalesHeaderArchive(Header);
         GetSalesHeaderArchive(Header);
         BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Trader Code"));
+        MarkAmended(BoldTraderDesc);
     end;
 
 
@@ -1011,6 +1025,7 @@ report 50100 "KT Agent Note Seller"
             KWAT_AnalysisDesc := '';
         GetSalesHeaderArchive(Header);
         BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Analysis Code"));
+        MarkAmended(BoldAnalysisDesc);
     end;
 
 
@@ -1025,6 +1040,7 @@ report 50100 "KT Agent Note Seller"
             KWAT_OtherCodeDesc := '';
         GetSalesHeaderArchive(Header);
         BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Other Code"));
+        MarkAmended(BoldOtherCodeDesc);
     end;
 
     procedure getweightDesc()
@@ -1038,6 +1054,7 @@ report 50100 "KT Agent Note Seller"
             KWAT_WeightDesc := '';
         GetSalesHeaderArchive(Header);
         BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Weight Code"));
+        MarkAmended(BoldweightDesc);
     end;
 
     procedure getfreightDesc()
@@ -1051,6 +1068,7 @@ report 50100 "KT Agent Note Seller"
             KWAT_FreightCodeDesc := '';
         GetSalesHeaderArchive(Header);
         BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Freight Code"));
+        MarkAmended(BoldfreightDesc);
     end;
 
     procedure getToleranceDesc()
@@ -1064,10 +1082,20 @@ report 50100 "KT Agent Note Seller"
             KWAT_ToleranceDesc := '';
         GetSalesHeaderArchive(Header);
         BoldToleranceDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        MarkAmended(BoldToleranceDesc);
+    end;
+
+    procedure MarkAmended(lvAmended: Boolean)
+    var
+        IsHandled: Boolean;
+    begin
+        IF lvAmended then
+            Amended := true;
     end;
 
     local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
     begin
+        Header.CalcFields("No. of Archived Versions");
         If header."No. of Archived Versions" = 0 then exit;
         SalesHdrArchive.Reset();
         SalesHdrArchive.SetRange("Document Type", Header."Document Type");
@@ -1126,7 +1154,7 @@ report 50100 "KT Agent Note Seller"
     var
         KWATDP: Record KWAdvanceTrading_DeliveryPoint;
     begin
-        BoldweightDesc := false;
+        //BoldweightDesc := false;
         IF KWATDP.GET(Header."KWAT_DeliveryPoint Code") then
             KWAT_DPDesc := KWATDP.Description
         else
@@ -1206,6 +1234,7 @@ report 50100 "KT Agent Note Seller"
         BillToContactEmailLbl: Label 'Bill-to Contact E-Mail';
         LCYTxt: label ' (LCY)';
         LegalOfficeTxt, LegalOfficeLbl, CustomGiroTxt, CustomGiroLbl, LegalStatementLbl : Text;
+        Documentlbl: text;
 
     protected var
         CompanyInfo: Record "Company Information";
@@ -1291,6 +1320,7 @@ report 50100 "KT Agent Note Seller"
         BoldOtherCodeDesc: Boolean;
         UnitPriceDesc: Text[250];
         QtyDesc: Text[250];
+        Amended: Boolean;
 
 
     local procedure InitLogInteraction()
@@ -1392,6 +1422,16 @@ report 50100 "KT Agent Note Seller"
 
     [IntegrationEvent(true, false)]
     local procedure OnHeaderOnAfterGetRecordOnAfterUpdateNoPrinted(ReportInPreviewMode: Boolean; var SalesHeader: Record "Sales Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeMarkAmended(BoldTraderDesc: Boolean; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterMarkAmended(BoldTraderDesc: Boolean)
     begin
     end;
 }

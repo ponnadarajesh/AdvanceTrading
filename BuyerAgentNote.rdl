@@ -1856,14 +1856,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="KWAT_TraderPrice_Header">
+                            <Textbox Name="UnitPriceDesc">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!KWAT_TraderPrice_Header.Value</Value>
+                                      <Value>=Fields!UnitPriceDesc.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -1876,7 +1876,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>KWAT_TraderPrice_Header</rd:DefaultName>
+                              <rd:DefaultName>UnitPriceDesc</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -2421,7 +2421,7 @@
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
-                                        <FontWeight>=IIF(Fields!BoldweightDesc.Value, "Bold", "Normal")</FontWeight>
+                                        <FontWeight>=IIF(Fields!BoldFreightDesc.Value, "Bold", "Normal")</FontWeight>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -2717,6 +2717,7 @@
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
+                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                       </TablixCells>
@@ -3034,7 +3035,7 @@
                   </TablixMembers>
                 </TablixRowHierarchy>
                 <DataSetName>DataSet_Result</DataSetName>
-                <Top>5.47193cm</Top>
+                <Top>4.87926cm</Top>
                 <Left>0.1492cm</Left>
                 <Height>7.97699cm</Height>
                 <Width>17.26278cm</Width>
@@ -3072,8 +3073,8 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox6</rd:DefaultName>
-                <Top>13.62531cm</Top>
-                <Left>0.14922cm</Left>
+                <Top>13.15964cm</Top>
+                <Left>0.11146cm</Left>
                 <Height>1.44504cm</Height>
                 <Width>17.26276cm</Width>
                 <ZIndex>2</ZIndex>
@@ -3107,7 +3108,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox6</rd:DefaultName>
-                <Top>15.01743cm</Top>
+                <Top>14.74579cm</Top>
                 <Height>1.24219cm</Height>
                 <Width>17.3125cm</Width>
                 <ZIndex>3</ZIndex>
@@ -4015,9 +4016,9 @@
               </Tablix>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>1.4064cm</Top>
-            <Left>0.1496cm</Left>
-            <Height>16.25962cm</Height>
+            <Top>1.35349cm</Top>
+            <Left>0.14962cm</Left>
+            <Height>15.98798cm</Height>
             <Width>17.46171cm</Width>
             <Style>
               <Border>
@@ -4162,7 +4163,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>6.97596in</Height>
+        <Height>6.86763in</Height>
         <Style />
       </Body>
       <Width>7.00792in</Width>
@@ -4179,7 +4180,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Agents Note</Value>
+                      <Value>=First(Fields!Documentlbl.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -4967,6 +4968,12 @@ End Function
         </Field>
         <Field Name="KWAT_OtherDesc">
           <DataField>KWAT_OtherDesc</DataField>
+        </Field>
+        <Field Name="Amended">
+          <DataField>Amended</DataField>
+        </Field>
+        <Field Name="Documentlbl">
+          <DataField>Documentlbl</DataField>
         </Field>
         <Field Name="BoldAnalysisDesc">
           <DataField>BoldAnalysisDesc</DataField>

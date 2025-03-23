@@ -67,13 +67,14 @@ codeunit 50100 AdvanceTradingMgt
         OutStr: OutStream;
         ReportParameters: Dictionary of [Text, Text];
         recref: RecordRef;
+        Cust: Record "Customer";
+        Recipienttype: Enum "Email Recipient Type";
     begin
         // Fetch the Sales Header record
         SalesHeader.Get(SalesHeader."Document Type"::Order, SalesOrderNo);
         RecRef.Open(Database::"Sales Header");
         RecRef.Field(SalesHeader.FieldNo("Document Type")).SetRange(SalesHeader."Document Type");
         RecRef.Field(SalesHeader.FieldNo("No.")).SetRange(SalesHeader."No.");
-
         //recref.GetTable(SalesHeader);
         //recref.SetTable(SalesHeader);
         //Run the report request page to allow user to set filters (optional)
@@ -87,7 +88,12 @@ codeunit 50100 AdvanceTradingMgt
         // Prepare the email message
         // Prepare the email message
         TempBlob.CreateInStream(InStr);
-        EmailMessage.Create('', 'Draft: ' + ReportName + SalesOrderNo, 'Please review the attached' + ReportName + '.');
+        IF Cust.get(SalesHeader."Sell-to Customer No.") then begin
+            //EmailMessage.AddRecipient(2, Cust."E-Mail");
+        end;
+
+
+        EmailMessage.Create(Cust."E-Mail", 'Draft: ' + ReportName + SalesOrderNo, 'Please review the attached' + ReportName + '.');
 
         // Add the report as an attachment
         EmailMessage.AddAttachment(ReportName + ' ' + SalesOrderNo + '.pdf', 'application/pdf', InStr);

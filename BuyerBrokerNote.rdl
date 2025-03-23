@@ -2746,14 +2746,14 @@
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="KWAT_TraderPrice_Header">
+                            <Textbox Name="UnitPriceDesc">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!KWAT_TraderPrice_Header.Value</Value>
+                                      <Value>=Fields!UnitPriceDesc.Value</Value>
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -2766,7 +2766,7 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>KWAT_TraderPrice_Header</rd:DefaultName>
+                              <rd:DefaultName>UnitPriceDesc</rd:DefaultName>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -3311,7 +3311,7 @@
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
-                                        <FontWeight>=IIF(Fields!BoldweightDesc.Value, "Bold", "Normal")</FontWeight>
+                                        <FontWeight>=IIF(Fields!BoldfreightDesc.Value, "Bold", "Normal")</FontWeight>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -3329,6 +3329,7 @@
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
+                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                       </TablixCells>
@@ -4183,7 +4184,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Broker Note</Value>
+                      <Value>=First(Fields!Documentlbl.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -4971,6 +4972,12 @@ End Function
         </Field>
         <Field Name="KWAT_OtherDesc">
           <DataField>KWAT_OtherDesc</DataField>
+        </Field>
+        <Field Name="Amended">
+          <DataField>Amended</DataField>
+        </Field>
+        <Field Name="Documentlbl">
+          <DataField>Documentlbl</DataField>
         </Field>
         <Field Name="BoldAnalysisDesc">
           <DataField>BoldAnalysisDesc</DataField>

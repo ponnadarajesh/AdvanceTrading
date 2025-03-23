@@ -55,7 +55,7 @@ tableextension 50102 "KWAT_SalesCrHeaderEx" extends "Sales Cr.Memo Header"
             Caption = 'Delivery End';
             DataClassification = ToBeClassified;
         }
-        field(50109; KWAT_Transporter; Text[20])
+        field(50109; KWAT_Transporter; Text[100])
         {
             Caption = 'Transporter';
             DataClassification = CustomerContent;

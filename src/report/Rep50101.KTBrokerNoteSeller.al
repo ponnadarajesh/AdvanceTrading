@@ -354,6 +354,13 @@ report 50101 "KT Broker Note Seller"
             Column(KWAT_OtherDesc; KWAT_OtherCodeDesc)
             {
             }
+            column(Amended; Amended)
+            {
+            }
+            column(Documentlbl; Documentlbl)
+            {
+            }
+
             column(BoldAnalysisDesc; BoldAnalysisDesc)
             {
             }
@@ -748,11 +755,15 @@ report 50101 "KT Broker Note Seller"
                     //Brokerfeedesc
                     IF "Unit Price" <> 0 then begin
                         BrokerfeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller';
-                        UnitPriceDesc := Format("Unit Price") + '/' + "Unit of Measure Code";
                     end else begin
                         BrokerfeeDesc := format("Unit Price");
+                    end;
+                    IF Header."KWAT_Trader Price" <> 0 then begin
+                        UnitPriceDesc := Format(Header."KWAT_Trader Price") + '/' + "Unit of Measure Code" + ' GST';
+                    end else begin
                         UnitPriceDesc := '';
                     end;
+
                     IF Quantity <> 0 then
                         QtyDesc := format(Quantity) + ' ' + "Unit of Measure Code" + ' ' + KWAT_ToleranceDesc
                     else
@@ -839,7 +850,7 @@ report 50101 "KT Broker Note Seller"
                    (CurrReport.UseRequestPage and ArchiveDocument or
                     not CurrReport.UseRequestPage and SalesSetup."Archive Orders")
                 then
-                    ArchiveManagement.StoreSalesDocument(Header, LogInteraction);
+                    //ArchiveManagement.StoreSalesDocument(Header, LogInteraction);
 
                 TotalSubTotal := 0;
                 TotalInvDiscAmount := 0;
@@ -866,6 +877,12 @@ report 50101 "KT Broker Note Seller"
                 Header.CalcFields("Work Description", "No. of Archived Versions");
 
                 KWATWorkDesc := GetWorkDescription();
+                IF Amended then begin
+                    Documentlbl := 'AMENDED BROKER NOTE';
+                end else begin
+                    Documentlbl := 'BROKER NOTE';
+                end;
+
             end;
         }
     }
@@ -899,6 +916,7 @@ report 50101 "KT Broker Note Seller"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Archive Document';
                         ToolTip = 'Specifies if the document is archived after you print it.';
+                        Visible = false;
 
                         trigger OnValidate()
                         begin
@@ -1001,7 +1019,8 @@ report 50101 "KT Broker Note Seller"
         else
             KWAT_TraderDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Trader Code"));
+        MarkAmended(BoldTraderDesc);
     end;
 
 
@@ -1015,9 +1034,17 @@ report 50101 "KT Broker Note Seller"
         else
             KWAT_AnalysisDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Analysis Code"));
+        MarkAmended(BoldAnalysisDesc);
     end;
 
+    procedure MarkAmended(lvAmended: Boolean)
+    var
+        IsHandled: Boolean;
+    begin
+        IF lvAmended then
+            Amended := true;
+    end;
 
     procedure getOtherDesc()
     var
@@ -1029,7 +1056,8 @@ report 50101 "KT Broker Note Seller"
         else
             KWAT_OtherCodeDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Other Code"));
+        MarkAmended(BoldOtherCodeDesc);
     end;
 
     procedure getweightDesc()
@@ -1042,14 +1070,15 @@ report 50101 "KT Broker Note Seller"
         else
             KWAT_WeightDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Weight Code"));
+        MarkAmended(BoldweightDesc);
     end;
 
     procedure getDPDesc()
     var
         KWATDP: Record KWAdvanceTrading_DeliveryPoint;
     begin
-        BoldweightDesc := false;
+        //BoldweightDesc := false;
         IF KWATDP.GET(Header."KWAT_DeliveryPoint Code") then
             KWAT_DPDesc := KWATDP.Description
         else
@@ -1068,7 +1097,8 @@ report 50101 "KT Broker Note Seller"
         else
             KWAT_FreightCodeDesc := '';
         GetSalesHeaderArchive(Header);
-        BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        BoldfreightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Freight Code"));
+        MarkAmended(BoldfreightDesc);
     end;
 
     procedure getToleranceDesc()
@@ -1082,10 +1112,12 @@ report 50101 "KT Broker Note Seller"
             KWAT_ToleranceDesc := '';
         GetSalesHeaderArchive(Header);
         BoldToleranceDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Tolerance Code"));
+        MarkAmended(BoldToleranceDesc);
     end;
 
     local procedure GetSalesHeaderArchive(Header: Record "Sales Header")
     begin
+        Header.CalcFields("No. of Archived Versions");
         if Header."No. of Archived Versions" = 0 then exit;
         SalesHdrArchive.Reset();
         SalesHdrArchive.SetRange("Document Type", Header."Document Type");
@@ -1296,6 +1328,8 @@ report 50101 "KT Broker Note Seller"
         QtyDesc: Text[250];
         UnitPriceDesc: Text[250];
         KWAT_DPDesc: Text[250];
+        Amended: Boolean;
+        Documentlbl: Text[250];
 
 
     local procedure InitLogInteraction()

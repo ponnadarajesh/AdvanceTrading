@@ -1,7 +1,17 @@
 tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
 {
+
     fields
     {
+        modify("Sell-to Customer No.")
+        {
+            trigger OnafterValidate()
+            begin
+                if ("Sell-to Customer No." <> '') then begin
+                    "KWAT_Seller" := "Sell-to Customer No.";
+                end;
+            end;
+        }
         field(50100; "KWAT_Trader Code"; Code[20])
         {
             Caption = 'Trader Code';
