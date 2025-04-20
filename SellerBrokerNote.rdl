@@ -3329,7 +3329,6 @@
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
-                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                       </TablixCells>
@@ -3925,8 +3924,8 @@
                   </TablixMembers>
                 </TablixRowHierarchy>
                 <DataSetName>DataSet_Result</DataSetName>
-                <Top>5.47193cm</Top>
-                <Left>0.1492cm</Left>
+                <Top>4.9216cm</Top>
+                <Left>0.11146cm</Left>
                 <Height>7.97699cm</Height>
                 <Width>17.26278cm</Width>
                 <ZIndex>2</ZIndex>
@@ -3963,8 +3962,8 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox6</rd:DefaultName>
-                <Top>13.62531cm</Top>
-                <Left>0.14922cm</Left>
+                <Top>13.0397cm</Top>
+                <Left>0.11146cm</Left>
                 <Height>1.44504cm</Height>
                 <Width>17.26276cm</Width>
                 <ZIndex>3</ZIndex>
@@ -3998,7 +3997,8 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox6</rd:DefaultName>
-                <Top>15.01743cm</Top>
+                <Top>14.62585cm</Top>
+                <Left>0.11146cm</Left>
                 <Height>1.24219cm</Height>
                 <Width>17.3125cm</Width>
                 <ZIndex>4</ZIndex>
@@ -4018,7 +4018,7 @@
             <KeepTogether>true</KeepTogether>
             <Top>1.4064cm</Top>
             <Left>0.1496cm</Left>
-            <Height>16.25962cm</Height>
+            <Height>15.94212cm</Height>
             <Width>17.46171cm</Width>
             <Style>
               <Border>
@@ -4026,78 +4026,6 @@
               </Border>
             </Style>
           </Rectangle>
-          <Textbox Name="Textbox4">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Trade Date           :      </Value>
-                    <Style>
-                      <FontFamily>Verdana</FontFamily>
-                      <FontSize>8pt</FontSize>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value xml:space="preserve"> </Value>
-                    <Style>
-                      <FontFamily>Verdana</FontFamily>
-                      <FontSize>8pt</FontSize>
-                      <Format>dddd dd MMMM yyyy</Format>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value />
-                    <Style>
-                      <FontFamily>Verdana</FontFamily>
-                      <FontSize>8pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Agents Note No.    : </Value>
-                    <Style>
-                      <FontFamily>Verdana</FontFamily>
-                      <FontSize>8pt</FontSize>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value xml:space="preserve">     </Value>
-                    <Style>
-                      <FontFamily>Verdana</FontFamily>
-                      <FontSize>8pt</FontSize>
-                      <Color>Red</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Left>0.48761cm</Left>
-            <Height>1.23001cm</Height>
-            <Width>17.3125cm</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="Textbox14">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -4108,6 +4036,7 @@
                     <Value>=First(Fields!DocumentDate.Value, "DataSet_Result")</Value>
                     <Style>
                       <FontSize>8pt</FontSize>
+                      <Format>D</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -4117,9 +4046,9 @@
             <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>0.02779in</Top>
             <Left>1.45833in</Left>
-            <Height>0.16667in</Height>
+            <Height>0.14445in</Height>
             <Width>3.29167in</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4147,10 +4076,44 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>0.2639in</Top>
+            <Top>0.2139in</Top>
             <Left>1.45833in</Left>
-            <Height>0.22036in</Height>
+            <Height>0.1648in</Height>
             <Width>3.29167in</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox29">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Trade Date:"</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.02222in</Top>
+            <Left>0.20747in</Left>
+            <Height>0.15002in</Height>
+            <Width>1.1953in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -4162,14 +4125,48 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox38">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Broker Note No.:"</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>0.2278in</Top>
+            <Left>0.22136in</Left>
+            <Height>0.1509in</Height>
+            <Width>1.18141in</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>6.97596in</Height>
+        <Height>6.90929in</Height>
         <Style />
       </Body>
       <Width>7.08333in</Width>
       <Page>
         <PageHeader>
-          <Height>1.75594in</Height>
+          <Height>1.50594in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -4183,7 +4180,7 @@
                       <Value>=First(Fields!Documentlbl.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
-                        <FontSize>24pt</FontSize>
+                        <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -4195,7 +4192,7 @@
               </Paragraphs>
               <Top>1.78717cm</Top>
               <Left>0.33958cm</Left>
-              <Height>1.14686cm</Height>
+              <Height>0.80819cm</Height>
               <Width>17.3125cm</Width>
               <Style>
                 <Border>
@@ -4215,24 +4212,22 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>This broker’s note confirms that Advance Trading Australasia Pty Ltd have acted as an broker between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
+                      <Value>This Broker note confirms that Advance Trading Australasia Pty Ltd have acted as an broker between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
-                        <FontSize>9pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
+                  <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>3.1457cm</Top>
-              <Left>0.33958cm</Left>
-              <Height>1.31438cm</Height>
-              <Width>17.3125cm</Width>
+              <Top>2.7012cm</Top>
+              <Left>0.24129cm</Left>
+              <Height>1.08861cm</Height>
+              <Width>17.41079cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -4306,7 +4301,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>2.07439in</Height>
+          <Height>1.19939in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -4331,7 +4326,7 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox27</rd:DefaultName>
-                          <Top>0.57935in</Top>
+                          <Top>0.32102in</Top>
                           <Left>0.12655in</Left>
                           <Height>0.19792in</Height>
                           <Width>2.36458in</Width>
@@ -4352,43 +4347,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Advance Trading Australasia Pty Ltd</Value>
+                                  <Value>Advance Trading Australasia Pty Ltd        ABN: 13 096 386 686 </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#385d8a</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>ABN: 13 096 386 686 </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Verdana</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#385d8a</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Verdana</FontFamily>
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#385d8a</Color>
@@ -4404,7 +4367,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#385d8a</Color>
@@ -4416,11 +4379,27 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>33 Fitzmaurice St                                         55 Lewis Street </Value>
+                                  <Value>david@advance-trading.com.au</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>Underline</TextDecoration>
+                                    <Color>#385d8a</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Contact: Tom Wilson                                     Mobile: 0419 184 029 </Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#385d8a</Color>
@@ -4432,11 +4411,27 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Wagga Wagga, NSW 2650                          Mudgee, NSW 2850 Australia                                                       Australia</Value>
+                                  <Value>tom@advance-trading.com.au</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>Underline</TextDecoration>
+                                    <Color>#385d8a</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>33 Fitzmaurice St Wagga Wagga, NSW 2650 Australia</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#385d8a</Color>
@@ -4447,11 +4442,45 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox135</rd:DefaultName>
-                          <Top>0.99716cm</Top>
-                          <Left>0.03528cm</Left>
-                          <Height>3.4844cm</Height>
-                          <Width>12.57267cm</Width>
+                          <Top>0.10584cm</Top>
+                          <Left>0.10583cm</Left>
+                          <Height>2.13205cm</Height>
+                          <Width>12.50212cm</Width>
                           <ZIndex>1</ZIndex>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <Textbox Name="Textbox30">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>= "Page " &amp; Globals!PageNumber &amp; " of " &amp; Globals!TotalPages</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox30</rd:DefaultName>
+                          <Top>2.23789cm</Top>
+                          <Left>10.2342cm</Left>
+                          <Height>0.6cm</Height>
+                          <Width>2.37375cm</Width>
+                          <ZIndex>2</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -4464,8 +4493,9 @@
                         </Textbox>
                       </ReportItems>
                       <KeepTogether>true</KeepTogether>
-                      <Left>4.93108cm</Left>
-                      <Height>4.48156cm</Height>
+                      <Top>0.07056cm</Top>
+                      <Left>4.73331cm</Left>
+                      <Height>2.83789cm</Height>
                       <Width>12.60795cm</Width>
                       <Style>
                         <Border>
@@ -4489,9 +4519,9 @@
                           <Value>=First(Fields!CompanyPicture.Value, "DataSet_Result")</Value>
                           <MIMEType>image/jpeg</MIMEType>
                           <Sizing>FitProportional</Sizing>
-                          <Top>0.125in</Top>
+                          <Top>0.04167in</Top>
                           <Left>0.04696in</Left>
-                          <Height>1.25968in</Height>
+                          <Height>0.83939in</Height>
                           <Width>1.73272in</Width>
                           <Style>
                             <Border>
@@ -4501,9 +4531,9 @@
                         </Image>
                       </ReportItems>
                       <KeepTogether>true</KeepTogether>
-                      <Top>0.67966cm</Top>
-                      <Left>0.22653cm</Left>
-                      <Height>3.8019cm</Height>
+                      <Top>0.07056cm</Top>
+                      <Left>0.02876cm</Left>
+                      <Height>2.23789cm</Height>
                       <Width>4.66927cm</Width>
                       <ZIndex>1</ZIndex>
                       <Style>
@@ -4519,8 +4549,9 @@
                     </Rectangle>
                   </ReportItems>
                   <KeepTogether>true</KeepTogether>
-                  <Height>5.26893cm</Height>
-                  <Width>17.53903cm</Width>
+                  <Left>0.19777cm</Left>
+                  <Height>2.9406cm</Height>
+                  <Width>17.34126cm</Width>
                   <Visibility>
                     <Hidden>=IIF(Globals!PageNumber = Globals!TotalPages, False, True)</Hidden>
                   </Visibility>
@@ -4532,54 +4563,10 @@
                 </Rectangle>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
+              <Top>0cm</Top>
               <Left>0.14181cm</Left>
-              <Height>5.26893cm</Height>
+              <Height>3.0041cm</Height>
               <Width>17.53903cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Rectangle>
-            <Rectangle Name="Rectangle16">
-              <ReportItems>
-                <Textbox Name="Textbox30">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>= "Page " &amp; Globals!PageNumber &amp; " of " &amp; Globals!TotalPages</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <rd:DefaultName>Textbox30</rd:DefaultName>
-                  <Left>2.26642cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>2.73358cm</Width>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-              </ReportItems>
-              <KeepTogether>true</KeepTogether>
-              <Top>4.35143cm</Top>
-              <Left>12.52384cm</Left>
-              <Height>0.9175cm</Height>
-              <Width>5cm</Width>
-              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -4595,7 +4582,7 @@
         </PageFooter>
         <PageHeight>11.69in</PageHeight>
         <PageWidth>8.27in</PageWidth>
-        <LeftMargin>1in</LeftMargin>
+        <LeftMargin>0.5in</LeftMargin>
         <RightMargin>0in</RightMargin>
         <TopMargin>0in</TopMargin>
         <BottomMargin>0in</BottomMargin>

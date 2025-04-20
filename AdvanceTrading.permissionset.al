@@ -1,0 +1,30 @@
+permissionset 50100 AdvanceTrading
+{
+    Assignable = true;
+    Permissions = tabledata KWAdvanceTrading_Analysis = RIMD,
+        tabledata KWAdvanceTrading_DeliveryPoint = RIMD,
+        tabledata KWAdvanceTrading_Freight = RIMD,
+        tabledata KWAdvanceTrading_Other = RIMD,
+        tabledata KWAdvanceTrading_Trader = RIMD,
+        tabledata KWAdvanceTrading_Weight = RIMD,
+        tabledata KW_AdvanceTrading_Tolerance = RIMD,
+        table KWAdvanceTrading_Analysis = X,
+        table KWAdvanceTrading_DeliveryPoint = X,
+        table KWAdvanceTrading_Freight = X,
+        table KWAdvanceTrading_Other = X,
+        table KWAdvanceTrading_Trader = X,
+        table KWAdvanceTrading_Weight = X,
+        table KW_AdvanceTrading_Tolerance = X,
+        report "KT Agent Note Buyer" = X,
+        report "KT Agent Note Seller" = X,
+        report "KT Broker Note Buyer" = X,
+        report "KT Broker Note Seller" = X,
+        codeunit AdvanceTradingMgt = X,
+        page KWAT_Analysis = X,
+        page KWAT_DeliveryPoint = X,
+        page KWAT_Freights = X,
+        page KWAT_Others = X,
+        page KWAT_Tolerances = X,
+        page KWAT_Traders = X,
+        page KWAT_Weights = X;
+}
