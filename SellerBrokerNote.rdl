@@ -2222,6 +2222,7 @@
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
+                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                       </TablixCells>
@@ -3036,6 +3037,7 @@
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
                                         <FontWeight>=IIF(Fields!BoldweightDesc.Value, "Bold", "Normal")</FontWeight>
+                                        <Color>=IIF(Fields!BoldweightDesc.Value, "Red", "Black")</Color>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -3174,6 +3176,7 @@
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
                                         <FontWeight>=IIF(Fields!BoldAnalysisDesc.Value, "Bold", "Normal")</FontWeight>
+                                        <Color>=IIF(Fields!BoldAnalysisDesc.Value, "Red", "Black")</Color>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -3312,6 +3315,7 @@
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
                                         <FontWeight>=IIF(Fields!BoldfreightDesc.Value, "Bold", "Normal")</FontWeight>
+                                        <Color>=IIF(Fields!BoldfreightDesc.Value, "Red", "Black")</Color>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -4563,7 +4567,6 @@
                 </Rectangle>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>0cm</Top>
               <Left>0.14181cm</Left>
               <Height>3.0041cm</Height>
               <Width>17.53903cm</Width>

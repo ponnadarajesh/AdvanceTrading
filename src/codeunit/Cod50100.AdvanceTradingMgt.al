@@ -93,10 +93,10 @@ codeunit 50100 AdvanceTradingMgt
         end;
 
 
-        EmailMessage.Create(Cust."E-Mail", 'Draft: ' + ReportName + SalesOrderNo, 'Please review the attached' + ReportName + '.');
+        EmailMessage.Create(Cust."E-Mail", Cust.Name + '_' + ReportName + SalesOrderNo, 'Please review the attached. ' + ReportName + '.');
 
         // Add the report as an attachment
-        EmailMessage.AddAttachment(ReportName + ' ' + SalesOrderNo + '.pdf', 'application/pdf', InStr);
+        EmailMessage.AddAttachment(Cust.Name + '_' + ReportName + ' ' + SalesOrderNo + '.pdf', 'application/pdf', InStr);
 
         // Open the email in the editor (draft mode) for user input
         Email.OpenInEditor(EmailMessage, Enum::"Email Scenario"::Default);
