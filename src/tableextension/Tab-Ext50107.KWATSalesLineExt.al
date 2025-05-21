@@ -4,6 +4,7 @@ tableextension 50107 "KWAT_SalesLineExt" extends "Sales Line"
     {
         modify("Variant Code")
         {
+            caption = 'Grade';
             trigger onaftervalidate()
             var
                 Item: record Item;
@@ -18,5 +19,14 @@ tableextension 50107 "KWAT_SalesLineExt" extends "Sales Line"
                 end;
             end;
         }
+        modify(Description)
+        {
+            Caption = 'Commodity';
+        }
+        modify("Unit Price")
+        {
+            Caption = 'Commission';
+        }
     }
 }
+

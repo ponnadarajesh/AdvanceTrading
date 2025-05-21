@@ -1,8 +1,8 @@
-pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
+pageextension 50108 KWSalesInvoicepgExt extends "Posted Sales Invoice"
 {
     layout
     {
-        addafter(SalesLines)
+        addafter("Shipping and Billing")
         {
             group(AdvanceTrading)
             {
@@ -40,13 +40,14 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Buyer Reference field.', Comment = '%';
+                    Editable = false;
                 }
 
                 field(KWAT_Seller; Rec.KWAT_Seller)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Seller field.', Comment = '%';
-                    Editable = rec."KWAT_Agent Note";
+                    Editable = false;//Editable = rec."KWAT_Agent Note";
                     trigger OnValidate()
                     begin
                         KTWASellerDesc := GetCustName(Rec.KWAT_Seller);
@@ -69,6 +70,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Trader Code field.', Comment = '%';
+                    Editable = false;
                     trigger OnValidate()
                     begin
                         getTraderDesc();
@@ -77,12 +79,14 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 field(KWAT_TraderDesc; KWAT_TraderDesc)
                 {
                     Caption = 'Trader Description';
+                    Editable = false;
                     ApplicationArea = All;
                 }
 
                 field("KWAT_Tolerance Code"; Rec."KWAT_Tolerance Code")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Tolerance Code field.', Comment = '%';
                     trigger OnValidate()
                     begin
@@ -92,11 +96,13 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 field(KWAT_ToleranceDesc; KWAT_ToleranceDesc)
                 {
                     Caption = 'Tolerance Description';
+                    Editable = false;
                     ApplicationArea = All;
                 }
                 field("KWAT_Weight Code"; Rec."KWAT_Weight Code")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Weight Code field.', Comment = '%';
                     trigger OnValidate()
                     begin
@@ -107,10 +113,12 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 {
                     Caption = 'Weight Description';
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("KWAT_Freight Code"; Rec."KWAT_Freight Code")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Freight Code field.', Comment = '%';
                     trigger OnValidate()
                     begin
@@ -120,12 +128,14 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 field(KWAT_FreightDesc; KWAT_FreightCodeDesc)
                 {
                     Caption = 'Freight Description';
+                    Editable = false;
                     ApplicationArea = All;
                 }
 
                 field("KWAT_Analysis Code"; Rec."KWAT_Analysis Code")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the AT Analysis Code field.', Comment = '%';
                     trigger OnValidate()
                     begin
@@ -135,11 +145,13 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 field(KWAT_AnalysisDesc; KWAT_AnalysisDesc)
                 {
                     Caption = 'Analysis Description';
+                    Editable = false;
                     ApplicationArea = All;
                 }
                 field("KWAT_Other Code"; Rec."KWAT_Other Code")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Other Code field.', Comment = '%';
                     trigger OnValidate()
                     begin
@@ -149,22 +161,26 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 field(KWAT_OtherDesc; KWAT_OtherCodeDesc)
                 {
                     Caption = 'Other Description';
+                    Editable = false;
                     ApplicationArea = All;
                 }
                 field(KWAT_Transporter; Rec.KWAT_Transporter)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Transporter field.', Comment = '%';
                 }
                 field("KWAT_Trader Price"; Rec."KWAT_Trader Price")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Trader Price field.', Comment = '%';
                 }
                 field("KWAT_DeliveryPoint Code"; Rec."KWAT_DeliveryPoint Code")
                 {
                     ApplicationArea = All;
                     caption = 'Delivery Point';
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Delivery Point Code field.', Comment = '%';
                     trigger OnValidate()
                     begin
@@ -174,252 +190,22 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 field(KWAT_DPDesc; KWAT_DPDesc)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     Caption = 'Delivery Point Name';
                 }
                 field("KWAT_Delivery Start"; Rec."KWAT_Delivery Start")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Delivery Start field.', Comment = '%';
                 }
                 field("KWAT_Delivery End"; Rec."KWAT_Delivery End")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     ToolTip = 'Specifies the value of the Delivery End field.', Comment = '%';
                 }
             }
-        }
-    }
-    actions
-    {
-        addafter("Send IC Sales Order")
-        {
-            action(printAgentNoteSeller)
-            {
-                ApplicationArea = All;
-                Image = Print;
-                Caption = 'Print Agent Note(Seller)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will print Agent Note(Seller)';
-                Enabled = rec."KWAT_Agent Note";
-                trigger OnAction()
-                var
-                    KTAgentNote: Report "KT Agent Note Seller";
-                    SalesHdr: Record "Sales Header";
-                begin
-                    Rec.testfield("KWAT_Agent Note", true);
-                    //Message('In Progress');
-                    Clear(KTAgentNote);
-                    SalesHdr.Reset();
-                    SalesHdr.SetRange("Document Type", rec."Document Type");
-                    SalesHdr.SetRange("No.", Rec."No.");
-                    KTAgentNote.SetTableView(SalesHdr);
-                    KTAgentNote.RunModal();
-
-                end;
-            }
-            action(EmailAgentNoteSeller)
-            {
-                ApplicationArea = All;
-                Image = Email;
-                Caption = 'Email Agent Note(Seller)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will Email Agent Note(Seller)';
-                Enabled = rec."KWAT_Agent Note";
-                // trigger OnAction()
-                // var
-                //     SalesHeader: Record "Sales Header";
-                //     Email: Codeunit Email;
-                //     EmailMessage: Codeunit "Email Message";
-                //     TempBlob: Codeunit "Temp Blob";
-                //     ReportSelections: Record "Report Selections";
-                //     Customer: Record Customer;
-                //     InStr: InStream;
-                //     OutStr: OutStream;
-                //     Subject: Text;
-                //     Body: Text;
-                //     Recipient: Text;
-                //     FileName: Text;
-                //     recref: RecordRef;
-                // begin
-                // Get the current sales order
-                // SalesHeader := Rec;
-                // //recref.GetTable(SalesHeader);
-                // //RecRef.Open(Database::"Sales Header");
-                // //RecRef.SetTable(SalesHeader); // Links RecRef to the current SalesHeader record
-                // //RecRef.SetRecFilter();
-                // RecRef.Open(Database::"Sales Header");
-                // RecRef.Field(SalesHeader.FieldNo("Document Type")).SetRange(SalesHeader."Document Type");
-                // RecRef.Field(SalesHeader.FieldNo("No.")).SetRange(SalesHeader."No.");
-                // //recref.SetTable(SalesHeader);
-
-
-                // // Get the customer email
-                // Customer.Get(SalesHeader."Sell-to Customer No.");
-                // Recipient := Customer."E-Mail";
-                // if Recipient = '' then
-                //     Error('Customer email address is not specified.');
-
-                // // Set email subject and body
-                // Subject := 'Agent Note - ' + SalesHeader."No.";
-                // Body := 'Dear Customer,\nPlease find attached your agent note.\nBest regards,\nAdvance Trading';
-
-                // // Generate the report as a PDF attachment
-                // TempBlob.CreateOutStream(OutStr);
-                // //ReportSelections.SetRange(Usage, ReportSelections.Usage::"S.Order");
-                // //if ReportSelections.FindFirst() then
-                // Report.SaveAs(50100, '', ReportFormat::Pdf, OutStr, recref);
-                // //else
-                // //Report.SaveAs(Report::"Standard Sales - Order Conf.", '', ReportFormat::Pdf, OutStr, SalesHeader);
-
-                // // Set the attachment filename
-                // FileName := 'AgentNote_' + SalesHeader."No." + '.pdf';
-
-                // // Create the email message
-                // EmailMessage.Create(Recipient, Subject, Body);
-                // TempBlob.CreateInStream(InStr);
-                // EmailMessage.AddAttachment(FileName, 'application/pdf', InStr);
-
-                // // Send the email
-                // if Email.Send(EmailMessage) then
-                //     Message('Agent Note email sent successfully.')
-                // else
-                //     Error('Failed to send the Agent Note email.');
-
-                trigger OnAction()
-                var
-                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
-                begin
-                    Rec.testfield("KWAT_Agent Note", true);
-                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50100, 'Agent Note (Seller)');
-                end;
-            }
-            action(printAgentNoteBuyer)
-            {
-                ApplicationArea = All;
-                Image = Print;
-                Caption = 'Print Agent Note(Buyer)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will print Agent Note(Buyer)';
-                Enabled = rec."KWAT_Agent Note";
-                trigger OnAction()
-                var
-                    KTBuyerAgentNote: Report "KT Agent Note Buyer";
-                    SalesHdr: Record "Sales Header";
-                begin
-                    Rec.testfield("KWAT_Agent Note", true);
-                    //Message('In Progress');
-                    Clear(KTBuyerAgentNote);
-                    SalesHdr.Reset();
-                    SalesHdr.SetRange("Document Type", rec."Document Type");
-                    SalesHdr.SetRange("No.", Rec."No.");
-                    KTBuyerAgentNote.SetTableView(SalesHdr);
-                    KTBuyerAgentNote.RunModal();
-
-                end;
-            }
-            action(EmailAgentNoteBuyer)
-            {
-                ApplicationArea = All;
-                Image = Email;
-                Caption = 'Email Agent Note(Buyer)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will Email Agent Note(Buyer)';
-                Enabled = rec."KWAT_Agent Note";
-                trigger OnAction()
-                var
-                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
-                begin
-                    Rec.testfield("KWAT_Agent Note", true);
-                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50103, 'Agent Note (Buyer)');
-                end;
-            }
-            action(printBrokerNoteSeller)
-            {
-                ApplicationArea = All;
-                Image = Print;
-                Caption = 'Print Broker Note(Seller)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will print Broker Note(Seller)';
-                Enabled = rec."KWAT_Broker Note";
-                trigger OnAction()
-                var
-                    KTSellerBrokerNote: Report "KT Broker Note Seller";
-                    SalesHdr: Record "Sales Header";
-                begin
-                    Rec.testfield("KWAT_Broker Note", true);
-                    //Message('In Progress');
-                    Clear(KTSellerBrokerNote);
-                    SalesHdr.Reset();
-                    SalesHdr.SetRange("Document Type", rec."Document Type");
-                    SalesHdr.SetRange("No.", Rec."No.");
-                    KTSellerBrokerNote.SetTableView(SalesHdr);
-                    KTSellerBrokerNote.RunModal();
-                end;
-            }
-            action(EmailBrokerNoteSeller)
-            {
-                ApplicationArea = All;
-                Image = Email;
-                Caption = 'Email Broker Note(Seller)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will Email Broker Note(Seller)';
-                Enabled = rec."KWAT_Broker Note";
-                trigger OnAction()
-                var
-                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
-                begin
-                    Rec.testfield("KWAT_Broker Note", true);
-                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50101, Format('Broker Note' + SellerCustomer.Name));
-                end;
-            }
-            action(printBrokerNoteBuyer)
-            {
-                ApplicationArea = All;
-                Image = Print;
-                Caption = 'Print Broker Note(Buyer)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will print Broker Note(Buyer)';
-                Enabled = rec."KWAT_Broker Note";
-                trigger OnAction()
-                var
-                    KTBuyerBrokerNote: Report "KT Broker Note Buyer";
-                    SalesHdr: Record "Sales Header";
-                begin
-                    Rec.testfield("KWAT_Broker Note", true);
-                    //Message('In Progress');
-                    Clear(KTBuyerBrokerNote);
-                    SalesHdr.Reset();
-                    SalesHdr.SetRange("Document Type", rec."Document Type");
-                    SalesHdr.SetRange("No.", Rec."No.");
-                    KTBuyerBrokerNote.SetTableView(SalesHdr);
-                    KTBuyerBrokerNote.RunModal();
-                end;
-            }
-            action(EmailBrokerNoteBuyer)
-            {
-                ApplicationArea = All;
-                Image = Email;
-                Caption = 'Email Broker Note(Buyer)';
-                Promoted = true;
-                PromotedCategory = Process;
-                ToolTip = 'It will Email Broker Note(Buyer)';
-                Enabled = rec."KWAT_Broker Note";
-                trigger OnAction()
-                var
-                    AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
-                begin
-                    Rec.testfield("KWAT_Broker Note", true);
-                    AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50102, 'Broker Note (Buyer)');
-                end;
-            }
-
         }
     }
     trigger OnAfterGetRecord()
@@ -532,4 +318,5 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
         KWAT_DPDesc: Text[100];
         BuyerCustomer: Record Customer;
         SellerCustomer: Record Customer;
+
 }

@@ -17,7 +17,15 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
             Caption = 'Trader Code';
             DataClassification = CustomerContent;
             TableRelation = KWAdvanceTrading_Trader;
-
+            trigger OnValidate()
+            var
+                KWAdvanceTrading_Trader: Record "KWAdvanceTrading_Trader";
+            begin
+                if "KWAT_Trader Code" <> '' then begin
+                    if KWAdvanceTrading_Trader.Get("KWAT_Trader Code") then
+                        Validate("Gen. Bus. Posting Group", KWAdvanceTrading_Trader."Gen.Bus.Posting Grp");
+                end;
+            end;
         }
         field(50101; "KWAT_Tolerance Code"; Code[20])
         {

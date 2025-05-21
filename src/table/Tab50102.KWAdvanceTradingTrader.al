@@ -14,6 +14,11 @@ table 50102 "KWAdvanceTrading_Trader"
         {
             Caption = 'Description';
         }
+        field(3; "Gen.Bus.Posting Grp"; Code[20])
+        {
+            Caption = 'Gen. Bus. Posting Grp.';
+            TableRelation = "Gen. Business Posting Group".Code;
+        }
     }
     keys
     {

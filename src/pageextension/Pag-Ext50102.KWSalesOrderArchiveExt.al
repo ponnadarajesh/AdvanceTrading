@@ -7,15 +7,15 @@ pageextension 50102 KWSalesOrderArchiveExt extends "Sales Order Archive"
             group(AdvanceTrading)
             {
                 Caption = 'Advance Trading';
-                field("KWAT_Agent Note"; Rec."KWAT_Agent Note")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Agent Note field.', Comment = '%';
-                }
                 field("KWAT_Broker Note"; Rec."KWAT_Broker Note")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Broker Note field.', Comment = '%';
+                }
+                field("KWAT_Agent Note"; Rec."KWAT_Agent Note")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Agent Note field.', Comment = '%';
                 }
 
                 field(KWAT_Buyer; Rec.KWAT_Buyer)
