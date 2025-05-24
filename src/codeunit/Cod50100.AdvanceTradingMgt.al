@@ -69,6 +69,7 @@ codeunit 50100 AdvanceTradingMgt
         recref: RecordRef;
         Cust: Record "Customer";
         Recipienttype: Enum "Email Recipient Type";
+        ReleaseSalesDoc: Codeunit "Release Sales Document";
     begin
         // Fetch the Sales Header record
         SalesHeader.Get(SalesHeader."Document Type"::Order, SalesOrderNo);
@@ -100,6 +101,7 @@ codeunit 50100 AdvanceTradingMgt
 
         // Open the email in the editor (draft mode) for user input
         Email.OpenInEditor(EmailMessage, Enum::"Email Scenario"::Default);
+        //ReleaseSalesDoc.Run(SalesHeader);
     end;
 
     local procedure GetReportParametersAsXml(Parameters: Dictionary of [Text, Text]): Text

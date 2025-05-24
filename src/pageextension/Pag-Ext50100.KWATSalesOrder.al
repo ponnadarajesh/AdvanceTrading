@@ -2,7 +2,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
 {
     layout
     {
-        addafter(SalesLines)
+        addafter(General)
         {
             group(AdvanceTrading)
             {
@@ -373,9 +373,17 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                 trigger OnAction()
                 var
                     AdvanceTradingMgt: Codeunit AdvanceTradingMgt;
+                    ReleaseMgt: Codeunit "Release Sales Document";
                 begin
                     Rec.testfield("KWAT_Broker Note", true);
+                    rec.SetHideValidationDialog(true);
+                    ReleaseMgt.SetSkipCheckReleaseRestrictions();
+                    ReleaseMgt.ReleaseSalesHeader(Rec, false);
                     AdvanceTradingMgt.SendEmailWithReportAttachmentFromSO(Rec."No.", 50101, Format('Broker Note' + SellerCustomer.Name));
+                    //ReleaseMgt.
+                    // rec.SetHideValidationDialog(true);
+                    // ReleaseMgt.SetSkipCheckReleaseRestrictions();
+                    // ReleaseMgt.ReleaseSalesHeader(Rec, false);
                 end;
             }
             action(printBrokerNoteBuyer)
