@@ -2,6 +2,17 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
 {
     layout
     {
+        modify("Work Description")
+        {
+            Caption = 'Special Conditions';
+            Visible = true;
+        }
+        modify(WorkDescription)  // This is the control name for the Work Description group
+        {
+            Caption = 'Special Conditions';  // New caption for the group
+            showcaption = true;
+        }
+
         addafter(General)
         {
             group(AdvanceTrading)
@@ -186,6 +197,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Delivery End field.', Comment = '%';
                 }
+
             }
         }
     }

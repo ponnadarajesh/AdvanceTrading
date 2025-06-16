@@ -12,6 +12,10 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
                 end;
             end;
         }
+        modify("Work Description")
+        {
+            Caption = 'Special Conditions';
+        }
         field(50100; "KWAT_Trader Code"; Code[20])
         {
             Caption = 'Trader Code';
@@ -116,5 +120,19 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
             Caption = 'Price';
             DataClassification = ToBeClassified;
         }
+        field(50117; "KWAT Work Description"; Text[500])
+        {
+            Caption = 'KW Work Description';
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                rec.SetWorkDescription("KWAT Work Description");
+            end;
+
+        }
     }
+    trigger OnInsert()
+    begin
+        validate("KWAT_Broker Note", true);
+    end;
 }

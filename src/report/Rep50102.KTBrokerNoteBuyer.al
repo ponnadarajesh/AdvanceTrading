@@ -1018,7 +1018,7 @@ report 50102 "KT Broker Note Buyer"
             KWAT_TraderDesc := KWAdvanceTrading_Trader.Description
         else
             KWAT_TraderDesc := '';
-        GetSalesHeaderArchive(Header);
+        IF Not GetSalesHeaderArchive(Header) then exit;
         BoldTraderDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Trader Code"));
         MarkAmended(BoldTraderDesc);
     end;
@@ -1040,7 +1040,7 @@ report 50102 "KT Broker Note Buyer"
             KWAT_AnalysisDesc := KWAdvanceTradingAnalysis.Description
         else
             KWAT_AnalysisDesc := '';
-        GetSalesHeaderArchive(Header);
+        IF Not GetSalesHeaderArchive(Header) then exit;
         BoldAnalysisDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Analysis Code"));
         MarkAmended(BoldAnalysisDesc);
     end;
@@ -1055,7 +1055,7 @@ report 50102 "KT Broker Note Buyer"
             KWAT_OtherCodeDesc := KWAdvanceTradingOther.Description
         else
             KWAT_OtherCodeDesc := '';
-        GetSalesHeaderArchive(Header);
+        IF Not GetSalesHeaderArchive(Header) then exit;
         BoldOtherCodeDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Other Code"));
         MarkAmended(BoldOtherCodeDesc);
     end;
@@ -1069,7 +1069,7 @@ report 50102 "KT Broker Note Buyer"
             KWAT_WeightDesc := KWATweight.Description
         else
             KWAT_WeightDesc := '';
-        GetSalesHeaderArchive(Header);
+        IF Not GetSalesHeaderArchive(Header) then exit;
         BoldweightDesc := AdvanceTradingMgt.CompareSalesHeaders(Header, SalesHdrArchive, Header.FieldNo("KWAT_Weight Code"));
         MarkAmended(BoldweightDesc);
     end;
@@ -1329,7 +1329,7 @@ report 50102 "KT Broker Note Buyer"
         UnitPriceDesc: Text[250];
         KWAT_DPDesc: Text[250];
         Amended: Boolean;
-        Documentlbl: Text[100];
+        Documentlbl: Text[250];
 
 
     local procedure InitLogInteraction()
