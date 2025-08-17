@@ -14,6 +14,11 @@ table 50103 "KWAdvanceTrading_Other"
         {
             Caption = 'Description';
         }
+        field(3; "Default"; Boolean)
+        {
+            Caption = 'Default';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {

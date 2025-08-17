@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Microsoft cloud sandbox",
+            "name": "AT_Sandbox_20_Feb_2025",
             "request": "launch",
             "type": "al",
             "environmentType": "Sandbox",
@@ -15,7 +15,32 @@
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
             "schemaUpdateMode": "ForceSync"
-            
+        },
+        {
+            "name": "ProdCopy_170825_Sandbox",
+            "request": "launch",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "ProdCopy_170825_Sandbox",
+            "tenant": "247583ac-2fa9-43e5-945f-718e5efe2821",
+            "startupObjectId": 9305,
+            "startupObjectType": "Page",
+            "breakOnError": "All",
+            "launchBrowser": false,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "ForceSync"
+        },
+        {
+            "name": "AL: Generated Attach request",
+            "request": "attach",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "ProdCopy_170825_Sandbox",
+            "sessionId": 173497,
+            "breakOnNext": "WebClient",
+            "breakOnError": "ExcludeTry",
+            "tenant": "247583ac-2fa9-43e5-945f-718e5efe2821"
         }
     ]
 }

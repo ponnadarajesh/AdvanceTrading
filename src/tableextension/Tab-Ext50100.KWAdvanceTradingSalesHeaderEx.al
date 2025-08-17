@@ -132,7 +132,15 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
         }
     }
     trigger OnInsert()
+    var
+        ADTOtherRec: Record "KWAdvanceTrading_Other";
     begin
         validate("KWAT_Broker Note", true);
+        ADTOtherRec.Reset();
+        ADTOtherRec.SetRange("Default", true);
+        if ADTOtherRec.FindFirst() then begin
+            validate("KWAT_Other Code", ADTOtherRec."Code");
+        end else
+            validate("KWAT_Other Code", '');
     end;
 }

@@ -5,7 +5,7 @@ page 50105 "KWAT_Others"
     PageType = List;
     SourceTable = KWAdvanceTrading_Other;
     UsageCategory = Administration;
-    
+
     layout
     {
         area(Content)
@@ -19,6 +19,10 @@ page 50105 "KWAT_Others"
                 field(Description; Rec.Description)
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
+                field(Default; Rec.Default)
+                {
+                    ToolTip = 'Specifies the value of the Default field.', Comment = '%';
                 }
             }
         }
