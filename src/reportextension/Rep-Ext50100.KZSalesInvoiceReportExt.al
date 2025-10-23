@@ -10,6 +10,10 @@ reportextension 50100 KZSalesInvoiceReportExt extends "Standard Sales - Invoice"
             column(KWAT_BuyerReference; "KWAT_Buyer Reference")
             {
             }
+            column(KWAT_BuyerName; KWAT_BuyerName)
+            {
+            }
+
         }
         modify(Header)
         {

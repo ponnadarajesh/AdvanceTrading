@@ -128,8 +128,13 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
             begin
                 rec.SetWorkDescription("KWAT Work Description");
             end;
-
         }
+        field(50118; "KWAT_Ready to Invoice"; boolean)
+        {
+            Caption = 'Ready to Invoice';
+            DataClassification = CustomerContent;
+        }
+
     }
     trigger OnInsert()
     var

@@ -13,6 +13,16 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
             showcaption = true;
         }
 
+        addafter("Sell-to Customer Name")
+        {
+            Field("KWAT_Ready to Invoice"; Rec."KWAT_Ready to Invoice")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Ready to Invoice field.', Comment = '%';
+            }
+        }
+
+
         addafter(General)
         {
             group(AdvanceTrading)
@@ -23,6 +33,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Broker Note field.', Comment = '%';
                 }
+
                 field("KWAT_Agent Note"; Rec."KWAT_Agent Note")
                 {
                     ApplicationArea = All;

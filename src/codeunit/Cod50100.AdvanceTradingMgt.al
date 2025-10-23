@@ -89,11 +89,21 @@ codeunit 50100 AdvanceTradingMgt
         // Prepare the email message
         // Prepare the email message
         TempBlob.CreateInStream(InStr);
-        IF Cust.get(SalesHeader."Sell-to Customer No.") then begin
-            //EmailMessage.AddRecipient(2, Cust."E-Mail");
+        // IF SalesHeader."KWAT_Agent Note" then begin
+        //     IF Cust.get(SalesHeader."Sell-to Customer No.") then begin
+        //         //EmailMessage.AddRecipient(2, Cust."E-Mail");
+        //     end;
+        // end;
+        IF ((ReportName = 'Broker Note (Buyer)') OR (ReportName = 'Agent Note (Buyer)')) then begin
+            IF Cust.get(SalesHeader.KWAT_Buyer) then begin
+                //EmailMessage.AddRecipient(2, Cust."E-Mail");
+            end;
+        end else begin
+            IF Cust.get(SalesHeader."Sell-to Customer No.") then begin
+                //EmailMessage.AddRecipient(2, Cust."E-Mail");
+            end;
         end;
-
-
+        ;
         EmailMessage.Create(Cust."E-Mail", Cust.Name + '_' + ReportName + SalesOrderNo, 'Please review the attached. ' + ReportName + '.');
 
         // Add the report as an attachment
@@ -140,6 +150,20 @@ codeunit 50100 AdvanceTradingMgt
     begin
         IF not PreviewMode then begin
             ArchiveMgt.ArchiveSalesDocument(SalesHeader);
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Post Invoice Events", 'OnBeforePostLines', '', false, false)]
+    local procedure KWATOnBeforePostSalesInvoiceLines(SalesHeader: Record "Sales Header")
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+    begin
+        SalesSetup.Get();
+        if SalesSetup."KWAT_Ready to Invoice Mandatory" then begin
+            IF SalesHeader.Invoice then
+                IF SalesHeader."Document Type" = SalesHeader."Document Type"::Order THEN BEGIN
+                    SalesHeader.TESTFIELD("KWAT_Ready to Invoice", TRUE);
+                END;
         end;
     end;
 }
