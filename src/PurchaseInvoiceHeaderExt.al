@@ -1,5 +1,5 @@
-// TableExtension 70105: Purch. Rcpt. Header Ext
-tableextension 70105 "STRPurch. Rcpt. Header Ext" extends "Purch. Rcpt. Header"
+// TableExtension 70106: Purchase Invoice Header Ext
+tableextension 70106 "STR PurchInv Header Ext" extends "Purch. Inv. Header"
 {
     fields
     {

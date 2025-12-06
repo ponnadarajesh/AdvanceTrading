@@ -5,12 +5,12 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
     {
         addafter("No.")
         {
-            field("Pickup Request No."; Rec."Pickup Request No.")
+            field("Pickup Request No."; Rec."STR Pickup Request No.")
             {
                 ApplicationArea = All;
                 Editable = false;
             }
-            field("Delivery Document No."; Rec."Delivery Document No.")
+            field("Delivery Document No."; Rec."STR Delivery Document No.")
             {
                 ApplicationArea = All;
                 Editable = false;
@@ -20,7 +20,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
 
     actions
     {
-        addlast("Print/Send")
+        addlast(Print)
         {
             action("Email PO With Ship-To")
             {
@@ -35,7 +35,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
                 begin
                     PurchHeader := Rec;
                     CurrPage.SetSelectionFilter(PurchHeader);
-                    PurchHeader.PrintRecordsWithShipTo(true);
+                    //PurchHeader.PrintRecordsWithShipTo(true);
                 end;
             }
 
@@ -52,7 +52,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
                 begin
                     PurchHeader := Rec;
                     CurrPage.SetSelectionFilter(PurchHeader);
-                    PurchHeader.PrintRecordsWithShipTo(false);
+                    //PurchHeader.PrintRecordsWithShipTo(false);
                 end;
             }
 
@@ -65,7 +65,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
 
                 trigger OnAction()
                 begin
-                    SendCustomReport(Report::"Custom Delivery Docket", 'Delivery Docket');
+                    //SendCustomReport(Report::"Custom Delivery Docket", 'Delivery Docket');
                 end;
             }
 
@@ -78,7 +78,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
 
                 trigger OnAction()
                 begin
-                    SendCustomReport(Report::"BuildPro Pickup Request", 'BuildPro Pickup Request');
+                    //SendCustomReport(Report::"BuildPro Pickup Request", 'BuildPro Pickup Request');
                 end;
             }
         }
@@ -91,7 +91,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
         EmailScenario: Enum "Email Scenario";
     begin
         PurchHeader := Rec;
-        EmailItem.AddSourceDocument(Database::"Purchase Header", PurchHeader."Document Type", PurchHeader."No.");
+        //EmailItem.AddSourceDocument(Database::"Purchase Header", PurchHeader."Document Type", PurchHeader."No.");
         EmailItem."Send to" := GetDriverEmail(); // You must implement this logic
         EmailItem.Subject := ReportCaption + ' ' + PurchHeader."No.";
         EmailItem.Send(true, EmailScenario::Default);

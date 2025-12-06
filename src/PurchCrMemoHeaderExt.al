@@ -1,5 +1,5 @@
-// TableExtension 70105: Purch. Rcpt. Header Ext
-tableextension 70105 "STRPurch. Rcpt. Header Ext" extends "Purch. Rcpt. Header"
+// TableExtension 70108: Purch. Cr. Memo Header Ext
+tableextension 70108 "STRPurch. Cr. Memo Header Ext" extends "Purch. Cr. Memo Hdr."
 {
     fields
     {

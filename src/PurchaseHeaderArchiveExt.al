@@ -1,5 +1,5 @@
-// TableExtension 70105: Purch. Rcpt. Header Ext
-tableextension 70105 "STRPurch. Rcpt. Header Ext" extends "Purch. Rcpt. Header"
+// TableExtension 70107: Purchase Header Archive Ext
+tableextension 70107 "STRPurchase Header Archive Ext" extends "Purchase Header Archive"
 {
     fields
     {

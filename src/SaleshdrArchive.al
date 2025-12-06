@@ -1,5 +1,5 @@
 // TableExtension 70102: Sales Header Ext
-tableextension 70102 "STR Sales Header Ext" extends "Sales Header"
+tableextension 70111 "STR Sales Header Arch Ext" extends "Sales Header Archive"
 {
     fields
     {
