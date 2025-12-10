@@ -6,12 +6,12 @@ tableextension 70104 "STR Purchase Header Ext" extends "Purchase Header"
         field(70100; "STR Pickup Request No."; Code[20])
         {
             Caption = 'Pickup Request No.';
-            Editable = false;
+            //Editable = false;
         }
         field(70101; "STR Delivery Document No."; Code[20])
         {
             Caption = 'Delivery Document No.';
-            Editable = false;
+            //Editable = false;
         }
     }
 }

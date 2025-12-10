@@ -3,7 +3,7 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
 {
     layout
     {
-        addafter("No.")
+        addafter("External Document No.")
         {
             field("Delivery Document No."; Rec."STR Delivery Document No.")
             {
@@ -21,7 +21,7 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
             {
                 ApplicationArea = All;
                 Caption = 'Email Delivery Document';
-                Image = SendEmail;
+                Image = SendEmailPDF;
                 Promoted = true;
                 PromotedCategory = Process;
 
@@ -31,14 +31,12 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
                     ReportSelections: Record "Report Selections";
                     EmailScenario: Enum "Email Scenario";
                 begin
-                    // SalesShptHdr.SetRange("Order No.", Rec."No.");
-                    // if SalesShptHdr.FindLast() then
-                    //     ReportSelections.SendEmailToCust(
-                    //         ReportSelections.Usage::"S.Shipment",
-                    //         SalesShptHdr,
-                    //         SalesShptHdr."No.",
-                    //         EmailScenario::Default,
-                    //         true);
+                    SalesShptHdr.SetRange("Order No.", Rec."No.");
+                    if SalesShptHdr.FindLast() then
+                        ReportSelections.SendEmailToCust(
+                            ReportSelections.Usage::"S.Shipment".AsInteger(),
+                            SalesShptHdr,
+                            SalesShptHdr."No.", 'Delivery Document', true, SalesShptHdr."Sell-to Customer No.");
                 end;
             }
         }

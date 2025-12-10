@@ -3,7 +3,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
 {
     layout
     {
-        addafter("No.")
+        addafter("Vendor Invoice No.")
         {
             field("Pickup Request No."; Rec."STR Pickup Request No.")
             {
@@ -26,7 +26,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
             {
                 ApplicationArea = All;
                 Caption = 'Email PO With Ship-To-Address';
-                Image = SendEmail;
+                Image = SendEmailPDF;
                 Promoted = true;
 
                 trigger OnAction()
@@ -35,7 +35,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
                 begin
                     PurchHeader := Rec;
                     CurrPage.SetSelectionFilter(PurchHeader);
-                    //PurchHeader.PrintRecordsWithShipTo(true);
+                    //PurchHeader.print
                 end;
             }
 
@@ -43,7 +43,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
             {
                 ApplicationArea = All;
                 Caption = 'Email PO Without Ship-To-Address';
-                Image = SendEmail;
+                Image = SendEmailPDF;
                 Promoted = true;
 
                 trigger OnAction()
@@ -60,7 +60,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
             {
                 ApplicationArea = All;
                 Caption = 'Email Delivery Docket With Pallet';
-                Image = SendEmail;
+                Image = SendEmailPDF;
                 Promoted = true;
 
                 trigger OnAction()
@@ -73,7 +73,7 @@ pageextension 70101 "Purchase Order Ext" extends "Purchase Order"
             {
                 ApplicationArea = All;
                 Caption = 'BuildPro Pickup Request';
-                Image = SendEmail;
+                Image = SendEmailPDF;
                 Promoted = true;
 
                 trigger OnAction()
