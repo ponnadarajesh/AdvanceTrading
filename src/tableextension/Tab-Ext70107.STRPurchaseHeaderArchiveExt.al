@@ -13,5 +13,10 @@ tableextension 70107 "STRPurchase Header Archive Ext" extends "Purchase Header A
             Caption = 'Delivery Document No.';
             Editable = false;
         }
+        field(70102; "STR Driver Email"; Text[100])
+        {
+            Caption = 'Driver Email';
+        }
+
     }
 }

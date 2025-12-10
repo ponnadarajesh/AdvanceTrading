@@ -13,5 +13,10 @@ tableextension 70108 "STRPurch. Cr. Memo Header Ext" extends "Purch. Cr. Memo Hd
             Caption = 'Delivery Document No.';
             Editable = false;
         }
+        field(70102; "STR Driver Email"; Text[100])
+        {
+            Caption = 'Driver Email';
+        }
+
     }
 }

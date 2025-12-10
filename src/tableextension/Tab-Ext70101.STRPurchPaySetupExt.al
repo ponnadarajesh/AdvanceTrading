@@ -13,5 +13,9 @@ tableextension 70101 "STR Purch. & Pay. Setup Ext" extends "Purchases & Payables
             Caption = 'Delivery Document Nos.';
             TableRelation = "No. Series";
         }
+        field(70102; "STR Driver Email"; Text[100])
+        {
+            Caption = 'Driver Email';
+        }
     }
 }

@@ -14,7 +14,13 @@ pageextension 70103 STRPurchSetupExt extends "Purchases & Payables Setup"
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Pickup Request Nos. field.', Comment = '%';
             }
+            field("STR Driver Email"; Rec."STR Driver Email")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Driver Email field.', Comment = '%';
+            }
         }
-    }
 
+    }
 }
+

@@ -10,7 +10,21 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id": "d6a66788-a074-4d76-856a-30e69eeb103c",
+      "name": "Wiise",
+      "publisher": "Wiise",
+      "version": "26.0.7.0"
+    },
+        {
+      "id": "80b0562d-5bb2-4e67-a579-53564677c22a",
+      "name": "Wiise Australia",
+      "publisher": "Wiise",
+      "version": "26.0.7.0"
+    }
+
+  ],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "26.0.0.0",
@@ -22,7 +36,7 @@
   ],
   "resourceExposurePolicy": {
     "allowDebugging": true,
-    "allowDownloadingSource": true,
+    "allowDownloadingSource": false,
     "includeSourceInSymbolFile": true
   },
   "runtime": "15.0",
