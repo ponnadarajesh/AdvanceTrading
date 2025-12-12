@@ -24,65 +24,90 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
     }
     actions
     {
-        addafter("&Print")
+        addlast(processing)
         {
-            action("Email PO - Buildpro Standard")
+            action("Generate Pickup Req_Delivery Doc Nos")
             {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Email PO (Buildpro Standard)';
-                Image = SendEmailPDF;
-                Promoted = true;
+                ApplicationArea = All;
+                Caption = 'Generate Pickup Req No. & Delivery Doc Nos';
+                Image = GetEntries;
+                //Promoted = true;
                 //PromotedCategory = Process;
                 //PromotedIsBig = true;
-                ToolTip = 'Send purchase order by email using Buildpro Purchase Order layout.';
+                ToolTip = 'Generate Pickup Req No. & Delivery Doc Nos';
 
                 trigger OnAction()
+                var
+                    STRDeliveryPickupMgt: Codeunit "STR Delivery & Pickup Mgt.";
                 begin
-                    SendWithLayout(1);
+                    STRDeliveryPickupMgt.GeneratePickReqNo_DelDocNo(Rec);
                 end;
             }
-
-            action("Email PO - No Ship Address")
+        }
+        addafter(Email)
+        {
+            group("Logistics Emails")
             {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Email PO (No Ship-To Address)';
-                Image = SendEmailPDF;
-                Promoted = true;
-                //PromotedCategory = Process;
-                ToolTip = 'Send purchase order without ship-to address using specific layout.';
+                Caption = 'Logistics Emails';
+                Image = Email;
+                action("Email PO - Buildpro Standard")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Email PO (Buildpro Standard)';
+                    Image = SendEmailPDF;
+                    //Promoted = true;
+                    //PromotedCategory = Process;
+                    //PromotedIsBig = true;
+                    ToolTip = 'Send purchase order by email using Buildpro Purchase Order layout.';
 
-                trigger OnAction()
-                begin
-                    SendWithLayout(2);
-                end;
-            }
+                    trigger OnAction()
+                    begin
+                        SendWithLayout(1);
+                    end;
+                }
 
-            action("Email Delivery Docket With Pallet")
-            {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Email Delivery Docket (With Pallet Qty)';
-                Image = SendEmailPDF;
-                Promoted = true;
-                //PromotedCategory = Process;
+                action("Email PO - No Ship Address")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Email PO (No Ship-To Address)';
+                    Image = SendEmailPDF;
+                    //Promoted = true;
+                    //PromotedCategory = Process;
+                    ToolTip = 'Send purchase order without ship-to address using specific layout.';
 
-                trigger OnAction()
-                begin
-                    SendWithLayout(3);
-                end;
-            }
+                    trigger OnAction()
+                    begin
+                        SendWithLayout(2);
+                    end;
+                }
 
-            action("Email Pick Up Request With Pallet")
-            {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Email Pick Up Request (With Pallet Qty)';
-                Image = SendEmailPDF;
-                Promoted = true;
-                //PromotedCategory = Process;
+                action("Email Delivery Docket With Pallet")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Email Delivery Docket (With Pallet Qty)';
+                    Image = SendEmailPDF;
+                    //Promoted = true;
+                    //PromotedCategory = Process;
 
-                trigger OnAction()
-                begin
-                    SendWithLayout(4);
-                end;
+                    trigger OnAction()
+                    begin
+                        SendWithLayout(3);
+                    end;
+                }
+
+                action("Email Pick Up Request With Pallet")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Email Pick Up Request (With Pallet Qty)';
+                    Image = SendEmailPDF;
+                    //Promoted = true;
+                    //PromotedCategory = Process;
+
+                    trigger OnAction()
+                    begin
+                        SendWithLayout(4);
+                    end;
+                }
             }
         }
     }
@@ -104,6 +129,8 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         Subject: Text;
         Body: Text;
         Base64: Text;
+        vendorEmail: Text;
+        Vendor: Record Vendor;
     begin
         PurchHeader := Rec;
         PurchHeader.SetRecFilter();
@@ -112,7 +139,8 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         Subject := GetEmailSubject(PurchHeader, LayoutNo);
         Body := GetEmailBody(PurchHeader, LayoutNo);
         AttachmentName := GetAttachmentName(PurchHeader, LayoutNo);
-
+        Vendor.GET(PurchHeader."Buy-from Vendor No.");
+        vendorEmail := Vendor."E-Mail";
         // Temporarily set the custom layout
         DesigntimeReportSelection.SetSelectedLayout(LayoutName);
 
@@ -129,7 +157,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         Base64 := Base64Convert.ToBase64(InStr);
 
         // Create email message
-        EmailMessage.Create(PurchHeader."STR Driver Email", Subject, Body, true);  // Use "Buy-from Contact No." or "Buy-from Email" based on your field
+        EmailMessage.Create(vendorEmail + ';' + PurchHeader."STR Driver Email", Subject, Body, true);  // Use "Buy-from Contact No." or "Buy-from Email" based on your field
         EmailMessage.AddAttachment(AttachmentName, 'application/pdf', Base64);
 
         // Open email editor

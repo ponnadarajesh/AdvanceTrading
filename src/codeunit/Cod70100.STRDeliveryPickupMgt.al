@@ -33,37 +33,53 @@ codeunit 70100 "STR Delivery & Pickup Mgt."
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", OnBeforePurchRcptHeaderInsert, '', false, false)]
-    local procedure OnAfterPostPurchaseDoc(var PurchRcptHeader: Record "Purch. Rcpt. Header"; PurchaseHeader: Record "Purchase Header")
+    local procedure CheckReq_DelDocNoinPostedRec(var PurchRcptHeader: Record "Purch. Rcpt. Header"; PurchaseHeader: Record "Purchase Header")
+    var
+        lvPurchRcptHeader: Record "Purch. Rcpt. Header";
     begin
         //if PurchRcptHdr."No." = '' then exit;
         Purchsetup.GET;
 
         IF (Purchsetup."STR Delivery Document Nos." = '') AND (Purchsetup."STR Pickup Request Nos." = '') THEN
             exit;
+        lvPurchRcptHeader.Reset();
+        lvPurchRcptHeader.SetRange("STR Delivery Document No.", PurchaseHeader."STR Delivery Document No.");
+        lvPurchRcptHeader.SetRange("STR Pickup Request No.", PurchaseHeader."STR Pickup Request No.");
+        IF lvPurchRcptHeader.FindFirst() THEN
+            ERROR('A Purchase Receipt with the same Pickup Request No. %1 and Delivery Document No. %2 already exists.Please generate the new numbers', PurchaseHeader."STR Pickup Request No.", PurchaseHeader."STR Delivery Document No.");
+        // PurchaseHeader."STR Pickup Request No." := GetNextPickupRequestNo();
+        // PurchaseHeader."STR Delivery Document No." := GetNextDeliveryDocumentNoPurch();
+        // PurchaseHeader.Modify();
 
+        // PurchRcptHeader."STR Pickup Request No." := PurchaseHeader."STR Pickup Request No.";
+        // PurchRcptHeader."STR Delivery Document No." := PurchaseHeader."STR Delivery Document No.";
+    end;
+
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", OnAfterPostPurchaseDoc, '', false, false)]
+    // local procedure AfterPostPurchaseDoc(var PurchaseHeader: Record "Purchase Header"; PurchRcpHdrNo: Code[20])
+    // var
+    //     PurchRcptHeader: Record "Purch. Rcpt. Header";
+    // begin
+    //     //if PurchRcptHdr."No." = '' then exit;
+    //     Purchsetup.GET;
+
+    //     IF (Purchsetup."STR Delivery Document Nos." = '') AND (Purchsetup."STR Pickup Request Nos." = '') THEN
+    //         exit;
+    //     IF (PurchRcptHeader.GET(PurchRcpHdrNo)) then begin
+    //         PurchaseHeader."STR Pickup Request No." := PurchRcptHeader."STR Pickup Request No.";
+    //         PurchaseHeader."STR Delivery Document No." := PurchRcptHeader."STR Delivery Document No.";
+    //         PurchaseHeader.Modify();
+    //     end;
+    // end;
+
+    procedure GeneratePickReqNo_DelDocNo(var PurchaseHeader: Record "Purchase Header")
+    begin
+        Purchsetup.GET;
+        IF (Purchsetup."STR Delivery Document Nos." = '') AND (Purchsetup."STR Pickup Request Nos." = '') THEN
+            exit;
         PurchaseHeader."STR Pickup Request No." := GetNextPickupRequestNo();
         PurchaseHeader."STR Delivery Document No." := GetNextDeliveryDocumentNoPurch();
         PurchaseHeader.Modify();
-
-        PurchRcptHeader."STR Pickup Request No." := PurchaseHeader."STR Pickup Request No.";
-        PurchRcptHeader."STR Delivery Document No." := PurchaseHeader."STR Delivery Document No.";
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", OnAfterPostPurchaseDoc, '', false, false)]
-    local procedure AfterPostPurchaseDoc(var PurchaseHeader: Record "Purchase Header"; PurchRcpHdrNo: Code[20])
-    var
-        PurchRcptHeader: Record "Purch. Rcpt. Header";
-    begin
-        //if PurchRcptHdr."No." = '' then exit;
-        Purchsetup.GET;
-
-        IF (Purchsetup."STR Delivery Document Nos." = '') AND (Purchsetup."STR Pickup Request Nos." = '') THEN
-            exit;
-        IF (PurchRcptHeader.GET(PurchRcpHdrNo)) then begin
-            PurchaseHeader."STR Pickup Request No." := PurchRcptHeader."STR Pickup Request No.";
-            PurchaseHeader."STR Delivery Document No." := PurchRcptHeader."STR Delivery Document No.";
-            PurchaseHeader.Modify();
-        end;
     end;
 
     local procedure GetNextDeliveryDocumentNo(): Code[20]
