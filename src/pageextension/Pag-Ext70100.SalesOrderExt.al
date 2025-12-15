@@ -15,6 +15,28 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
 
     actions
     {
+        addlast(processing)
+        {
+            action("Generate Delivery Doc Nos")
+            {
+                ApplicationArea = All;
+                Caption = 'Generate Delivery Doc No.';
+                Image = GetEntries;
+                //Promoted = true;
+                //PromotedCategory = Process;
+                //PromotedIsBig = true;
+                ToolTip = 'This is for Generate Delivery Doc No';
+
+                trigger OnAction()
+                var
+                    STRDeliveryPickupMgt: Codeunit "STR Delivery & Pickup Mgt.";
+                begin
+                    Rec."STR Delivery Document No." := STRDeliveryPickupMgt.GetNextDeliveryDocumentNo();
+                    Rec.Modify();
+                end;
+            }
+        }
+
         addlast("P&osting")
         {
             action("Email Delivery Document")
