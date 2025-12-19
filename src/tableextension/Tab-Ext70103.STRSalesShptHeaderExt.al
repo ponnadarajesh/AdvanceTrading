@@ -7,5 +7,10 @@ tableextension 70103 "STR Sales Shpt. Header Ext" extends "Sales Shipment Header
         {
             Caption = 'Delivery Document No.';
         }
+        field(70102; "STR Driver Email"; Text[100])
+        {
+            Caption = 'Driver Email';
+        }
+
     }
 }

@@ -6,5 +6,10 @@ tableextension 70109 STRSalesInvHdrExt extends "Sales Invoice Header"
         {
             Caption = 'Delivery Document No.';
         }
+        field(70102; "STR Driver Email"; Text[100])
+        {
+            Caption = 'Driver Email';
+        }
+
     }
 }

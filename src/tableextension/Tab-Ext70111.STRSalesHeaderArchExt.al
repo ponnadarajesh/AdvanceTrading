@@ -8,5 +8,10 @@ tableextension 70111 "STR Sales Header Arch Ext" extends "Sales Header Archive"
             Caption = 'Delivery Document No.';
             Editable = false;
         }
+        field(70102; "STR Driver Email"; Text[100])
+        {
+            Caption = 'Driver Email';
+        }
+
     }
 }
