@@ -140,15 +140,15 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
     begin
         case LayoutNo of
             1:
-                exit('Purchase Order ' + SalesHeader."No." + '.pdf');
+                exit('Delivery Document ' + SalesHeader."No." + '.pdf');
             2:
-                exit('Purchase Order ' + SalesHeader."No." + ' No Ship.pdf');
+                exit('Sales Order ' + SalesHeader."No." + ' No Ship.pdf');
             3:
                 exit('Delivery Docket PO' + SalesHeader."No." + '.pdf');
             4:
                 exit('Pick Up Request PO' + SalesHeader."No." + '.pdf');
             else
-                exit('Purchase Order ' + SalesHeader."No." + '.pdf');
+                exit('Sales Order ' + SalesHeader."No." + '.pdf');
         end;
     end;
 
@@ -156,15 +156,15 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
     begin
         case LayoutNo of
             1:
-                exit('Purchase Order ' + SalesHeader."No.");
+                exit('Sales Delivery Document ' + SalesHeader."No.");
             2:
-                exit('Purchase Order ' + SalesHeader."No." + ' - No Ship-To Address');
+                exit('Sales  Order ' + SalesHeader."No." + ' - No Ship-To Address');
             3:
                 exit('Delivery Docket - PO ' + SalesHeader."No." + ' (With Pallet Qty)');
             4:
                 exit('Pick Up Request - PO ' + SalesHeader."No." + ' (With Pallet Qty)');
             else
-                exit('Purchase Order ' + SalesHeader."No.");
+                exit('Sales Order ' + SalesHeader."No.");
         end;
     end;
 
@@ -172,10 +172,10 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
     var
         BodyText: Text;
     begin
-        BodyText := 'Dear Supplier,<br><br>';
+        BodyText := 'Dear Customer,<br><br>';
         case LayoutNo of
             1:
-                BodyText += 'Please find attached Sales Order <b>' + SalesHeader."No." + '</b>.';
+                BodyText += 'Please find attached Sales Delivery Document <b>' + SalesHeader."No." + '</b>.';
             2:
                 BodyText += 'Please find attached Sales Order <b>' + SalesHeader."No." + '</b> (No Ship-To Address version).';
             3:

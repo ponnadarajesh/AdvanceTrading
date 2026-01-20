@@ -131,6 +131,8 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         Base64: Text;
         vendorEmail: Text;
         Vendor: Record Vendor;
+        CompanyInfo: Record "Company Information";
+        UserSetup: Record "User Setup";
     begin
         PurchHeader := Rec;
         PurchHeader.SetRecFilter();
@@ -141,6 +143,8 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         AttachmentName := GetAttachmentName(PurchHeader, LayoutNo);
         Vendor.GET(PurchHeader."Buy-from Vendor No.");
         vendorEmail := Vendor."E-Mail";
+        CompanyInfo.GET();
+
         // Temporarily set the custom layout
         DesigntimeReportSelection.SetSelectedLayout(LayoutName);
 
@@ -214,19 +218,88 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
     local procedure GetEmailBody(PurchHeader: Record "Purchase Header"; LayoutNo: Integer): Text
     var
         BodyText: Text;
+        CompanyInfo: Record "Company Information";
+        Vendor: Record Vendor;
+        UserSetup: Record "User Setup";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
     begin
-        BodyText := 'Dear Supplier,<br><br>';
+        CompanyInfo.GET();
+        Vendor.GET(PurchHeader."Buy-from Vendor No.");
+
+        if PurchHeader."Purchaser Code" <> '' then
+            if SalesPurchPerson.GET(PurchHeader."Purchaser Code") then;
+
         case LayoutNo of
             1:
-                BodyText += 'Please find attached Purchase Order <b>' + PurchHeader."No." + '</b>.';
+                begin
+                    BodyText := '<html><body style="font-family: Arial, sans-serif; font-size: 11pt;">';
+                    BodyText += '<p>Dear ' + PurchHeader."Buy-from Vendor Name" + ',</p>';
+                    BodyText += '<p>Please find attached Purchase Order No. <b>' + PurchHeader."No." + '</b> for your reference.</p>';
+                    BodyText += '<p>Kindly review the details and confirm receipt.</p>';
+                    BodyText += '<p>If you require any further information, please call or email.</p>';
+
+                    BodyText += '<p><b>Order No.:</b> ' + PurchHeader."No." + '<br>';
+                    BodyText += '<b>Order Date:</b> ' + Format(PurchHeader."Order Date") + '<br>';
+                    BodyText += '<b>Total (incl. VAT):</b> ' + Format(PurchHeader."Amount Including VAT") + '</p>';
+
+                    BodyText += '<hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">';
+
+                    BodyText += '<p>Kind regards,<br><br>';
+                    if SalesPurchPerson.Name <> '' then
+                        BodyText += SalesPurchPerson.Name + '<br>';
+                    BodyText += CompanyInfo.Name + '<br>';
+                    BodyText += CompanyInfo."Address" + '<br>';
+                    if CompanyInfo."Address 2" <> '' then
+                        BodyText += CompanyInfo."Address 2" + '<br>';
+                    BodyText += CompanyInfo.City + ' ' + CompanyInfo."Post Code" + '<br>';
+                    if CompanyInfo."Phone No." <> '' then
+                        BodyText += 'Phone: ' + CompanyInfo."Phone No." + '<br>';
+                    if CompanyInfo."Home Page" <> '' then
+                        BodyText += CompanyInfo."Home Page" + '<br>';
+                    BodyText += '</p></body></html>';
+                end;
             2:
                 BodyText += 'Please find attached Purchase Order <b>' + PurchHeader."No." + '</b> (No Ship-To Address version).';
             3:
-                BodyText += 'Please find attached Delivery Docket for PO <b>' + PurchHeader."No." + '</b> including pallet quantities.';
+                // Buildpro Standard Layout with comprehensive template
+                begin
+                    BodyText := '<html><body style="font-family: Arial, sans-serif; font-size: 11pt;">';
+                    BodyText += '<p>Dear ' + PurchHeader."Buy-from Vendor Name" + ',</p>';
+                    BodyText += '<p>Please find attached Delivery Docket relating to Consignment No. <b>' + PurchHeader."No." + '</b>.</p>';
+                    BodyText += '<p>Kindly use this document for delivery reference and confirmation. Please advise once delivery has been completed.</p>';
+                    BodyText += '<p>If you require any further information, please call or email.</p>';
+
+                    BodyText += '<p><b>Order Details:</b><br>';
+                    BodyText += 'Order No.: ' + PurchHeader."No." + '<br>';
+                    BodyText += 'Order Date: ' + Format(PurchHeader."Order Date") + '<br>';
+                    BodyText += 'Total (incl. VAT): ' + Format(PurchHeader."Amount Including VAT") + '</p>';
+
+                    BodyText += '<p><b>Consignment Information:</b><br>';
+                    BodyText += 'Consignment No.: ' + PurchHeader."No." + '</p>';
+
+                    BodyText += '<hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">';
+
+                    BodyText += '<p>Kind regards,<br><br>';
+                    if SalesPurchPerson.Name <> '' then
+                        BodyText += SalesPurchPerson.Name + '<br>';
+                    BodyText += CompanyInfo.Name + '<br>';
+                    BodyText += CompanyInfo."Address" + '<br>';
+                    if CompanyInfo."Address 2" <> '' then
+                        BodyText += CompanyInfo."Address 2" + '<br>';
+                    BodyText += CompanyInfo.City + ' ' + CompanyInfo."Post Code" + '<br>';
+                    if CompanyInfo."Phone No." <> '' then
+                        BodyText += 'Phone: ' + CompanyInfo."Phone No." + '<br>';
+                    if CompanyInfo."Home Page" <> '' then
+                        BodyText += CompanyInfo."Home Page" + '<br>';
+                    BodyText += '</p></body></html>';
+                end;
             4:
                 BodyText += 'Please find attached Pick Up Request for PO <b>' + PurchHeader."No." + '</b> including pallet quantities.';
         end;
-        BodyText += '<br><br>Thank you.<br>Regards';
+
+        if Not (LayoutNo In [1, 3]) then
+            BodyText := BodyText + '<br><br>Thank you.<br>Regards';
+
         exit(BodyText);
     end;
 }
