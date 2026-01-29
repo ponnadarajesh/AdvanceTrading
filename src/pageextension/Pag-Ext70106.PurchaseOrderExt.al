@@ -117,6 +117,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         PurchHeader: Record "Purchase Header";
         RecRef: RecordRef;
         TempBlob: Codeunit "Temp Blob";
+        LogoBlob: Codeunit "Temp Blob";
         Base64Convert: Codeunit "Base64 Convert";
         DesigntimeReportSelection: Codeunit "Design-time Report Selection";
         EmailMessage: Codeunit "Email Message";
@@ -133,17 +134,30 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         Vendor: Record Vendor;
         CompanyInfo: Record "Company Information";
         UserSetup: Record "User Setup";
+        CompanyLogoBase64: Text;
     begin
         PurchHeader := Rec;
         PurchHeader.SetRecFilter();
 
         LayoutName := GetLayoutName(LayoutNo);
         Subject := GetEmailSubject(PurchHeader, LayoutNo);
-        Body := GetEmailBody(PurchHeader, LayoutNo);
         AttachmentName := GetAttachmentName(PurchHeader, LayoutNo);
         Vendor.GET(PurchHeader."Buy-from Vendor No.");
         vendorEmail := Vendor."E-Mail";
         CompanyInfo.GET();
+        CompanyInfo.CalcFields(Picture);
+
+        // Get Company Logo if it exists - use separate LogoBlob
+        if CompanyInfo.Picture.HasValue() then begin
+            CompanyInfo.Picture.CreateInStream(InStr);
+            LogoBlob.CreateOutStream(OutStr);
+            CopyStream(OutStr, InStr);
+            LogoBlob.CreateInStream(InStr);
+            CompanyLogoBase64 := Base64Convert.ToBase64(InStr);
+        end;
+
+        // Now call GetEmailBody after logo is extracted
+        Body := GetEmailBody(PurchHeader, LayoutNo, CompanyLogoBase64);
 
         // Temporarily set the custom layout
         DesigntimeReportSelection.SetSelectedLayout(LayoutName);
@@ -161,7 +175,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         Base64 := Base64Convert.ToBase64(InStr);
 
         // Create email message
-        EmailMessage.Create(vendorEmail + ';' + PurchHeader."STR Driver Email", Subject, Body, true);  // Use "Buy-from Contact No." or "Buy-from Email" based on your field
+        EmailMessage.Create(vendorEmail + ';' + PurchHeader."STR Driver Email", Subject, Body, true);
         EmailMessage.AddAttachment(AttachmentName, 'application/pdf', Base64);
 
         // Open email editor
@@ -215,7 +229,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         end;
     end;
 
-    local procedure GetEmailBody(PurchHeader: Record "Purchase Header"; LayoutNo: Integer): Text
+    local procedure GetEmailBody(PurchHeader: Record "Purchase Header"; LayoutNo: Integer; CompanyLogoBase64: Text): Text
     var
         BodyText: Text;
         CompanyInfo: Record "Company Information";
@@ -225,7 +239,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
     begin
         CompanyInfo.GET();
         Vendor.GET(PurchHeader."Buy-from Vendor No.");
-
+        PurchHeader.CalcFields("Amount Including VAT");
         if PurchHeader."Purchaser Code" <> '' then
             if SalesPurchPerson.GET(PurchHeader."Purchaser Code") then;
 
@@ -240,7 +254,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
 
                     BodyText += '<p><b>Order No.:</b> ' + PurchHeader."No." + '<br>';
                     BodyText += '<b>Order Date:</b> ' + Format(PurchHeader."Order Date") + '<br>';
-                    BodyText += '<b>Total (incl. VAT):</b> ' + Format(PurchHeader."Amount Including VAT") + '</p>';
+                    BodyText += '<b>Total (incl. GST):</b> ' + Format(PurchHeader."Amount Including VAT") + '</p>';
 
                     BodyText += '<hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">';
 
@@ -256,7 +270,10 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
                         BodyText += 'Phone: ' + CompanyInfo."Phone No." + '<br>';
                     if CompanyInfo."Home Page" <> '' then
                         BodyText += CompanyInfo."Home Page" + '<br>';
-                    BodyText += '</p></body></html>';
+                    BodyText += '</p>';
+                    if CompanyLogoBase64 <> '' then
+                        BodyText += '<img src="data:image/jpeg;base64,' + CompanyLogoBase64 + '" style="max-width: 200px; max-height: 100px; margin-top: 10px;" />';
+                    BodyText += '</body></html>';
                 end;
             2:
                 BodyText += 'Please find attached Purchase Order <b>' + PurchHeader."No." + '</b> (No Ship-To Address version).';
@@ -272,7 +289,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
                     BodyText += '<p><b>Order Details:</b><br>';
                     BodyText += 'Order No.: ' + PurchHeader."No." + '<br>';
                     BodyText += 'Order Date: ' + Format(PurchHeader."Order Date") + '<br>';
-                    BodyText += 'Total (incl. VAT): ' + Format(PurchHeader."Amount Including VAT") + '</p>';
+                    BodyText += 'Total (incl. GST): ' + Format(PurchHeader."Amount Including VAT") + '</p>';
 
                     BodyText += '<p><b>Consignment Information:</b><br>';
                     BodyText += 'Consignment No.: ' + PurchHeader."No." + '</p>';
@@ -291,7 +308,10 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
                         BodyText += 'Phone: ' + CompanyInfo."Phone No." + '<br>';
                     if CompanyInfo."Home Page" <> '' then
                         BodyText += CompanyInfo."Home Page" + '<br>';
-                    BodyText += '</p></body></html>';
+                    BodyText += '</p>';
+                    if CompanyLogoBase64 <> '' then
+                        BodyText += '<img src="data:image/jpeg;base64,' + CompanyLogoBase64 + '" style="max-width: 200px; max-height: 100px; margin-top: 10px;" />';
+                    BodyText += '</body></html>';
                 end;
             4:
                 BodyText += 'Please find attached Pick Up Request for PO <b>' + PurchHeader."No." + '</b> including pallet quantities.';
