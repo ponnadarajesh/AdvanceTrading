@@ -114,7 +114,7 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
         Base64 := Base64Convert.ToBase64(InStr);
 
         // Create email message
-        EmailMessage.Create(CustEmail + ';' + SalesHeader."STR Driver Email", Subject, Body, true);  // Use "Buy-from Contact No." or "Buy-from Email" based on your field
+        EmailMessage.Create(SalesHeader."STR Driver Email", Subject, Body, true);  // Use "Buy-from Contact No." or "Buy-from Email" based on your field
         EmailMessage.AddAttachment(AttachmentName, 'application/pdf', Base64);
 
         // Open email editor

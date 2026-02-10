@@ -175,7 +175,7 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         Base64 := Base64Convert.ToBase64(InStr);
 
         // Create email message
-        EmailMessage.Create(vendorEmail + ';' + PurchHeader."STR Driver Email", Subject, Body, true);
+        EmailMessage.Create(PurchHeader."STR Driver Email", Subject, Body, true);
         EmailMessage.AddAttachment(AttachmentName, 'application/pdf', Base64);
 
         // Open email editor
