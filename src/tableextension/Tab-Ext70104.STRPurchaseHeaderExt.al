@@ -19,4 +19,16 @@ tableextension 70104 "STR Purchase Header Ext" extends "Purchase Header"
         }
 
     }
+
+    trigger OnInsert()
+    var
+        STRDeliveryPickupMgt: Codeunit "STR Delivery & Pickup Mgt.";
+    begin
+        if Rec."Document Type" = Rec."Document Type"::Order then begin
+            if Rec."STR Pickup Request No." = '' then
+                Rec."STR Pickup Request No." := STRDeliveryPickupMgt.GetNextDeliveryDocumentNo();
+            if Rec."STR Delivery Document No." = '' then
+                Rec."STR Delivery Document No." := STRDeliveryPickupMgt.GetNextDeliveryDocumentNo();
+        end;
+    end;
 }

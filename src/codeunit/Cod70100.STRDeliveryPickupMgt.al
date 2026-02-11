@@ -42,6 +42,8 @@ codeunit 70100 "STR Delivery & Pickup Mgt."
 
         IF (Purchsetup."STR Delivery Document Nos." = '') AND (Purchsetup."STR Pickup Request Nos." = '') THEN
             exit;
+        If PurchaseHeader."Document Type" <> PurchaseHeader."Document Type"::Order then
+            exit;
         lvPurchRcptHeader.Reset();
         lvPurchRcptHeader.SetRange("STR Delivery Document No.", PurchaseHeader."STR Delivery Document No.");
         lvPurchRcptHeader.SetRange("STR Pickup Request No.", PurchaseHeader."STR Pickup Request No.");

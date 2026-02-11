@@ -14,4 +14,12 @@ tableextension 70102 "STR Sales Header Ext" extends "Sales Header"
         }
 
     }
+
+    trigger OnInsert()
+    var
+        STRDeliveryPickupMgt: Codeunit "STR Delivery & Pickup Mgt.";
+    begin
+        if (Rec."Document Type" = Rec."Document Type"::Order) and (Rec."STR Delivery Document No." = '') then
+            Rec."STR Delivery Document No." := STRDeliveryPickupMgt.GetNextDeliveryDocumentNo();
+    end;
 }

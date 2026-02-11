@@ -69,6 +69,7 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
             }
         }
     }
+
     local procedure SendWithLayout(LayoutNo: Integer)
     var
         SalesHeader: Record "Sales Header";
