@@ -102,10 +102,10 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
         DesigntimeReportSelection.SetSelectedLayout(LayoutName);
 
         // Generate PDF into TempBlob using the selected layout
-        RecRef.GetTable(salesHeader);
+        RecRef.GetTable(SalesHeader);
         TempBlob.CreateOutStream(OutStr);
-        if not Report.SaveAs(Report::KBIZ_Sales_Order_Conf_AU, '', ReportFormat::Pdf, OutStr, RecRef) then
-            Error('Failed to generate report PDF.');
+        if not Report.SaveAs(Report::KBIZ_Sales_Order_Conf_AU, LayoutName, ReportFormat::Pdf, OutStr, RecRef) then
+            Error(StrSubstNo('Failed to generate report PDF. Layout=%1', LayoutName));
 
         // Reset layout selection
         DesigntimeReportSelection.SetSelectedLayout('');
@@ -126,7 +126,7 @@ pageextension 70100 "Sales Order Ext" extends "Sales Order"
     begin
         case LayoutNo of
             1:
-                exit('Buildpro Delivery Docket');               // Layout 1 (fix typo from image)
+                exit('BuildPro Delivery Docket');               // Layout 1 (fix typo from image)
             2:
                 exit('Buidpro Sales Order- no Ship Address'); // Layout 2
             3:
