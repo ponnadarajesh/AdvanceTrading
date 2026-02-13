@@ -26,6 +26,8 @@ codeunit 70100 "STR Delivery & Pickup Mgt."
         Salesetup.GET;
         IF Salesetup."STR Delivery Document Nos." = '' THEN
             exit;
+        If SalesHeader."Document Type" <> SalesHeader."Document Type"::Order then
+            exit;
         lvSalesShptHeader.Reset();
         lvSalesShptHeader.SetRange("STR Delivery Document No.", SalesHeader."STR Delivery Document No.");
         IF lvSalesShptHeader.FindFirst() THEN

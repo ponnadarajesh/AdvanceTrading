@@ -174,8 +174,16 @@ pageextension 70106 "Purchase Order Ext" extends "Purchase Order"
         TempBlob.CreateInStream(InStr);
         Base64 := Base64Convert.ToBase64(InStr);
 
-        // Create email message
-        EmailMessage.Create(PurchHeader."STR Driver Email", Subject, Body, true);
+        // Create email message - for Pick Up Request (Layout 4), send to vendor and driver
+        if LayoutNo = 4 then begin
+            if PurchHeader."STR Driver Email" <> '' then
+                EmailMessage.Create(vendorEmail + '; ' + PurchHeader."STR Driver Email", Subject, Body, true)
+            else
+                EmailMessage.Create(vendorEmail, Subject, Body, true);
+        end else begin
+            EmailMessage.Create(PurchHeader."STR Driver Email", Subject, Body, true);
+        end;
+
         EmailMessage.AddAttachment(AttachmentName, 'application/pdf', Base64);
 
         // Open email editor
