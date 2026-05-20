@@ -98,5 +98,10 @@ tableextension 50101 "KWAT_SalesInvHeaderEx" extends "Sales Invoice Header"
             Caption = 'Trader Price';
             DataClassification = ToBeClassified;
         }
+        field(50117; "KWAT_Buyer_Desc"; text[100])
+        {
+            Caption = 'Buyer Description';
+            DataClassification = CustomerContent;
+        }
     }
 }

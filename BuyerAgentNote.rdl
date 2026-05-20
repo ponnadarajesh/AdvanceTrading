@@ -2421,7 +2421,7 @@
                                       <Style>
                                         <FontFamily>Verdana</FontFamily>
                                         <FontSize>8pt</FontSize>
-                                        <FontWeight>=IIF(Fields!BoldFreightDesc.Value, "Bold", "Normal")</FontWeight>
+                                        <FontWeight>=IIF(Fields!BoldfreightDesc.Value, "Bold", "Normal")</FontWeight>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
@@ -2717,7 +2717,6 @@
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
-                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                       </TablixCells>
@@ -4489,7 +4488,7 @@
                           <Value>=First(Fields!CompanyPicture.Value, "DataSet_Result")</Value>
                           <MIMEType>image/jpeg</MIMEType>
                           <Sizing>FitProportional</Sizing>
-                          <Top>0.125in</Top>
+                          <Top>0.3648in</Top>
                           <Left>0.04696in</Left>
                           <Height>1.25968in</Height>
                           <Width>1.73272in</Width>
@@ -4501,9 +4500,9 @@
                         </Image>
                       </ReportItems>
                       <KeepTogether>true</KeepTogether>
-                      <Top>0.67966cm</Top>
+                      <Top>0.07056cm</Top>
                       <Left>0.22653cm</Left>
-                      <Height>3.8019cm</Height>
+                      <Height>4.411cm</Height>
                       <Width>4.66927cm</Width>
                       <ZIndex>1</ZIndex>
                       <Style>

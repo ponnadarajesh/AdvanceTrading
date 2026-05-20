@@ -45,16 +45,10 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Buyer field.', Comment = '%';
                     Editable = rec."KWAT_Broker Note";
-                    trigger OnValidate()
-                    begin
-                        KTWABuyerDesc := GetCustName(Rec.KWAT_Buyer);
-                        CurrPage.Update();
-                    end;
-
                 }
-                field(KTWABuyerDesc1; KTWABuyerDesc)
+                field("KWAT_Buyer_Desc"; Rec."KWAT_Buyer_Desc")
                 {
-                    caption = 'Buyer Name';
+                    caption = 'Buyer Description';
                     ApplicationArea = All;
                     Editable = false;
                 }
@@ -462,7 +456,7 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
         getTraderDesc();
         getweightDesc();
         getDPDesc();
-        KTWABuyerDesc := GetCustName(Rec.KWAT_Buyer);
+        Rec."KWAT_Buyer_Desc" := GetCustName(Rec.KWAT_Buyer);
         KTWASellerDesc := GetCustName(Rec.KWAT_Seller);
     end;
 
@@ -551,7 +545,6 @@ pageextension 50100 "KWAT_SalesOrder" extends "Sales Order"
     end;
 
     var
-        KTWABuyerDesc: Text[100];
         KTWASellerDesc: Text[100];
         KWAT_TraderDesc: Text[100];
         KWAT_ToleranceDesc: Text[100];

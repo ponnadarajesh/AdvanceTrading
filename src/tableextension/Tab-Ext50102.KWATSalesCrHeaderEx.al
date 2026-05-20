@@ -98,5 +98,10 @@ tableextension 50102 "KWAT_SalesCrHeaderEx" extends "Sales Cr.Memo Header"
             Caption = 'Trader Price';
             DataClassification = ToBeClassified;
         }
+        field(50117; "KWAT_Buyer_Desc"; text[100])
+        {
+            Caption = 'Buyer Description';
+            DataClassification = CustomerContent;
+        }
     }
 }

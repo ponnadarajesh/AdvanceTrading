@@ -98,6 +98,15 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
             DataClassification = CustomerContent;
             TableRelation = Customer."No." where(Blocked = filter(" "));
 
+            trigger OnValidate()
+            var
+                lvCustomer: Record Customer;
+            begin
+                if lvCustomer.Get(Rec.KWAT_Buyer) then
+                    Rec."KWAT_Buyer_Desc" := lvCustomer.Name
+                else
+                    Rec."KWAT_Buyer_Desc" := '';
+            end;
         }
         field(50113; "KWAT_Buyer Reference"; Text[20])
         {
@@ -134,7 +143,11 @@ tableextension 50100 "KWAdvanceTrading_SalesHeaderEx" extends "Sales Header"
             Caption = 'Ready to Invoice';
             DataClassification = CustomerContent;
         }
-
+        field(50119; "KWAT_Buyer_Desc"; text[100])
+        {
+            Caption = 'Buyer Description';
+            DataClassification = CustomerContent;
+        }
     }
     trigger OnInsert()
     var

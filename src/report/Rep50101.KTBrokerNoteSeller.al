@@ -1295,12 +1295,12 @@ report 50101 "KT Broker Note Seller"
         Buyercustomer: Record Customer;
         KWAT_OtherCodeDesc: Text[100];
         SellerAdd: text[200];
-        SellerMob: code[20];
+        SellerMob: code[30];
         SellerEmail: text[100];
         SellerABN: code[12];
         SellerNGR: Code[20];
         BuyerAdd: text[200];
-        BuyerMob: code[20];
+        BuyerMob: code[30];
         BuyerEmail: text[100];
         BuyerABN: code[12];
         BuyerNGR: Code[20];
