@@ -25,7 +25,7 @@ pageextension 50111 NXOPostedSalesInvList extends "Posted Sales Invoices"
         }
         addafter("Document Date")
         {
-            field(TraderCode; TraderCode)
+            field(TraderCode; Rec."KWAT_Trader Code")
             {
                 ApplicationArea = All;
                 Caption = 'Trader Code';
