@@ -4,7 +4,7 @@ tableextension 50101 "KWAT_SalesInvHeaderEx" extends "Sales Invoice Header"
     {
         field(50100; "KWAT_Trader Code"; Code[20])
         {
-            Caption = 'Trader Code';
+            Caption = 'ATA Trader Code';
             DataClassification = CustomerContent;
             TableRelation = KWAdvanceTrading_Trader;
 

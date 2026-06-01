@@ -28,7 +28,7 @@ pageextension 50111 NXOPostedSalesInvList extends "Posted Sales Invoices"
             field(TraderCode; Rec."KWAT_Trader Code")
             {
                 ApplicationArea = All;
-                Caption = 'Trader Code';
+                Caption = 'ATA Trader Code';
                 Editable = false;
             }
         }
