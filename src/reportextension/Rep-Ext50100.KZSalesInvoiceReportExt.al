@@ -4,16 +4,16 @@ reportextension 50100 KZSalesInvoiceReportExt extends "Standard Sales - Invoice"
     {
         add(Header)
         {
-            column(KWAT_Buyer; KWAT_Buyer)
+            column(KWAT_Buyer; Header.KWAT_Buyer)
             {
             }
-            column(KWAT_BuyerReference; "KWAT_Buyer Reference")
+            column(KWAT_BuyerReference; Header."KWAT_Buyer Reference")
             {
             }
             column(KWAT_BuyerName; KWAT_BuyerName)
             {
             }
-            column(KWAT_SellToCustAddress; KWAT_SellToCustAddress)
+            column(KWAT_SellToCustAddress; KWAT_SellToCustAddress1)
             {
             }
 
@@ -23,11 +23,11 @@ reportextension 50100 KZSalesInvoiceReportExt extends "Standard Sales - Invoice"
             trigger OnAfterAfterGetRecord()
             begin
                 Clear(KWAT_BuyerName);
-                Clear(KWAT_SellToCustAddress);
+                Clear(KWAT_SellToCustAddress1);
                 if KWCust.Get(KWAT_Buyer) then
                     KWAT_BuyerName := KWCust.Name;
                 if SellToCust.Get("Sell-to Customer No.") then
-                    KWAT_SellToCustAddress := SellToCust.Address;
+                    KWAT_SellToCustAddress1 := SellToCust.Address;
 
             end;
         }
@@ -41,5 +41,5 @@ reportextension 50100 KZSalesInvoiceReportExt extends "Standard Sales - Invoice"
         KWAT_BuyerReference: Text[100];
         KWAT_BuyerName: Text[100];
         SellToCust: Record Customer;
-        KWAT_SellToCustAddress: Text[100];
+        KWAT_SellToCustAddress1: Text[100];
 }

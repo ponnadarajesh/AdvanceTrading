@@ -98,7 +98,17 @@ tableextension 50104 "KWAT_SalesShipHeaderEx" extends "Sales Shipment Header"
             Caption = 'Trader Price';
             DataClassification = ToBeClassified;
         }
-        field(50117; "KWAT_Buyer_Desc"; text[100])
+        field(50117; "KWAT Work Description"; Text[500])
+        {
+            Caption = 'KW Work Description';
+            DataClassification = CustomerContent;
+        }
+        field(50118; "KWAT_Ready to Invoice"; boolean)
+        {
+            Caption = 'Ready to Invoice';
+            DataClassification = CustomerContent;
+        }
+        field(50119; "KWAT_Buyer_Desc"; text[100])
         {
             Caption = 'Buyer Description';
             DataClassification = CustomerContent;
