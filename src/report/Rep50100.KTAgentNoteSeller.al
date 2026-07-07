@@ -747,7 +747,7 @@ report 50100 "KT Agent Note Seller"
                     end;
                     ;
                     IF Header."KWAT_Trader Price" <> 0 then begin
-                        UnitPriceDesc := Format(Header."KWAT_Trader Price") + '/' + "Unit of Measure Code" + ' GST';
+                        UnitPriceDesc := Format(Header."KWAT_Trader Price") + '/' + "Unit of Measure Code" + ' + GST';
                     end else begin
                         UnitPriceDesc := '';
                     end;

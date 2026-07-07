@@ -4219,7 +4219,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>This Broker note confirms that Advance Trading Australasia Pty Ltd have acted as an broker between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
+                      <Value>This Broker note confirms that Advance Trading Australia Pty Ltd have acted as an broker between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -4270,7 +4270,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Advance Trading Australasia Pty Ltd</Value>
+                      <Value>Advance Trading Australia Pty Ltd</Value>
                       <Style>
                         <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -4354,7 +4354,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Advance Trading Australasia Pty Ltd        ABN: 13 096 386 686 </Value>
+                                  <Value>Advance Trading Australia Pty Ltd             ABN: 13 096 386 686 </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
@@ -4434,7 +4434,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>33 Fitzmaurice St Wagga Wagga, NSW 2650 Australia</Value>
+                                  <Value>P.O. BOX 5260,  Wagga Wagga, NSW 2560 Australia</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>

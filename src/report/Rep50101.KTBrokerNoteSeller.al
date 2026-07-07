@@ -759,7 +759,7 @@ report 50101 "KT Broker Note Seller"
                         BrokerfeeDesc := '$' + format("Unit Price");
                     end;
                     IF Header."KWAT_Trader Price" <> 0 then begin
-                        UnitPriceDesc := '$' + Format(Header."KWAT_Trader Price") + '/' + "Unit of Measure Code" + ' GST';
+                        UnitPriceDesc := '$' + Format(Header."KWAT_Trader Price") + '/' + "Unit of Measure Code" + ' + GST';
                     end else begin
                         UnitPriceDesc := '';
                     end;

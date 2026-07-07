@@ -1888,6 +1888,7 @@
                                 <rd:FormatSymbolCulture>en-AU</rd:FormatSymbolCulture>
                               </Style>
                             </Textbox>
+                            <rd:Selected>true</rd:Selected>
                           </CellContents>
                         </TablixCell>
                       </TablixCells>
@@ -4214,7 +4215,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>This agent’s note confirms that Advance Trading Australasia Pty Ltd have acted as an agent between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
+                      <Value>This agent’s note confirms that Advance Trading Australia Pty Ltd have acted as an agent between Sellers who have agreed to sell and Buyers who have agreed to buy grain on the following terms and conditions:</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -4267,7 +4268,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Advance Trading Australasia Pty Ltd</Value>
+                      <Value>Advance Trading Australia Pty Ltd</Value>
                       <Style>
                         <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -4351,7 +4352,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Advance Trading Australasia Pty Ltd</Value>
+                                  <Value>Advance Trading Australia Pty Ltd</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
@@ -4415,7 +4416,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>33 Fitzmaurice St                                         55 Lewis Street </Value>
+                                  <Value>P.O. BOX 5260                                             55 Lewis Street </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
@@ -4431,7 +4432,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Wagga Wagga, NSW 2650                          Mudgee, NSW 2850 Australia                                                       Australia</Value>
+                                  <Value>Wagga Wagga, NSW 2560                          Mudgee, NSW 2850 Australia                                                       Australia</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
