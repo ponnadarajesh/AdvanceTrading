@@ -754,7 +754,7 @@ report 50101 "KT Broker Note Seller"
                     ;
                     //Brokerfeedesc
                     IF "Unit Price" <> 0 then begin
-                        BrokerfeeDesc := '$' + Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller';
+                        BrokerfeeDesc := '$' + Format("Unit Price") + '/' + "Unit of Measure Code" + ' + GST Payable by Seller';
                     end else begin
                         BrokerfeeDesc := '$' + format("Unit Price");
                     end;

@@ -751,7 +751,7 @@ report 50103 "KT Agent Note Buyer"
                     end;
                     ;
                     IF "Unit Price" <> 0 then
-                        AgentNoteFeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' GST Payable by Seller'
+                        AgentNoteFeeDesc := Format("Unit Price") + '/' + "Unit of Measure Code" + ' + GST Payable by Seller'
                     else
                         AgentNoteFeeDesc := format("Unit Price");
 
